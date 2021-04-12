@@ -1,15 +1,5 @@
 import mongoose from 'mongoose';
-
-const repliesSchema = mongoose.Schema(
-  {
-    name: { type: String, required: true },
-    content: { type: String, required: true },
-    rating: { type: Number, required: true },
-  },
-  {
-    timestamps: true,
-  }
-);
+var Schema = mongoose.Schema;
 
 const postSchema = mongoose.Schema(
   {
@@ -31,7 +21,7 @@ const postSchema = mongoose.Schema(
       required: false,
       default: 0,
     },
-    replies: [repliesSchema],
+    replies: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   },
   {
     timestamps: true,

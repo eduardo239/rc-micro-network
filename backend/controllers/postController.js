@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Post from '../models/postModel.js';
+import User from '../models/userModel.js';
 
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -12,7 +13,10 @@ import { rootDir } from '../server.js';
  * @access        Public
  */
 const getPosts = asyncHandler(async (req, res) => {
-  const posts = await Post.find({}, null, { sort: { createdAt: -1 } });
+  const posts = await Post.find({}, null, { sort: { createdAt: -1 } }).populate(
+    'replies',
+    'content userId createdAt'
+  );
   res.json(posts);
 });
 

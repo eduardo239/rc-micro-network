@@ -7,6 +7,7 @@ import {
   updateUserProfile,
   getUserById,
   getAllUsers,
+  getPostsByUserId,
 } from '../controllers/userController.js';
 import { admin, protect } from '../middleware/authMiddleware.js';
 
@@ -17,5 +18,6 @@ router
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
 router.route('/profile/:id').get(getUserById);
+router.route('/posts/:userId').get(getPostsByUserId);
 
 export default router;

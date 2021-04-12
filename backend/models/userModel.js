@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
+var Schema = mongoose.Schema;
 
 const userSchema = mongoose.Schema(
   {
@@ -21,6 +22,7 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
   },
   {
     timestamps: true,

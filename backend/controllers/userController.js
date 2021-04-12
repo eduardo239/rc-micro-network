@@ -150,6 +150,24 @@ const getAllUsers = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @description   Get all posts by user
+ * @route         GET /api/users/posts/:id
+ * @access        Public
+ */
+const getPostsByUserId = asyncHandler(async (req, res) => {
+  //  by params //TODO
+  console.log(req.params.userId);
+  const post = await Post.find({ user: req.params.userId });
+
+  if (post) {
+    res.status(200).json(post);
+  } else {
+    res.status(404);
+    throw new Error('Posts not found.');
+  }
+});
+
 export {
   authUser,
   getUserProfile,
@@ -157,4 +175,5 @@ export {
   updateUserProfile,
   getUserById,
   getAllUsers,
+  getPostsByUserId,
 };
