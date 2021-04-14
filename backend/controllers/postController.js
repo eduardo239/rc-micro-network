@@ -2,31 +2,35 @@ import asyncHandler from 'express-async-handler';
 import Post from '../models/postModel.js';
 import User from '../models/userModel.js';
 
-import { dirname } from 'path';
-import { fileURLToPath } from 'url';
-const __dirname = dirname(fileURLToPath(import.meta.url));
 import { rootDir } from '../server.js';
 
 /**
- * @description   Fetch all posts
+ * @description   Get all posts
  * @route         GET /api/posts
  * @access        Public
  */
 const getPosts = asyncHandler(async (req, res) => {
   const posts = await Post.find({}, null, { sort: { createdAt: -1 } }).populate(
-    'replies',
-    'content userId createdAt'
+    'comments',
+    'content userId postId createdAt'
   );
-  res.json(posts);
+
+  if (!posts) {
+    res.status(404);
+    throw new Error('Posts not found.');
+  }
+  res.status(200).json(posts);
 });
 
 /**
- * @description   Fetch a single post
+ * @description   Get post by id
  * @route         GET /api/posts/:id
  * @access        Public
  */
 const getPostById = asyncHandler(async (req, res) => {
-  const post = await Post.findById(req.params.id);
+  const post = await Post.findById({ _id: req.params.id }, null, {
+    sort: { createdAt: -1 },
+  }).populate('comments', 'content userId postId createdAt userName');
 
   if (post) {
     res.json(post);
@@ -37,7 +41,7 @@ const getPostById = asyncHandler(async (req, res) => {
 });
 
 /**
- * @description   Create a nwe post
+ * @description   Create a new post
  * @route         POST /api/posts/
  * @access        Private
  */
@@ -60,7 +64,7 @@ const createNewPost = asyncHandler(async (req, res) => {
   });
 
   const post = await Post.create({
-    user: userId,
+    userId: userId,
     image: `http://localhost:5000/public/${myFile.name}`,
     content,
   });
@@ -83,18 +87,10 @@ const createNewPost = asyncHandler(async (req, res) => {
  */
 const deletePost = asyncHandler(async (req, res) => {
   const id = req.params.id;
-
-  console.log(id);
-
-  if (!id) {
-    res.status(400);
-    throw new Error('Post not found');
-  }
-
   const p = await Post.findById(id);
 
-  const postUser = p?.user;
-  const postUserReq = req?.user?._id;
+  const postUser = p.userId;
+  const postUserReq = req.user._id;
 
   if (!postUser || !postUserReq) {
     res.status(404);
@@ -102,13 +98,70 @@ const deletePost = asyncHandler(async (req, res) => {
   }
 
   if (postUser.equals(postUserReq) || req.user.isAdmin) {
-    const post = await Post.deleteOne({ _id: id });
+    console.log(3);
+    await Post.deleteOne({ _id: id });
 
     res.status(201).json('Post deleted.');
   } else {
     res.status(401);
     throw new Error('Unauthorized');
   }
+
+  if (!p) {
+    res.status(400);
+    throw new Error('Post not found');
+  }
 });
 
-export { getPostById, getPosts, createNewPost, deletePost };
+/**
+ * @description   Like button
+ * @route         DELETE /api/posts/:id/like
+ * @access        Private
+ */
+const post_like = asyncHandler(async (req, res) => {
+  const id = req.params.id;
+
+  const post = await Post.findByIdAndUpdate(
+    { _id: id },
+    { $inc: { likes: 1 } },
+    { new: true }
+  );
+
+  res.json(post);
+  if (!p) {
+    res.status(400);
+    throw new Error('Post not found');
+  }
+});
+
+/**
+ * @description   Search in content
+ * @route         GET /api/search/:term
+ * @access        Private
+ */
+const search_post = asyncHandler(async (req, res) => {
+  const term = req.params.term;
+
+  await Post.search(
+    {
+      content: '#filmes',
+    },
+    function (err, results) {
+      res.json(results);
+      if (results) {
+      } else {
+        res.status(404);
+        throw new Error('Posts not found');
+      }
+    }
+  );
+});
+
+export {
+  getPostById,
+  getPosts,
+  createNewPost,
+  deletePost,
+  post_like,
+  search_post,
+};

@@ -1,13 +1,15 @@
 import mongoose from 'mongoose';
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
+import mongoosastic from 'mongoosastic';
 
 const postSchema = mongoose.Schema(
   {
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
     },
+
     image: {
       type: String,
       required: true,
@@ -15,18 +17,20 @@ const postSchema = mongoose.Schema(
     content: {
       type: String,
       required: true,
+      es_indexed: true,
     },
-    rating: {
+    likes: {
       type: Number,
-      required: false,
       default: 0,
     },
-    replies: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   },
   {
     timestamps: true,
   }
 );
+
+postSchema.plugin(mongoosastic);
 
 const Post = mongoose.model('Post', postSchema);
 export default Post;

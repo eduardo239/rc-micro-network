@@ -50,13 +50,18 @@ GET http://localhost:5000/api/posts/606fb03dbac5270a44fecda5 HTTP/1.1
 GET http://localhost:5000/api/posts HTTP/1.1
 
 ### get all posts by :userId
-GET http://localhost:5000/api/posts/6073aac55e31fb1f64086868
+GET http://localhost:5000/api/posts/6074ef7bcca8d719a01c7fe0
 
 ### delete post by id
-DELETE http://localhost:5000/api/posts/60733f98f8ebae21ac6acccf HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNmZiMDNkYmFjNTI3MGE0NGZlY2RhNCIsImlhdCI6MTYxODE2NTU1NywiZXhwIjoxNjIwNzU3NTU3fQ.rQadWm8M-7C8mDi36aeB9iAwuUYKOBxU6-CXOCy1UII
+DELETE http://localhost:5000/api/posts/6074525e8709f7147cf3bab8 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzQ1MGQ4NDk3MjJkMTIwOGY1YWJhZiIsImlhdCI6MTYxODI3NTg0MSwiZXhwIjoxNjIwODY3ODQxfQ.Hbgi7gPdNw_kVKI_Vq_pgQDCIrkLsKkI2Sa641OOyjE
 
 ### FIXME: COMMENTS
+### get all comments
+GET http://localhost:5000/api/comments/ HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzNhMDUyZjhiZDQwMTNhYzlhY2RmOSIsImlhdCI6MTYxODE5NDIzMCwiZXhwIjoxNjIwNzg2MjMwfQ.ZM_OmptPJgXW7AliEHS3U1suHSAFL9Mg_d95-P3Mpkg
+
+### post new comment
 POST http://localhost:5000/api/comments/6073aac55e31fb1f64086868 HTTP/1.1
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzNhMDUyZjhiZDQwMTNhYzlhY2RmOSIsImlhdCI6MTYxODE5MDQzOCwiZXhwIjoxNjIwNzgyNDM4fQ.qapndO3kbtG1BUxFC8_3JGxbx5GDMc0lkdYqVP1hslg
@@ -71,5 +76,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzNhMDUyZ
 
 ### delete comment by id
 DELETE http://localhost:5000/api/comments/6073ad36909e5e128038dbb4
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzNhMDUyZjhiZDQwMTNhYzlhY2RmOSIsImlhdCI6MTYxODE5MDQzOCwiZXhwIjoxNjIwNzgyNDM4fQ.qapndO3kbtG1BUxFC8_3JGxbx5GDMc0lkdYqVP1hslg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzQ1MGQ4NDk3MjJkMTIwOGY1YWJhZiIsImlhdCI6MTYxODI3NTg0MSwiZXhwIjoxNjIwODY3ODQxfQ.Hbgi7gPdNw_kVKI_Vq_pgQDCIrkLsKkI2Sa641OOyjE
 #### const order = await Order.findById(req.params.id).populate('user', 'name email')
+
+
+
+### Search
+GET http://localhost:5000/api/posts/search/filmes HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzRmMDc3ZDJmOGMzMzRlY2MxZGRhNyIsImlhdCI6MTYxODMzMTgyOSwiZXhwIjoxNjIwOTIzODI5fQ.Nq53Io_g5Y990Ndeyk8KEQ-tCqs7OOJLVkTQh8pcbd0
