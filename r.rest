@@ -17,7 +17,7 @@ POST http://localhost:5000/api/users/login HTTP/1.1
 content-type: application/json
 
 {
-    "email": "admin@admin.com",
+    "email": "geovanna@admin.com",
     "password": "123123"
 }
 
@@ -40,7 +40,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzNhMDUyZ
 
 ### get all users :admin
 GET http://localhost:5000/api/users/ HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzNhMDUyZjhiZDQwMTNhYzlhY2RmOSIsImlhdCI6MTYxODE5NDIzMCwiZXhwIjoxNjIwNzg2MjMwfQ.ZM_OmptPJgXW7AliEHS3U1suHSAFL9Mg_d95-P3Mpkg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzg2ZDAwMWE0NGFlMGE5OGZkMjJiOSIsImlhdCI6MTYxODUxNDY5MSwiZXhwIjoxNjIxMTA2NjkxfQ.KFRYV3j5L8kBxASlU4JFYJJZpjuYnZcG0_CjDEJEptM
 
 ### FIXME: POSTS
 ### get post by id
@@ -50,7 +50,8 @@ GET http://localhost:5000/api/posts/606fb03dbac5270a44fecda5 HTTP/1.1
 GET http://localhost:5000/api/posts HTTP/1.1
 
 ### get all posts by :userId
-GET http://localhost:5000/api/posts/6074ef7bcca8d719a01c7fe0
+GET http://localhost:5000/api/posts/my/60786d001a44ae0a98fd22b9
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzg2ZDAwMWE0NGFlMGE5OGZkMjJiOSIsImlhdCI6MTYxODUxNDY5MSwiZXhwIjoxNjIxMTA2NjkxfQ.KFRYV3j5L8kBxASlU4JFYJJZpjuYnZcG0_CjDEJEptM
 
 ### delete post by id
 DELETE http://localhost:5000/api/posts/6074525e8709f7147cf3bab8 HTTP/1.1

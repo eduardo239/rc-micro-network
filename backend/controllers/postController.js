@@ -46,7 +46,7 @@ const getPostById = asyncHandler(async (req, res) => {
  * @access        Private
  */
 const createNewPost = asyncHandler(async (req, res) => {
-  const { userId, content } = req.body;
+  const { userId, content, userName } = req.body;
 
   if (!req.files) {
     res.status(400);
@@ -67,6 +67,7 @@ const createNewPost = asyncHandler(async (req, res) => {
     userId: userId,
     image: `http://localhost:5000/public/${myFile.name}`,
     content,
+    userName,
   });
 
   if (post) {
@@ -157,6 +158,23 @@ const search_post = asyncHandler(async (req, res) => {
   );
 });
 
+/**
+ * @description   Get posts by user id
+ * @route         GET /api/posts/my/:userId
+ * @access        Private/Owner
+ */
+const get_posts_by_user = asyncHandler(async (req, res) => {
+  const userId = req.params.userId;
+  const posts = await Post.find({ userId });
+
+  if (posts) {
+    res.json(posts);
+  } else {
+    res.status(404);
+    throw new Error('Posts not found.');
+  }
+});
+
 export {
   getPostById,
   getPosts,
@@ -164,4 +182,5 @@ export {
   deletePost,
   post_like,
   search_post,
+  get_posts_by_user,
 };

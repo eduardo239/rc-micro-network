@@ -22,6 +22,7 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
+    friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
   },
   {
