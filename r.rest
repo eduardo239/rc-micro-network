@@ -84,3 +84,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzQ1MGQ4N
 ### Search
 GET http://localhost:5000/api/posts/search/filmes HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwNzRmMDc3ZDJmOGMzMzRlY2MxZGRhNyIsImlhdCI6MTYxODMzMTgyOSwiZXhwIjoxNjIwOTIzODI5fQ.Nq53Io_g5Y990Ndeyk8KEQ-tCqs7OOJLVkTQh8pcbd0
+
+
+

@@ -1,0 +1,30 @@
+
+/*
+xs, sm, md, lg, and xl
+
+className="justify-content-md-center"
+md="auto"
+
+<Col xs={12} md={8}>
+xs=12 md=8
+</Col>
+<Col xs={6} md={4}>
+xs=6 md=4
+</Col>
+
+xs={{ order: 12 }}
+xs={{ order: 'last' }}
+
+md={{ span: 4, offset: 4 }}
+
+<Row xs={2} md={4} lg={6}>
+
+<Row className='justify-content-center'>
+  <Col sm={10} md={3} lg={3}>
+  <Menu />
+  </Col>
+  <Col sm='auto' md='auto' lg={5}>
+  $$$
+  </Col>
+</Row>
+*/

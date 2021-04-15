@@ -19,7 +19,7 @@ const importData = async () => {
     const adminUser = createdUser[0]._id;
 
     const samplePosts = posts.map((post) => {
-      return { ...post, user: adminUser };
+      return { ...post, userId: adminUser };
     });
 
     await Post.insertMany(samplePosts);

@@ -9,7 +9,7 @@ import Comment from '../models/commentModel.js';
  */
 const new_comment = asyncHandler(async (req, res) => {
   const { content, rating, postId, userName } = req.body;
-  console.log(req.body);
+
   const userId = req.user._id;
 
   // comment
@@ -49,7 +49,6 @@ const getById = asyncHandler(async (req, res) => {
  */
 const deleteCommentById = asyncHandler(async (req, res) => {
   //  by params //TODO
-  console.log(req.params.id);
   const comment = await Comment.findById(req.params.id);
 
   // TODO: get post by ... and pop() comment

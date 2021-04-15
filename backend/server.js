@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import dotenv from 'dotenv';
 import colors from 'colors';
 import morgan from 'morgan';
@@ -17,6 +18,7 @@ import commentRoutes from './routes/commentRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 dotenv.config();
 const app = express();
+app.use(cors());
 
 app.use(morgan('tiny'));
 app.use(express.json());
