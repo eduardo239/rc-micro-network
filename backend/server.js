@@ -4,16 +4,17 @@ import dotenv from 'dotenv';
 import colors from 'colors';
 import morgan from 'morgan';
 import connectDB from './config/db.js';
-import fileUpload from 'express-fileupload';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import path from 'path';
 const __dirname = dirname(fileURLToPath(import.meta.url));
+// const __dirname = path.resolve();
 export const rootDir = `${__dirname}/public/`;
 
 import postRoutes from './routes/postRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js';
 
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 dotenv.config();
@@ -23,7 +24,7 @@ app.use(cors());
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'public')));
-app.use(fileUpload());
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 connectDB();
 
@@ -35,6 +36,7 @@ app.get('/', (req, res) => {
 app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/comments', commentRoutes);
+app.use('/api/upload', uploadRoutes);
 app.use(notFound);
 app.use(errorHandler);
 

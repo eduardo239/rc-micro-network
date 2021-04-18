@@ -5,6 +5,8 @@ const posts = [
     description: 'lorem ipsum dor lores',
     brand: 'apple',
     content: 'Digite a description aqui',
+    userName: 'Fixme',
+    likes: 12,
   },
   {
     name: 'Pad',
@@ -12,6 +14,7 @@ const posts = [
     description: 'lorem ipsum dor lores',
     brand: 'apple',
     content: 'lorem ipsum ido lor',
+    userName: 'Fixme',
   },
   {
     name: 'Phone',
@@ -19,6 +22,7 @@ const posts = [
     description: 'lorem ipsum dor lores',
     brand: 'apple',
     content: 'Novo Phone',
+    userName: 'Fixme',
   },
   {
     name: 'Poco Phone',
@@ -26,6 +30,7 @@ const posts = [
     description: 'lorem ipsum dor lores',
     brand: 'apple',
     content: 'Poco phone importado',
+    userName: 'Fixme',
   },
 ];
 

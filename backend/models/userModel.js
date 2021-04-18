@@ -8,6 +8,12 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    avatar: {
+      type: String,
+    },
+    profileImage: {
+      type: String,
+    },
     email: {
       type: String,
       unique: true,
@@ -24,6 +30,7 @@ const userSchema = mongoose.Schema(
     },
     friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   },
   {
     timestamps: true,

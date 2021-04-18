@@ -8,7 +8,7 @@ const postSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
-    },
+    }, //FIXME: userName vindo do User model
     userName: {
       type: String,
       required: true,

@@ -1,5 +1,24 @@
 
 /*
+fun()
+nome_da_fun()
+var
+nomeDaVar
+
+
+
+// React.useEffect(() => {
+//   if (contentRef) {
+//     setTimeout(() => {
+//       contentRef.current.innerHTML = textWithHash(
+//         contentRef.current.innerText
+//       );
+//     }, 300);
+//   }
+// }, []);
+
+
+
 xs, sm, md, lg, and xl
 
 className="justify-content-md-center"
