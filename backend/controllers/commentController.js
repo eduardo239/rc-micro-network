@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import Post from '../models/postModel.js';
 import Comment from '../models/commentModel.js';
 import User from '../models/userModel.js';
+import PM from '../models/pmModel.js';
 
 /**
  * @description   Post new comment
@@ -9,8 +10,7 @@ import User from '../models/userModel.js';
  * @access        Protect
  */
 const post_new_comment = asyncHandler(async (req, res) => {
-  const { content, postId, userName } = req.body;
-  console.log(req.body); // FIXME userName undefined old comments
+  const { content, postId } = req.body;
 
   const userId = req.user._id;
 
@@ -18,11 +18,9 @@ const post_new_comment = asyncHandler(async (req, res) => {
     postId,
     userId,
     content,
-    userName,
   });
 
   const user = await User.findById(userId);
-  console.log(user);
   const post = await Post.findById(postId);
 
   try {
@@ -57,19 +55,22 @@ const get_comment_by_id = asyncHandler(async (req, res) => {
 
 /**
  * @description   Delete comment by id
- * @route         GET /api/comments/:id
+ * @route         DELETE /api/comments/:id
  * @access        Private, Admin
  */
 const delete_comment_by_id = asyncHandler(async (req, res) => {
-  //  by params //TODO
-  const comment = await Comment.findById(req.params.id);
+  const commentId = req.body.commentId;
 
-  // FIXME: get post by ... and pop() comment
-  const post = await Post.findById();
+  const comment = await Comment.findById(commentId);
+  const user = await User.findById(comment.userId);
+  const post = await Post.findById(comment.postId);
+
+  user.comments.pull(commentId);
+  post.comments.pull(commentId);
 
   if (comment) {
-    comment.delete();
-    res.status(200).json({ ok: 'ok' });
+    await Comment.deleteOne({ _id: commentId });
+    res.status(200).send(true);
   } else {
     res.status(404);
     throw new Error('Comment not found.');
@@ -92,9 +93,41 @@ const get_all_comments = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @description   Post new private message
+ * @route         POST /api/private/
+ * @access        Private
+ */
+const post_new_pm = asyncHandler(async (req, res) => {
+  const { userId, content, destinationId } = req.body;
+
+  const pm = await PM.create({
+    userId,
+    content,
+    destinationId,
+  });
+
+  const user = await User.findById(userId);
+  const destination = await User.findById(destinationId);
+
+  if (user && destination) {
+    user.privateMessages.push(pm);
+    user.save();
+
+    destination.privateMessages.push(pm);
+    destination.save();
+
+    res.status(200).json(pm);
+  } else {
+    res.status(404);
+    throw new Error('User not found.');
+  }
+});
+
 export {
   post_new_comment,
   get_comment_by_id,
   delete_comment_by_id,
   get_all_comments,
+  post_new_pm,
 };

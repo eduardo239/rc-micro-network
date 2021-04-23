@@ -1,0 +1,13 @@
+### - - - - - - - - - - - - - - - - - - USER - - - - - - - - -- - - - - - - - -
+### new post
+POST http://localhost:5000/api/comments/ HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODBjNTk0MzczZmMwMTA0MGRjM2EyZCIsImlhdCI6MTYxOTEwMDQ1OCwiZXhwIjoxNjE5MTg2ODU4fQ.8bAuD-gUAJgMb2yMXQj_nh1m37No-iJHOxuQRd_f2lY
+
+{
+    "postId": "60817951caa28f3384f83eb9",
+    "content": "123"
+}
+
+### get all posts
+GET http://localhost:5000/api/comments/ HTTP/1.1

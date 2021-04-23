@@ -9,19 +9,18 @@ import {
   get_all_users,
   get_posts_by_user,
   add_friend,
+  delete_friend,
   delete_user,
 } from '../controllers/userController.js';
 import { admin, protect } from '../middleware/authMiddleware.js';
 
-router.route('/').post(post_new_user).get(protect, admin, get_all_users);
-router.route('/:id').delete(protect, admin, delete_user);
-router.post('/login', auth_user);
+router.route('/').post(post_new_user).get(protect, get_all_users);
+router.route('/login').post(auth_user);
 router
   .route('/profile')
   .get(protect, get_user_profile)
   .put(protect, update_user_profile);
-router.route('/profile/:id').get(get_user_by_id);
-router.route('/posts/:userId').get(get_posts_by_user);
-router.route('/friend/:friendId/:userId').post(protect, add_friend);
+router.route('/posts/:userId').get(protect, get_posts_by_user);
+router.route('/:id').get(protect, get_user_by_id).delete(protect, delete_user);
 
 export default router;

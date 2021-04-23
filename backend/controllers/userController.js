@@ -1,5 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
+import Friend from '../models/friendModel.js';
+import Post from '../models/postModel.js';
 import generateToken from '../utils/generateToken.js';
 
 /**
@@ -32,15 +34,23 @@ const auth_user = asyncHandler(async (req, res) => {
  * @access        Private
  */
 const get_user_profile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id);
-
+  const user = await User.findById(req.user._id).populate({
+    path: 'friends',
+    populate: {
+      path: 'userId',
+      select: 'name imageAvatar',
+    },
+  });
   if (user) {
     res.json({
       _id: user._id,
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
-      avatar: user.avatar,
+      imageAvatar: user.imageAvatar,
+      imageProfile: user.imageProfile,
+      friends: user.friends,
+      createdAt: user.createdAt,
     });
   } else {
     res.status(404);
@@ -120,18 +130,25 @@ const post_new_user = asyncHandler(async (req, res) => {
 const get_user_by_id = asyncHandler(async (req, res) => {
   const id = req.params.id;
 
-  const user = await User.findById(id);
+  const user = await User.findById(id)
+    .populate({
+      path: 'friends',
+      populate: {
+        path: 'userId',
+        select: 'name imageAvatar',
+      },
+    })
+    .populate({
+      path: 'friends',
+      populate: {
+        path: 'friendId',
+        select: 'name imageAvatar',
+      },
+    })
+    .populate('posts');
 
   if (user) {
-    res.status(200).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      friends: user.friends,
-      avatar: user.avatar,
-      profileImage: user.profileImage,
-    });
+    res.status(200).json(user);
   } else {
     res.status(400);
     throw new Error('User not found.');
@@ -158,18 +175,17 @@ const get_all_users = asyncHandler(async (req, res) => {
   }
 });
 
+// TODO
 /**
  * @description   Get all posts by user
  * @route         GET /api/users/posts/:id
  * @access        Public
  */
 const get_posts_by_user = asyncHandler(async (req, res) => {
-  //  by params //TODO
-  console.log(req.params.userId);
-  const post = await Post.find({ user: req.params.userId });
+  const posts = await Post.find({ userId: req.params.userId });
 
-  if (post) {
-    res.status(200).json(post);
+  if (posts) {
+    res.status(200).json(posts);
   } else {
     res.status(404);
     throw new Error('Posts not found.');
@@ -178,27 +194,67 @@ const get_posts_by_user = asyncHandler(async (req, res) => {
 
 /**
  * @description   Add a new user as friend
- * @route         GET /api/users/friend/:friendId
+ * @route         POST /api/friend/
  * @access        Private
  */
 const add_friend = asyncHandler(async (req, res) => {
-  const friendId = req.params.friendId;
-  const userId = req.params.userId;
+  const { userId, friendId } = req.body;
 
-  const friend = await User.findById(friendId);
   const user = await User.findById(userId);
+  const friend = await User.findById(friendId);
 
-  const alreadyFriend = await User.find({
-    friends: { $elemMatch: { id: friendId } },
-  });
-  // TODO: check if user already is a friend
+  const alreadyFriends = await Friend.find({ userId, friendId });
 
-  if (friend && user) {
-    user.friends.push(friend._id);
+  if (alreadyFriends.length === 0) {
+    const myFriends = await Friend.create({
+      userId,
+      friendId,
+    });
+
+    const hisFriends = await Friend.create({
+      userId: friendId,
+      friendId: userId,
+    });
+
+    user.friends.push(myFriends);
+    friend.friends.push(hisFriends);
+
     user.save();
+    friend.save();
+
+    res.status(201).send(true);
   } else {
-    res.status(404);
-    throw new Error('Error adding user.');
+    throw new Error('This user is already your friend.');
+  }
+});
+
+/**
+ * @description   Remove friend
+ * @route         DELETE /api/friends
+ * @access        Private
+ * TODO perguntar ao outro user aceita e adicionar nos dois
+ */
+const delete_friend = asyncHandler(async (req, res) => {
+  const { userId, friendId } = req.body;
+
+  const friend1 = await Friend.find({ userId, friendId });
+  const friend2 = await Friend.find({ userId: friendId, friendId: userId });
+
+  if (!friend1) {
+    res.status(400).json({ message: 'This user is not your friend.' });
+  } else {
+    const user = await User.findById(userId);
+    const friend = await User.findById(friendId);
+
+    user.friends.pull({ _id: friend._id });
+    friend.friends.pull({ _id: friend._id });
+
+    user.save();
+    friend.save();
+
+    await Friend.deleteOne({ _id: friend1[0]._id });
+    await Friend.deleteOne({ _id: friend2[0]._id });
+    res.status(200).send(true);
   }
 });
 
@@ -211,7 +267,6 @@ const delete_user = asyncHandler(async (req, res) => {
   const id = req.params.id;
 
   const user = await User.findById(id);
-  console.log(user);
   if (user) {
     await User.deleteOne({ _id: id });
     res.send(true);
@@ -230,5 +285,6 @@ export {
   get_all_users,
   get_posts_by_user,
   add_friend,
+  delete_friend,
   delete_user,
 };

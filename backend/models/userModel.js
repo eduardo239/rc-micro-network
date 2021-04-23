@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const userSchema = mongoose.Schema(
   {
@@ -8,10 +8,10 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    avatar: {
+    imageAvatar: {
       type: String,
     },
-    profileImage: {
+    imageProfile: {
       type: String,
     },
     email: {
@@ -28,9 +28,10 @@ const userSchema = mongoose.Schema(
       required: true,
       default: false,
     },
-    friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    friends: [{ type: Schema.Types.ObjectId, ref: 'Friend' }],
     posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    pm: [{ type: Schema.Types.ObjectId, ref: 'PM' }],
   },
   {
     timestamps: true,

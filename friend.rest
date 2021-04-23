@@ -1,0 +1,10 @@
+### - - - - - - - - - - - - - - - - - - FRIEND - - - - - - - - -- - - - - - - - -
+### add
+POST http://localhost:5000/api/friends/ HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODBjNTk0MzczZmMwMTA0MGRjM2EyZCIsImlhdCI6MTYxOTExMzc4MiwiZXhwIjoxNjE5MjAwMTgyfQ.L_HjbIBZFAQ_4QO68davesOr_80LrpSlNj7TfT1t3Kg
+
+{
+    "userId": "6080c594373fc01040dc3a2d",
+    "friendId": "6080c7fb3c72761d64d0cbd6"
+}

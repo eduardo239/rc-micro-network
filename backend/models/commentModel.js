@@ -13,8 +13,6 @@ const commentSchema = mongoose.Schema(
       ref: 'Post',
     },
     content: { type: String, required: true },
-    rating: { type: Number },
-    userName: { type: String, required: true },
   },
   {
     timestamps: true,

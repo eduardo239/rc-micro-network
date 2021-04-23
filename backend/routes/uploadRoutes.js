@@ -38,20 +38,16 @@ export const upload = multer({
 });
 
 // - - - - - - - - - - - - - - - - - - AVATAR - - - - - - - - -- - - - - - - - -
-router.post('/', protect, upload.single('img'), async (req, res) => {
-  const { userId } = req.body;
+router.post('/avatar', protect, upload.single('avatar'), async (req, res) => {
+  const userId = req.user._id;
   const user = await User.findById(userId);
 
   if (user) {
-    if (req.file) {
-      const avatarUrl = `http://localhost:5000/uploads/${req.file.filename}`;
-      user.avatar = avatarUrl || user.avatar;
-      const updatedUser = await user.save();
-      res.send(avatarUrl);
-    } else {
-      res.status(404);
-      throw new Error('Image not found.');
-    }
+    const avatarUrl = `http://localhost:5000/uploads/${req.file.filename}`;
+    user.imageAvatar = avatarUrl || user.imageAvatar;
+
+    await user.save();
+    res.status(200).send(avatarUrl);
   } else {
     res.status(404);
     throw new Error('User not found.');

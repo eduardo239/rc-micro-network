@@ -1,10 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import Post from '../models/postModel.js';
 import User from '../models/userModel.js';
-import { rootDir } from '../server.js';
-import { checkFileType } from '../routes/uploadRoutes.js';
-import { storage } from '../routes/uploadRoutes.js';
-import { upload } from '../routes/uploadRoutes.js';
 
 /**
  * @description   Get all posts
@@ -16,7 +12,7 @@ const get_all_posts = asyncHandler(async (req, res) => {
   const skip = parseInt(req.query.skip) || 0;
 
   const posts = await Post.find({}, null, { sort: { createdAt: -1 } })
-    .populate('comments', 'content userId postId createdAt userName')
+    .populate('comments', 'content userId postId createdAt')
     .limit(limit)
     .skip(skip);
 
@@ -36,7 +32,15 @@ const get_all_posts = asyncHandler(async (req, res) => {
 const get_post_by_id = asyncHandler(async (req, res) => {
   const post = await Post.findById({ _id: req.params.id }, null, {
     sort: { createdAt: -1 },
-  }).populate('comments', 'content userId postId createdAt userName');
+  })
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'userId',
+        select: 'name imageAvatar',
+      },
+    })
+    .populate('userId', 'name imageAvatar');
 
   if (post) {
     res.json(post);
@@ -52,13 +56,12 @@ const get_post_by_id = asyncHandler(async (req, res) => {
  * @access        Private
  */
 const post_new_post = asyncHandler(async (req, res) => {
-  const { userId, content, userName } = req.body;
+  const { userId, content } = req.body;
 
   const post = await Post.create({
     userId,
     image: `http://localhost:5000/uploads/${req.file.filename}`,
     content,
-    userName,
   });
 
   const user = await User.findById(userId);
@@ -71,56 +74,6 @@ const post_new_post = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('Error when creating the post.');
   }
-
-  // if (user) {
-  //   if (req.file) {
-  //     const avatarUrl = `http://localhost:5000/uploads/${req.file.filename}`;
-  //     user.avatar = avatarUrl || user.avatar;
-  //     const updatedUser = await user.save();
-  //     res.send(avatarUrl);
-  //   } else {
-  //     res.status(404);
-  //     throw new Error('Image not found.');
-  //   }
-  // } else {
-  //   res.status(404);
-  //   throw new Error('User not found.');
-  // }
-
-  // - - - - - - - - -
-  // const { userId, content, userName } = req.body;
-
-  // if (!req.files) {
-  //   res.status(400);
-  //   throw new Error('File is not found');
-  // }
-
-  // const myFile = req.files.file;
-
-  // myFile.mv(`${rootDir}${myFile.name}`, function (err) {
-  //   if (err) {
-  //     console.log(err);
-  //     res.status(400);
-  //     throw new Error('Error ocurred');
-  //   }
-  // });
-
-  // const post = await Post.create({
-  //   userId: userId,
-  //   image: `http://localhost:5000/public/${myFile.name}`,
-  //   content,
-  //   userName,
-  // });
-
-  // if (post) {
-  //   res.status(201).json({
-  //     name: myFile.name,
-  //     path: `http://localhost:5000/public/${myFile.name}`,
-  //   });
-  // } else {
-  //   res.status(400);
-  //   throw new Error('Invalid user data.');
-  // }
 });
 
 /**
@@ -130,18 +83,22 @@ const post_new_post = asyncHandler(async (req, res) => {
  */
 const delete_post = asyncHandler(async (req, res) => {
   const id = req.params.id;
-  const p = await Post.findById(id);
+  const post = await Post.findById(id);
 
-  const postUser = p.userId;
-  const postUserReq = req.user._id;
-
-  if (!postUser || !postUserReq) {
+  if (!post) {
     res.status(404);
     throw new Error('Post not found.');
   }
 
-  if (postUser.equals(postUserReq) || req.user.isAdmin) {
-    console.log(3);
+  const postUserId = post.userId;
+  const userId = req.user._id;
+
+  if (!postUserId || !userId) {
+    res.status(404);
+    throw new Error('Post not found.');
+  }
+
+  if (postUserId.equals(userId) || req.user.isAdmin) {
     await Post.deleteOne({ _id: id });
 
     res.status(201).json('Post deleted.');
@@ -150,7 +107,7 @@ const delete_post = asyncHandler(async (req, res) => {
     throw new Error('Unauthorized');
   }
 
-  if (!p) {
+  if (!post) {
     res.status(400);
     throw new Error('Post not found');
   }
@@ -158,7 +115,7 @@ const delete_post = asyncHandler(async (req, res) => {
 
 /**
  * @description   Like button
- * @route         DELETE /api/posts/:id/like
+ * @route         DELETE /api/posts/like/:id
  * @access        Private
  */
 const post_like = asyncHandler(async (req, res) => {
@@ -218,6 +175,26 @@ const get_posts_by_user = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @description   Search in post content
+ * @route         GET /api/search/:term
+ * @access        Private
+ */
+const search_term = asyncHandler(async (req, res) => {
+  const term = req.params.term;
+
+  console.info(term);
+  const search = await Post.find({ $text: { $search: term } });
+  console.info(search);
+
+  if (search.length !== 0) {
+    res.json(search);
+  } else {
+    res.status(404);
+    throw new Error('Posts not found.');
+  }
+});
+
 export {
   get_post_by_id,
   get_all_posts,
@@ -226,4 +203,5 @@ export {
   post_like,
   post_search,
   get_posts_by_user,
+  search_term,
 };

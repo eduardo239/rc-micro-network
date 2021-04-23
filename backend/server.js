@@ -14,7 +14,10 @@ export const rootDir = `${__dirname}/public/`;
 import postRoutes from './routes/postRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import commentRoutes from './routes/commentRoutes.js';
+import friendRoutes from './routes/friendRoutes.js';
+import privateRoutes from './routes/privateRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
+import searchRoutes from './routes/searchRoutes.js';
 
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 dotenv.config();
@@ -37,13 +40,16 @@ app.use('/api/posts', postRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/comments', commentRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/private', privateRoutes);
+app.use('/api/search', searchRoutes);
+app.use('/api/friends', friendRoutes);
 app.use(notFound);
 app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 app.listen(
   PORT,
-  console.log(
+  console.info(
     `Server running in ${process.env.NODE_ENV} on port http://localhost:${PORT}`
       .yellow.underline
   )

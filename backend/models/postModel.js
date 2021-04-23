@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
-import mongoosastic from 'mongoosastic';
 
 const postSchema = mongoose.Schema(
   {
@@ -8,10 +7,6 @@ const postSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: 'User',
-    }, //FIXME: userName vindo do User model
-    userName: {
-      type: String,
-      required: true,
     },
     image: {
       type: String,
@@ -20,7 +15,6 @@ const postSchema = mongoose.Schema(
     content: {
       type: String,
       required: true,
-      es_indexed: true,
     },
     likes: {
       type: Number,
@@ -32,8 +26,6 @@ const postSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-
-postSchema.plugin(mongoosastic);
 
 const Post = mongoose.model('Post', postSchema);
 export default Post;

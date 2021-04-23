@@ -24,7 +24,7 @@ const importData = async () => {
 
     await Post.insertMany(samplePosts);
 
-    console.log(`Data imported!`.blue.bold);
+    console.info(`Data imported!`.blue.bold);
   } catch (error) {
     console.error(`Error: ${error}`.red.inverse);
     process.exit(1);
@@ -36,7 +36,7 @@ const destroyData = async () => {
     await User.deleteMany();
     await Post.deleteMany();
 
-    console.log(`Data destroyed!`.red.bold);
+    console.info(`Data destroyed!`.red.bold);
   } catch (error) {
     console.error(`Error: ${error}`.red.inverse);
     process.exit(1);

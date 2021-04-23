@@ -1,0 +1,23 @@
+### - - - - - - - - - - - - - - - - - - USER - - - - - - - - -- - - - - - - - -
+### new post
+POST http://localhost:5000/api/posts/ HTTP/1.1
+content-type: application/json
+
+{
+    "image": "url da imagem",
+    "content": "123"
+}
+
+### get all posts
+GET http://localhost:5000/api/posts/ HTTP/1.1
+
+### get post by id
+GET http://localhost:5000/api/posts/6081675819031d06dc3f08b6 HTTP/1.1
+
+### like
+GET http://localhost:5000/api/posts/like/60817951caa28f3384f83eb9 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODBjNTk0MzczZmMwMTA0MGRjM2EyZCIsImlhdCI6MTYxOTExMzc4MiwiZXhwIjoxNjE5MjAwMTgyfQ.L_HjbIBZFAQ_4QO68davesOr_80LrpSlNj7TfT1t3Kg
+
+### delete post
+DELETE http://localhost:5000/api/posts/6081b1d918a2c12f6459a5f2 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODBjNTk0MzczZmMwMTA0MGRjM2EyZCIsImlhdCI6MTYxOTExMzc4MiwiZXhwIjoxNjE5MjAwMTgyfQ.L_HjbIBZFAQ_4QO68davesOr_80LrpSlNj7TfT1t3Kg
