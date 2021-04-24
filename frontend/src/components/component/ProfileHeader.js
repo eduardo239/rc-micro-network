@@ -58,11 +58,12 @@ const ProfileHeader = ({ user, login }) => {
   React.useEffect(() => {
     const btnChange = () => {
       const x = login.friends.map((x) => x.friendId === user._id);
-
-      if (x.includes(true)) btnAddRef.current.innerHTML = 'Remove';
-      else btnAddRef.current.innerHTML = 'Add';
-      if (x.includes(true)) btnAddRef.current.style.background = '#ff312e';
-      else btnAddRef.current.style.background = '#0F7CBF';
+      if (btnAddRef.current) {
+        if (x.includes(true)) btnAddRef.current.innerHTML = 'Remove';
+        else btnAddRef.current.innerHTML = 'Add';
+        if (x.includes(true)) btnAddRef.current.style.background = '#ff312e';
+        else btnAddRef.current.style.background = '#0F7CBF';
+      }
     };
     btnChange();
   }, [login, user]);

@@ -94,33 +94,67 @@ const get_all_comments = asyncHandler(async (req, res) => {
 });
 
 /**
- * @description   Post new private message
- * @route         POST /api/private/
- * @access        Private
+ * @description   Get all pms
+ * @route         GET /api/private
+ * @access        Admin
  */
-const post_new_pm = asyncHandler(async (req, res) => {
-  const { userId, content, destinationId } = req.body;
+const get_all_pm = asyncHandler(async (req, res) => {
+  console.log(req.user._id);
+  const pm = await PM.find({});
 
-  const pm = await PM.create({
-    userId,
-    content,
-    destinationId,
-  });
-
-  const user = await User.findById(userId);
-  const destination = await User.findById(destinationId);
-
-  if (user && destination) {
-    user.privateMessages.push(pm);
-    user.save();
-
-    destination.privateMessages.push(pm);
-    destination.save();
-
+  if (pm) {
     res.status(200).json(pm);
   } else {
     res.status(404);
+    throw new Error('Private messages not found.');
+  }
+});
+
+/**
+ * @description   Post new private message
+ * @route         POST /api/private
+ * @access        Private
+ */
+const post_new_pm = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+  const { content, friendId } = req.body;
+
+  const user = await User.findById(userId);
+  const friend = await User.findById(friendId);
+
+  if (user && friend) {
+    const pm = await PM.create({
+      userId,
+      friendId,
+      content,
+    });
+
+    user.pm.push(pm);
+    user.save();
+
+    friend.pm.push(pm);
+    friend.save();
+
+    res.send(true);
+  } else {
+    res.status(404);
     throw new Error('User not found.');
+  }
+});
+
+/**
+ * @description   Get pm by user id
+ * @route         GET /api/private/:userId
+ * @access        Protect
+ */
+const get_pm_by_user = asyncHandler(async (req, res) => {
+  const pm = await PM.find({ userId: req.user._id });
+
+  if (pm) {
+    res.status(200).json(pm);
+  } else {
+    res.status(404);
+    throw new Error('Private messages not found.');
   }
 });
 
@@ -130,4 +164,6 @@ export {
   delete_comment_by_id,
   get_all_comments,
   post_new_pm,
+  get_all_pm,
+  get_pm_by_user,
 };

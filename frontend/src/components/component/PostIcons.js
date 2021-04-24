@@ -14,7 +14,7 @@ import { ReactComponent as ChatIcon } from '../../assets/ico/white/carbon_chat.s
 import { ReactComponent as DeleteIcon } from '../../assets/ico/white/carbon_delete.svg';
 
 const PostIcons = ({ post, error, user }) => {
-  const modal = useSelector((state) => state.modal);
+  const modal = useSelector((state) => state.modal.post_modal);
   const dispatch = useDispatch();
 
   const likeHandler = async () => {

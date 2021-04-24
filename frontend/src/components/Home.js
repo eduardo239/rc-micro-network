@@ -12,7 +12,7 @@ import Modal from './Modal';
 import Search from './component/Search';
 
 const Home = () => {
-  const modal = useSelector((state) => state.modal);
+  const modal = useSelector((state) => state.modal.post_modal);
   const { data: loginData } = useSelector((state) => state.user.login);
 
   return (

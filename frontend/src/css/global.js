@@ -13,7 +13,7 @@ input, .App-post {
 }
 
 a {
-  color: ${({ theme }) => theme.secondary};
+  color: ${({ theme }) => theme.primary};
 }
 
 .App-logo svg path {

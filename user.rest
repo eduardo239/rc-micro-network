@@ -14,13 +14,13 @@ POST http://localhost:5000/api/users/login HTTP/1.1
 content-type: application/json
 
 {
-    "email": "admin@admin.com",
-    "password": "123123"
+    "email": "admin@email.com",
+    "password": "123"
 }
 
 ### get user profile
 GET http://localhost:5000/api/users/profile HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODBjNTk0MzczZmMwMTA0MGRjM2EyZCIsImlhdCI6MTYxOTExNDk4OSwiZXhwIjoxNjE5MjAxMzg5fQ.zc6Vkw1rAbx5mv2nBpFx77llX5jQoC_fcL0T24Dhn80
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTI3MDExMiwiZXhwIjoxNjE5MzU2NTEyfQ.U7nWqOQnF3cI4K6uYGJjInRrYx0uuehGTzMyQ01fdNk
 
 ### get all users
 GET http://localhost:5000/api/users HTTP/1.1

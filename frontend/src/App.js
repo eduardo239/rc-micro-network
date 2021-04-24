@@ -19,7 +19,7 @@ import { closeModal } from './store/modal';
 
 const App = () => {
   const { ui: theme } = useSelector((state) => state);
-  const modal = useSelector((state) => state.modal);
+  const modal = useSelector((state) => state.modal.post_modal);
 
   const location = useLocation();
   const dispatch = useDispatch();
