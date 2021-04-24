@@ -17,6 +17,7 @@ const ProfileHeader = ({ user, login }) => {
   const dispatch = useDispatch();
 
   const fileRef = React.useRef();
+  const btnAddRef = React.useRef();
   // eslint-disable-next-line
   const [avatar, setAvatar] = React.useState('');
   const [loading, setLoading] = React.useState(false);
@@ -53,6 +54,18 @@ const ProfileHeader = ({ user, login }) => {
   const addHandler = () => {
     dispatch(add_friend({ userId: login._id, friendId: user._id }));
   };
+
+  React.useEffect(() => {
+    const btnChange = () => {
+      const x = login.friends.map((x) => x.friendId === user._id);
+
+      if (x.includes(true)) btnAddRef.current.innerHTML = 'Remove';
+      else btnAddRef.current.innerHTML = 'Add';
+      if (x.includes(true)) btnAddRef.current.style.background = '#ff312e';
+      else btnAddRef.current.style.background = '#0F7CBF';
+    };
+    btnChange();
+  }, [login, user]);
   return (
     <div>
       <div className={styles.ImageContainer}>
@@ -90,6 +103,7 @@ const ProfileHeader = ({ user, login }) => {
         <div>
           {user._id !== login._id && (
             <button
+              ref={btnAddRef}
               onClick={() => addHandler(user._id)}
               className='App-btn App-btn-primary'
             >

@@ -6,7 +6,7 @@ import User from './User';
 
 const PM = () => {
   return (
-    <div className='App-Modal-container'>
+    <div className='App-modal-container'>
       <div className={styles.Modal}>
         <User />
         <div>

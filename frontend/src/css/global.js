@@ -38,6 +38,11 @@ a {
 
 .App-modal {
   background: ${({ theme }) => theme.bg};
+}
+
+.App-PM {
+  color: ${({ theme }) => theme.text};
+  background: ${({ theme }) => theme.bg};
 
 }
 

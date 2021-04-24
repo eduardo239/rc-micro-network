@@ -59,6 +59,16 @@ const ProfileContent = ({ user, login }) => {
             ))}
         </div>
       </div>
+      {/* modal */}
+      <div className='App-modal-container'>
+        <div className={`${styles.Modal} App-PM`}>
+          <button className='App-btn App-btn-secondary'>close</button>
+          <h4>Private Message</h4>
+          <p>to {user && user.name}</p>
+          <input type='text' />
+          <button className='App-btn App-btn-primary'>Send</button>
+        </div>
+      </div>
     </div>
   );
 };

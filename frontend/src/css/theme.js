@@ -14,7 +14,7 @@ export const darkTheme = {
   text: '#f6f6f6',
   border: 'rgba(255, 255, 255, 0.05)',
   primary: '#0F7CBF',
-  secondary: '##ff312e',
+  secondary: '#ff312e',
   link: '#f6f6f6',
   scrollBar: '#888',
 };

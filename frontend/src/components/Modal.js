@@ -27,7 +27,7 @@ const Modal = () => {
   };
 
   return (
-    <div className='App-Modal-container' onClick={clickOutsideHandler}>
+    <div className='App-modal-container' onClick={clickOutsideHandler}>
       {postLoading ? (
         <Loading />
       ) : (
