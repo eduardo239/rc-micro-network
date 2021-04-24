@@ -59,7 +59,7 @@ const get_comment_by_id = asyncHandler(async (req, res) => {
  * @access        Private, Admin
  */
 const delete_comment_by_id = asyncHandler(async (req, res) => {
-  const commentId = req.body.commentId;
+  const commentId = req.params.id;
 
   const comment = await Comment.findById(commentId);
   const user = await User.findById(comment.userId);

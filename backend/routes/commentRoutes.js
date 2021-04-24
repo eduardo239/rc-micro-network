@@ -11,6 +11,9 @@ import { admin, protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-router.route('/:id').get(protect, get_comment_by_id);
+router
+  .route('/:id')
+  .get(protect, get_comment_by_id)
+  .delete(protect, delete_comment_by_id);
 router.route('/').get(get_all_comments).post(protect, post_new_comment);
 export default router;

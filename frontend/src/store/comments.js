@@ -17,6 +17,19 @@ const _new_comment = createAsyncSlice({
   }),
 });
 
+const _delete_comment = createAsyncSlice({
+  name: 'delete_comment',
+  fetchConfig: (id) => ({
+    url: `/api/comments/${id}`,
+    options: {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${get_local_storage('token')}`,
+      },
+    },
+  }),
+});
+
 const _new_pm = createAsyncSlice({
   name: 'new_pm',
   fetchConfig: (body) => ({
@@ -51,6 +64,7 @@ const reducer = combineReducers({
 });
 
 const fetch_new_comment = _new_comment.asyncAction;
+const fetch_delete_comment = _delete_comment.asyncAction;
 const fetch_new_pm = _new_pm.asyncAction;
 const fetch_get_pm = _get_pm.asyncAction;
 
@@ -60,6 +74,15 @@ export default reducer;
 export const post_new_comment = (body) => async (dispatch) => {
   try {
     await dispatch(fetch_new_comment(body));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// delete comment
+export const delete_comment = (id) => async (dispatch) => {
+  try {
+    await dispatch(fetch_delete_comment(id));
   } catch (error) {
     console.error(error);
   }

@@ -31,7 +31,8 @@ const Modal = () => {
       {postLoading ? (
         <Loading />
       ) : (
-        postData && (
+        postData &&
+        loginData && (
           <div
             className={`App-border App-modal ${styles.Modal}`}
             ref={modalRef}
@@ -45,7 +46,11 @@ const Modal = () => {
 
             <p className={styles.Content}>{postData.content}</p>
 
-            <Comment comments={postData.comments} postId={postData._id} />
+            <Comment
+              user={loginData}
+              comments={postData.comments}
+              postId={postData._id}
+            />
           </div>
         )
       )}

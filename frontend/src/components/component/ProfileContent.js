@@ -75,6 +75,7 @@ const ProfileContent = ({ user, login }) => {
                     </button>
                   )}
                 </div>
+                {f.friendId._id}
                 {pmModal && (
                   <div
                     className='App-modal-container'
@@ -102,6 +103,7 @@ const ProfileContent = ({ user, login }) => {
                       >
                         Send
                       </button>
+                      {f.friendId._id}
                     </div>
                   </div>
                 )}

@@ -227,6 +227,13 @@ li {
   font-weight: 700;
 }
 
+.App-comment {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* - - - - - - - message - - - - - - - - */
 .App-message {
   position: relative;
