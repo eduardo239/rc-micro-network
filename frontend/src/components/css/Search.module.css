@@ -1,0 +1,15 @@
+.Search {
+  width: 400px;
+  position: relative;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.Search input {
+  padding: 0.5rem 2.5rem 0.5rem 0.5rem;
+}
+.Search button {
+  position: absolute;
+  top: 0.2rem;
+  right: 0.2rem;
+}

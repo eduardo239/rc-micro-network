@@ -9,6 +9,7 @@ import Menu from './component/Menu';
 import User from './component/User';
 import Feed from './Feed';
 import Modal from './Modal';
+import Search from './component/Search';
 
 const Home = () => {
   const modal = useSelector((state) => state.modal);
@@ -28,6 +29,7 @@ const Home = () => {
         <Menu />
       </Col>
       <Col xs={12} md={5}>
+        <Search />
         <PostNew />
         <Feed />
         {modal && <Modal />}

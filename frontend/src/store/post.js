@@ -66,11 +66,25 @@ const _like = createAsyncSlice({
   }),
 });
 
+const _search = createAsyncSlice({
+  name: 'search',
+  fetchConfig: (term) => ({
+    url: `http://localhost:5000/api/search/${term}`,
+    options: {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${get_local_storage('token')}`,
+      },
+    },
+  }),
+});
+
 const reducer = combineReducers({
   new: _new.reducer,
   posts: _posts.reducer,
   post: _post.reducer,
   delete: _delete.reducer,
+  search: _search.reducer,
 });
 
 const fetch_new_post = _new.asyncAction;
@@ -78,6 +92,7 @@ const fetch_posts = _posts.asyncAction;
 const fetch_post = _post.asyncAction;
 const fetch_like = _like.asyncAction;
 const fetch_delete = _delete.asyncAction;
+const fetch_search = _search.asyncAction;
 
 export const { resetState: resetPostState } = _post.actions;
 export const { resetState: resetDeleteState } = _delete.actions; // TODO
@@ -124,6 +139,15 @@ export const delete_post = (id) => async (dispatch) => {
 export const get_like = (id) => async (dispatch) => {
   try {
     await dispatch(fetch_like(id));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// search
+export const get_search = (term) => async (dispatch) => {
+  try {
+    await dispatch(fetch_search(term));
   } catch (error) {
     console.error(error);
   }

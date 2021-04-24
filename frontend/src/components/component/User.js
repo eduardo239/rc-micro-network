@@ -3,6 +3,7 @@ import React from 'react';
 import styles from '../css/User.module.css';
 
 import avatar from '../../assets/img/avatar.png';
+import { Link } from 'react-router-dom';
 
 const User = ({ user }) => {
   return (
@@ -13,7 +14,7 @@ const User = ({ user }) => {
             className='App-avatar-mini'
             style={{ background: `url(${user.imageAvatar || avatar})` }}
           ></div>
-          <p>{user.name}</p>
+          <Link to={`profile/${user._id}`}>{user.name}</Link>
         </>
       )}
     </div>

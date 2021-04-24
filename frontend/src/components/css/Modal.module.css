@@ -2,6 +2,7 @@
   max-height: 90vh;
   max-width: 90vw;
   overflow-y: auto;
+  max-width: 700px;
 }
 .Content {
   padding: 1rem 0.5rem;

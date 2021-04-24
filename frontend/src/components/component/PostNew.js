@@ -2,12 +2,12 @@ import React from 'react';
 import axios from 'axios';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { get_posts } from '../../store/post';
 
-import fileUploadWhite from '../../assets/ico/white/carbon_image.svg';
-import sendMessageWhite from '../../assets/ico/white/carbon_send.svg';
+import { ReactComponent as SendIcon } from '../../assets/ico/white/carbon_send.svg';
+import { ReactComponent as FileUpIcon } from '../../assets/ico/white/carbon_image.svg';
 
 import styles from '../css/PostNew.module.css';
-import { get_posts } from '../../store/post';
 
 const PostNew = () => {
   const [message, setMessage] = React.useState('');
@@ -67,12 +67,8 @@ const PostNew = () => {
 
   return (
     <form onSubmit={newPostHandler} className={styles.PostNew}>
-      <label htmlFor='imageUpload'>
-        <img
-          className={`${styles.FileUpload}`}
-          src={fileUploadWhite}
-          alt='Upload File'
-        />
+      <label htmlFor='imageUpload' className={styles.Label}>
+        <FileUpIcon />
         <input
           style={{ display: 'none' }}
           type='file'
@@ -88,7 +84,7 @@ const PostNew = () => {
         onChange={({ target }) => setContent(target.value)}
       />
       <button onClick={newPostHandler} className='App-link'>
-        <img src={sendMessageWhite} alt='Send Message' />
+        <SendIcon />
       </button>
       {fileURL && <small>{fileURL}</small>}
       {message && <p className='App-message App-message-error'>{message}</p>}

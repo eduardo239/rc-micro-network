@@ -130,6 +130,17 @@ li {
 .App-logo svg {
   width: 9rem;
 }
+
+@media (max-width: 770px) {
+  .App-logo {
+    margin: 0;
+  }
+
+  .App-menu li,
+  .App-menu li button {
+    text-align: center;
+  }
+}
 /* - - - - - - - Icon - - - - - - - - */
 .App-btn-icon,
 .App-btn-icon-mini {

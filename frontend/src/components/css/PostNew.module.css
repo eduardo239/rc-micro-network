@@ -6,13 +6,20 @@
 }
 
 .PostNew input {
-  padding: 0.5rem 4rem 0.5rem 2.5rem;
+  padding: 0.5rem 2.5rem 0.5rem 2.5rem;
 }
 
 .PostNew button {
   position: absolute;
-  top: 0.25rem;
-  right: 0.25rem;
+  top: 0.2rem;
+  right: 0.2rem;
+}
+
+.Label {
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  cursor: pointer;
 }
 
 .FileUpload {

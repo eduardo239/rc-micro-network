@@ -183,9 +183,7 @@ const get_posts_by_user = asyncHandler(async (req, res) => {
 const search_term = asyncHandler(async (req, res) => {
   const term = req.params.term;
 
-  console.info(term);
-  const search = await Post.find({ $text: { $search: term } });
-  console.info(search);
+  const search = await Post.find({ content: { $regex: term, $options: 'i' } });
 
   if (search.length !== 0) {
     res.json(search);
