@@ -1,0 +1,15 @@
+.CommentNew {
+  display: block;
+  position: relative;
+  padding: 0.25rem;
+}
+
+.CommentNew input {
+  padding: 0.5rem;
+}
+
+.CommentNew button {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+}

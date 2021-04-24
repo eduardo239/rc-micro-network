@@ -1,0 +1,17 @@
+.FriendsContainer {
+  margin-top: 1rem;
+}
+
+.Friends {
+  display: flex;
+
+  margin-bottom: 0.5rem;
+  flex-direction: column;
+}
+
+.List {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}

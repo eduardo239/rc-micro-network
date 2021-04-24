@@ -1,0 +1,14 @@
+.Input {
+  position: relative;
+}
+
+.Input label {
+  position: absolute;
+  top: 0.2rem;
+  left: 0.75rem;
+}
+
+.Input input {
+  padding: 1.1rem 0.75rem 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+}

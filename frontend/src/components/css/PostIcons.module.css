@@ -1,0 +1,16 @@
+.IconsContainer {
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.IconsContainer img {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.IconsContainer p {
+  font-size: 0.75rem;
+  font-weight: 500;
+}

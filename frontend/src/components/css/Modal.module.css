@@ -1,0 +1,16 @@
+.Modal {
+  max-height: 90vh;
+  max-width: 90vw;
+  overflow-y: auto;
+}
+.Content {
+  padding: 1rem 0.5rem;
+}
+.image {
+  min-width: 400px;
+}
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+}

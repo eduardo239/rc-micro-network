@@ -1,0 +1,20 @@
+.Feed {
+  display: inline-flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+.Post {
+  margin-bottom: 1rem;
+}
+.Post p {
+  padding: 0.5rem;
+}
+.Image {
+  cursor: pointer;
+  transition: 0.2s;
+  min-width: 400px;
+}
+
+.Image:hover {
+  filter: grayscale(100%);
+}
