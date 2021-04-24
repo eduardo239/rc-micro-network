@@ -58,7 +58,7 @@ const Menu = () => {
         <li>
           <Link to={`/profile/${loginData._id}`}>
             <span>
-              <ProfileIcon /> {loginData.name}
+              <ProfileIcon /> @{loginData.name}
             </span>
           </Link>
         </li>

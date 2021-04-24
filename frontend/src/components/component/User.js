@@ -1,9 +1,10 @@
 import React from 'react';
 
+import { Link } from 'react-router-dom';
+
 import styles from '../css/User.module.css';
 
 import avatar from '../../assets/img/avatar.png';
-import { Link } from 'react-router-dom';
 
 const User = ({ user }) => {
   return (

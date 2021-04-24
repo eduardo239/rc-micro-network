@@ -8,3 +8,8 @@
 .User img {
   height: 2rem;
 }
+
+.User a {
+  font-size: 1rem;
+  letter-spacing: 0.03rem;
+}

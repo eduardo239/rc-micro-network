@@ -3,15 +3,14 @@ import axios from 'axios';
 
 import { useDispatch } from 'react-redux';
 import { add_friend } from '../../store/user';
+import { dateFormat, sinceDate } from '../../helper/dateFormat';
 
 import Loading from '../component/Loading';
-
 import bgHeader from '../../assets/img/profile-bg.jpg';
 import avatarDefault from '../../assets/img/avatar.png';
 
 import styles from '../css/ProfileHeader.module.css';
 
-import { dateFormat, sinceDate } from '../../helper/dateFormat';
 import get_local_storage from '../../store/helpers/getLocalStorage';
 
 const ProfileHeader = ({ user, login }) => {
@@ -85,9 +84,8 @@ const ProfileHeader = ({ user, login }) => {
       <div className={styles.Stats}>
         <div>
           <p>{user.name}</p>
-          <p>{`Member since: ${sinceDate(
-            user.createdAt
-          )} days. Registration date:  ${dateFormat(user.createdAt)}`}</p>
+          <p>{`Member since: ${sinceDate(user.createdAt)} days.`}</p>
+          <p>{`Registration date: ${dateFormat(user.createdAt)}`}</p>
         </div>
         <div>
           {user._id !== login._id && (
