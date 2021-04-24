@@ -20,11 +20,11 @@ content-type: application/json
 
 ### get user profile
 GET http://localhost:5000/api/users/profile HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTI3MDExMiwiZXhwIjoxNjE5MzU2NTEyfQ.U7nWqOQnF3cI4K6uYGJjInRrYx0uuehGTzMyQ01fdNk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTI5NjA5OSwiZXhwIjoxNjE5MzgyNDk5fQ.WWsMG5PcfkaJrqK1wgNFlAtsuwQD5PhOGeEUXZzSUq4
 
 ### get all users
 GET http://localhost:5000/api/users HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODBjNTk0MzczZmMwMTA0MGRjM2EyZCIsImlhdCI6MTYxOTE4Mjg5OSwiZXhwIjoxNjE5MjY5Mjk5fQ.71ulm0G4hDG_rZDO9c0wUTxGX_Rn61ZOVPkUISvIJVg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTI5NjA5OSwiZXhwIjoxNjE5MzgyNDk5fQ.WWsMG5PcfkaJrqK1wgNFlAtsuwQD5PhOGeEUXZzSUq4
 
 ### get user by id
 GET http://localhost:5000/api/users/6080c594373fc01040dc3a2d HTTP/1.1

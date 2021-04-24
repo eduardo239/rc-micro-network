@@ -3,7 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { ReactComponent as SearchIcon } from '../../assets/ico/white/carbon_search.svg';
-import { get_search } from '../../store/post';
+import { get_search, reset_search } from '../../store/post';
 
 import styles from '../css/Search.module.css';
 
@@ -15,7 +15,7 @@ const Search = () => {
   const searchHandler = (e) => {
     e.preventDefault();
     if (term) dispatch(get_search(term));
-    else alert('Empty content.');
+    else dispatch(reset_search());
   };
   return (
     <form onSubmit={searchHandler} className={styles.Search}>

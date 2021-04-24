@@ -96,6 +96,7 @@ const fetch_search = _search.asyncAction;
 
 export const { resetState: resetPostState } = _post.actions;
 export const { resetState: resetDeleteState } = _delete.actions; // TODO
+export const { resetState: resetSearchState } = _search.actions;
 
 export default reducer;
 
@@ -148,6 +149,15 @@ export const get_like = (id) => async (dispatch) => {
 export const get_search = (term) => async (dispatch) => {
   try {
     await dispatch(fetch_search(term));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// search
+export const reset_search = () => async (dispatch) => {
+  try {
+    await dispatch(resetSearchState());
   } catch (error) {
     console.error(error);
   }

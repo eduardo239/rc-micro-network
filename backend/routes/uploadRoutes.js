@@ -2,6 +2,7 @@ import path from 'path';
 import express from 'express';
 import multer from 'multer';
 import User from '../models/userModel.js';
+import Jimp from 'jimp';
 import { protect } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
@@ -41,6 +42,13 @@ export const upload = multer({
 router.post('/avatar', protect, upload.single('avatar'), async (req, res) => {
   const userId = req.user._id;
   const user = await User.findById(userId);
+
+  const image = await Jimp.read(
+    `http://localhost:5000/uploads/${req.file.filename}`
+  );
+  await image.resize(96, Jimp.AUTO);
+  await image.quality(90);
+  await image.write(`backend/uploads/${req.file.filename}`);
 
   if (user) {
     const avatarUrl = `http://localhost:5000/uploads/${req.file.filename}`;

@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import Post from '../models/postModel.js';
 import User from '../models/userModel.js';
+import Jimp from 'jimp';
 
 /**
  * @description   Get all posts
@@ -58,6 +59,13 @@ const get_post_by_id = asyncHandler(async (req, res) => {
 const post_new_post = asyncHandler(async (req, res) => {
   const { userId, content } = req.body;
 
+  const image = await Jimp.read(
+    `http://localhost:5000/uploads/${req.file.filename}`
+  );
+  await image.resize(600, Jimp.AUTO);
+  await image.quality(90);
+  await image.write(`backend/uploads/${req.file.filename}`);
+
   const post = await Post.create({
     userId,
     image: `http://localhost:5000/uploads/${req.file.filename}`,
@@ -69,6 +77,7 @@ const post_new_post = asyncHandler(async (req, res) => {
   if (post && user) {
     user.posts.push(post);
     user.save();
+
     res.status(200).send(post);
   } else {
     res.status(400);

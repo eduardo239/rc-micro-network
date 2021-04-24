@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { closeModal } from '../store/modal';
 import { resetPostState } from '../store/post';
 
+import textWithHash from '../helper/textWithHash';
+
 import styles from './css/Modal.module.css';
 
 import Loading from './component/Loading';
@@ -12,6 +14,7 @@ import Comment from './Comment';
 
 const Modal = () => {
   const modalRef = React.createRef();
+  const commentRef = React.createRef();
 
   const { data: postData, loading: postLoading } = useSelector(
     (state) => state.post.post
@@ -25,6 +28,17 @@ const Modal = () => {
       dispatch(resetPostState());
     }
   };
+
+  React.useEffect(() => {
+    if (commentRef.current) {
+      const convert = () => {
+        commentRef.current.innerHTML = textWithHash(
+          commentRef.current.innerHTML
+        );
+      };
+      convert();
+    }
+  }, [commentRef]);
 
   return (
     <div className='App-modal-container' onClick={clickOutsideHandler}>
@@ -44,7 +58,9 @@ const Modal = () => {
             />
             <PostIcons post={postData} user={loginData} />
 
-            <p className={styles.Content}>{postData.content}</p>
+            <p ref={commentRef} className={styles.Content}>
+              {postData.content}
+            </p>
 
             <Comment
               user={loginData}
