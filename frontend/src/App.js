@@ -24,6 +24,8 @@ const App = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
+  // on scroll
+
   React.useEffect(() => {
     if (location.pathname !== '/' && modal) {
       dispatch(closeModal());
@@ -49,8 +51,6 @@ const App = () => {
               <Route path='/post/:postId' component={Post} />
               <Route path='/profile/:id' component={Profile} />
               <Route path='/settings' component={Settings} />
-              {/* 
-              <Route exact path='/search/:term' component={SearchResults} />*/}
               {/* <Route exact path='/admin' component={Admin} />  */}
             </Switch>
           </Col>

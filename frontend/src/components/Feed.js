@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../store/modal';
-import { get_post } from '../store/post';
+import { get_post, get_posts_pagination } from '../store/post';
 
 import Loading from './component/Loading';
 
@@ -20,7 +20,7 @@ const Feed = () => {
 
   const { data: loginData } = useSelector((state) => state.user.login);
   const { error: deleteError } = useSelector((state) => state.post.delete);
-
+  console.log(postsData);
   const dispatch = useDispatch();
 
   const modalHandler = (id) => {

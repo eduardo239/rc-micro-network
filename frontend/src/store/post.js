@@ -27,6 +27,16 @@ const _posts = createAsyncSlice({
   }),
 });
 
+const _posts_pagination = createAsyncSlice({
+  name: 'posts',
+  fetchConfig: (skip) => ({
+    url: `http://localhost:5000/api/posts?skip=${skip}`,
+    options: {
+      method: 'GET',
+    },
+  }),
+});
+
 const _post = createAsyncSlice({
   name: 'post',
   fetchConfig: (id) => ({
@@ -49,6 +59,21 @@ const _delete = createAsyncSlice({
       headers: {
         Authorization: `Bearer ${get_local_storage('token')}`,
       },
+    },
+  }),
+});
+
+const _edit = createAsyncSlice({
+  name: 'edit',
+  fetchConfig: ({ id, content }) => ({
+    url: `http://localhost:5000/api/posts/${id}`,
+    options: {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${get_local_storage('token')}`,
+      },
+      body: JSON.stringify({ content }),
     },
   }),
 });
@@ -85,6 +110,8 @@ const reducer = combineReducers({
   post: _post.reducer,
   delete: _delete.reducer,
   search: _search.reducer,
+  pagination: _posts_pagination.reducer,
+  edit: _edit.reducer,
 });
 
 const fetch_new_post = _new.asyncAction;
@@ -93,6 +120,8 @@ const fetch_post = _post.asyncAction;
 const fetch_like = _like.asyncAction;
 const fetch_delete = _delete.asyncAction;
 const fetch_search = _search.asyncAction;
+const fetch_pagination = _posts_pagination.asyncAction;
+const fetch_edit = _edit.asyncAction;
 
 export const { resetState: resetPostState } = _post.actions;
 export const { resetState: resetDeleteState } = _delete.actions; // TODO
@@ -118,6 +147,15 @@ export const get_posts = () => async (dispatch) => {
   }
 };
 
+// get all posts
+export const get_posts_pagination = (skip) => async (dispatch) => {
+  try {
+    await dispatch(fetch_pagination(skip));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 // get post by id
 export const get_post = (id) => async (dispatch) => {
   try {
@@ -136,6 +174,14 @@ export const delete_post = (id) => async (dispatch) => {
   }
 };
 
+// edit post
+export const edit_post = (body) => async (dispatch) => {
+  try {
+    await dispatch(fetch_edit(body));
+  } catch (error) {
+    console.error(error);
+  }
+};
 // like
 export const get_like = (id) => async (dispatch) => {
   try {

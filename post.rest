@@ -21,3 +21,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODBjNTk0M
 ### delete post
 DELETE http://localhost:5000/api/posts/6081b1d918a2c12f6459a5f2 HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODBjNTk0MzczZmMwMTA0MGRjM2EyZCIsImlhdCI6MTYxOTExMzc4MiwiZXhwIjoxNjE5MjAwMTgyfQ.L_HjbIBZFAQ_4QO68davesOr_80LrpSlNj7TfT1t3Kg
+
+### new post
+PUT http://localhost:5000/api/posts/608561de7daa8805f090ba8b HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTM1Njk4MywiZXhwIjoxNjE5NDQzMzgzfQ.vU8N4cL_qMpEBN-6Eh13Pb3G-La24A0w38YpFi3GULc
+
+{
+    "content": "000"
+}

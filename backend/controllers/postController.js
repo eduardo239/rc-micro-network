@@ -14,6 +14,7 @@ const get_all_posts = asyncHandler(async (req, res) => {
 
   const posts = await Post.find({}, null, { sort: { createdAt: -1 } })
     .populate('comments', 'content userId postId createdAt')
+    .populate('userId', 'imageAvatar name')
     .limit(limit)
     .skip(skip);
 
@@ -202,6 +203,26 @@ const search_term = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @description   Update post content
+ * @route         PUT /api/posts/:id
+ * @access        Private
+ */
+const update_post = asyncHandler(async (req, res) => {
+  console.log(req.body);
+  const post = await Post.findById(req.params.id);
+
+  if (post) {
+    post.content = req.body.content || post.content;
+
+    const updatedPost = await post.save();
+    res.json(updatedPost);
+  } else {
+    res.status(404);
+    throw new Error('Post not found.');
+  }
+});
+
 export {
   get_post_by_id,
   get_all_posts,
@@ -211,4 +232,5 @@ export {
   post_search,
   get_posts_by_user,
   search_term,
+  update_post,
 };

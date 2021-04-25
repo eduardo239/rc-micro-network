@@ -11,6 +11,7 @@ import styles from './css/Modal.module.css';
 import Loading from './component/Loading';
 import PostIcons from './component/PostIcons';
 import Comment from './Comment';
+import EditPost from './component/EditPost';
 
 const Modal = () => {
   const modalRef = React.createRef();
@@ -20,6 +21,7 @@ const Modal = () => {
     (state) => state.post.post
   );
   const { data: loginData } = useSelector((state) => state.user.login);
+  const edit_modal = useSelector((state) => state.modal.edit_post_modal);
 
   const dispatch = useDispatch();
   const clickOutsideHandler = (e) => {
@@ -61,6 +63,8 @@ const Modal = () => {
             <p ref={commentRef} className={styles.Content}>
               {postData.content}
             </p>
+
+            {edit_modal && <EditPost post={postData} />}
 
             <Comment
               user={loginData}

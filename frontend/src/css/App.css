@@ -223,6 +223,9 @@ li {
   gap: 0.5rem;
   margin: 0.2rem;
 }
+.App-comment p {
+  word-break: break-all;
+}
 .App-comment-author {
   font-weight: 700;
 }

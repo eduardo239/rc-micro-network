@@ -2,8 +2,9 @@ import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { get_like, get_posts, get_post, delete_post } from '../../store/post';
-import { closeModal, openModal } from '../../store/modal';
+import { closeModal, openModal, open_edit_post } from '../../store/modal';
 import { Link } from 'react-router-dom';
+import { thousand_converter } from '../../helper/thousandConverter';
 
 import styles from '../css/PostIcons.module.css';
 
@@ -12,6 +13,7 @@ import avatar from '../../assets/img/avatar.png';
 import { ReactComponent as FavoriteIcon } from '../../assets/ico/white/carbon_favorite.svg';
 import { ReactComponent as ChatIcon } from '../../assets/ico/white/carbon_chat.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/ico/white/carbon_delete.svg';
+import { ReactComponent as EditIcon } from '../../assets/ico/white/carbon_edit.svg';
 
 const PostIcons = ({ post, error, user }) => {
   const modal = useSelector((state) => state.modal.post_modal);
@@ -34,6 +36,11 @@ const PostIcons = ({ post, error, user }) => {
     if (!error) dispatch(get_posts());
   };
 
+  const editHandler = async (id) => {
+    await dispatch(open_edit_post());
+    if (!error) dispatch(get_posts());
+  };
+
   return (
     <>
       <div className={styles.IconsContainer}>
@@ -49,7 +56,7 @@ const PostIcons = ({ post, error, user }) => {
         <div>
           <button onClick={likeHandler} className='App-btn-icon'>
             <FavoriteIcon />
-            <span>{post.likes}</span>
+            <span>{thousand_converter(parseInt(post.likes))}</span>
           </button>
           {!modal && (
             <button onClick={commentHandler} className='App-btn-icon'>
@@ -58,18 +65,25 @@ const PostIcons = ({ post, error, user }) => {
             </button>
           )}
           {user?._id === post.userId._id && (
-            <button
-              className='App-btn-icon'
-              onClick={() => deleteHandler(post._id)}
-            >
-              <DeleteIcon />
-            </button>
+            <>
+              <button
+                className='App-btn-icon'
+                onClick={() => editHandler(post._id)}
+              >
+                <EditIcon />
+              </button>
+              <button
+                className='App-btn-icon'
+                onClick={() => deleteHandler(post._id)}
+              >
+                <DeleteIcon />
+              </button>
+            </>
           )}
         </div>
       </div>
-      <div>
-        {error && <p className='App-message App-message-error'>{error}</p>}
-      </div>
+
+      {error && <p className='App-message App-message-error'>{error}</p>}
     </>
   );
 };

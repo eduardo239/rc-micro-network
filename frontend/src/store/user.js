@@ -60,8 +60,8 @@ const _update = createAsyncSlice({
         Authorization: `Bearer ${JSON.parse(
           window.localStorage.getItem('token')
         )}`,
-        body: JSON.stringify(user),
       },
+      body: JSON.stringify(user),
     },
   }),
 });
