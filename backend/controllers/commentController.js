@@ -158,6 +158,25 @@ const get_pm_by_user = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @description   Update comment
+ * @route         PUT /api/comments/:id
+ * @access        Private
+ */
+const update_comment = asyncHandler(async (req, res) => {
+  const comment = await Comment.findById(req.params.id);
+
+  if (comment) {
+    comment.content = req.body.content || comment.content;
+
+    const updatedComment = await comment.save();
+    res.json(updatedComment);
+  } else {
+    res.status(404);
+    throw new Error('Comment not found.');
+  }
+});
+
 export {
   post_new_comment,
   get_comment_by_id,
@@ -166,4 +185,5 @@ export {
   post_new_pm,
   get_all_pm,
   get_pm_by_user,
+  update_comment,
 };

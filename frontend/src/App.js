@@ -7,6 +7,8 @@ import { lightTheme, darkTheme } from './css/theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Container, Row } from 'react-bootstrap';
 import { auto_login } from './store/user';
+import { get_posts } from './store/post';
+import { closeModal } from './store/modal';
 
 import Home from './components/Home';
 import Post from './components/Post';
@@ -14,8 +16,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Profile from './components/Profile';
 import Settings from './components/Settings';
-import { get_posts } from './store/post';
-import { closeModal } from './store/modal';
+import Admin from './components/Admin';
 
 const App = () => {
   const { ui: theme } = useSelector((state) => state);
@@ -24,18 +25,13 @@ const App = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  // on scroll
-
   React.useEffect(() => {
-    if (location.pathname !== '/' && modal) {
-      dispatch(closeModal());
-    }
+    if (location.pathname !== '/' && modal) dispatch(closeModal());
 
-    const f = async () => {
+    (async () => {
       await dispatch(auto_login());
       await dispatch(get_posts());
-    };
-    f();
+    })();
   }, [dispatch, location, modal]);
 
   return (
@@ -51,7 +47,7 @@ const App = () => {
               <Route path='/post/:postId' component={Post} />
               <Route path='/profile/:id' component={Profile} />
               <Route path='/settings' component={Settings} />
-              {/* <Route exact path='/admin' component={Admin} />  */}
+              <Route path='/admin' component={Admin} />
             </Switch>
           </Col>
         </Row>

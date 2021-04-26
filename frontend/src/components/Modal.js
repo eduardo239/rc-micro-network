@@ -33,12 +33,11 @@ const Modal = () => {
 
   React.useEffect(() => {
     if (commentRef.current) {
-      const convert = () => {
+      (() => {
         commentRef.current.innerHTML = textWithHash(
           commentRef.current.innerHTML
         );
-      };
-      convert();
+      })();
     }
   }, [commentRef]);
 

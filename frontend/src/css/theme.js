@@ -7,6 +7,7 @@ export const lightTheme = {
   link: '#2e2e2e',
   scrollBar: '#888',
   white: '#f6f6f6',
+  myComment: '#184d47',
 };
 
 export const darkTheme = {
@@ -17,4 +18,5 @@ export const darkTheme = {
   secondary: '#ff312e',
   link: '#f6f6f6',
   scrollBar: '#888',
+  myComment: '#184d47',
 };

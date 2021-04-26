@@ -65,9 +65,9 @@ const Menu = () => {
       )}
       {loginData && loginData.isAdmin && (
         <li>
-          <Link to='/profile'>
+          <Link to='/admin'>
             <span>
-              <ProfileIcon /> Admin Control
+              <ProfileIcon /> Control
             </span>
           </Link>
         </li>

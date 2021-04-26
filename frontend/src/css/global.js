@@ -60,11 +60,18 @@ a {
 }
 .App-btn-icon span {
   color: ${({ theme }) => theme.text};
-
 }
+
+.App-comments-owner {
+  background: ${({ theme }) => theme.myComment};}
 
 .App-menu li a,
 .App-menu li button {
   color: ${({ theme }) => theme.primary};
+}
+
+th {
+  color: ${({ theme }) => theme.bg};
+  background: ${({ theme }) => theme.text};
 }
 `;

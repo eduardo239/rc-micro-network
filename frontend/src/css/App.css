@@ -127,18 +127,29 @@ li {
   margin-top: 2rem;
   margin-bottom: 2rem;
 }
-.App-logo svg {
-  width: 9rem;
-}
 
 @media (max-width: 770px) {
   .App-logo {
     margin: 0;
   }
+  .App-menu {
+    flex-wrap: wrap;
+  }
+  .App-menu li {
+    margin: 0 0.75rem;
+    padding: 0.25rem 0 !important;
+  }
 
   .App-menu li,
   .App-menu li button {
     text-align: center;
+  }
+}
+
+@media (max-width: 1025px) {
+  .App-menu li a svg,
+  .App-menu li button svg {
+    display: none;
   }
 }
 /* - - - - - - - Icon - - - - - - - - */
@@ -214,7 +225,8 @@ li {
 }
 
 /* - - - - - - - comments - - - - - - - - */
-.App-comments {
+.App-comments,
+.App-comments-owner {
   font-size: 0.85rem;
   font-weight: 500;
   padding: 0.15rem 0.25rem;
@@ -287,6 +299,20 @@ li {
   background-position: center center !important;
   background-size: cover !important;
   border-radius: 50%;
+}
+/* - - - - - - - table - - - - - - - - */
+table {
+  width: 100%;
+  border: 1px solid #333;
+  margin: 1rem 0;
+}
+
+th,
+td {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-bottom: 1px solid #4f4f4f;
+  border-right: 1px solid #2e2d2d;
 }
 /* - - - - - - - scroll - - - - - - - - */
 ::-webkit-scrollbar {

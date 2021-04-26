@@ -3,6 +3,7 @@
   max-width: 90vw;
   overflow-y: auto;
   max-width: 700px;
+  animation: example 0.2s linear alternate;
 }
 .Content {
   padding: 1rem 0.5rem;
@@ -14,4 +15,15 @@
   position: absolute;
   right: 0;
   top: 0;
+}
+
+@keyframes example {
+  0% {
+    opacity: 0.75;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -29,8 +29,8 @@ const _posts = createAsyncSlice({
 
 const _posts_pagination = createAsyncSlice({
   name: 'posts',
-  fetchConfig: (skip) => ({
-    url: `http://localhost:5000/api/posts?skip=${skip}`,
+  fetchConfig: ({ skip, limit }) => ({
+    url: `http://localhost:5000/api/posts?skip=${skip}&limit=${limit}`,
     options: {
       method: 'GET',
     },
@@ -147,10 +147,11 @@ export const get_posts = () => async (dispatch) => {
   }
 };
 
-// get all posts
-export const get_posts_pagination = (skip) => async (dispatch) => {
+// get pagination posts
+export const get_posts_pagination = (body) => async (dispatch) => {
   try {
-    await dispatch(fetch_pagination(skip));
+    const { payload } = await dispatch(fetch_pagination(body));
+    return payload;
   } catch (error) {
     console.error(error);
   }

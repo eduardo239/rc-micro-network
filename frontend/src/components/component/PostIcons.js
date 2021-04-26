@@ -66,12 +66,15 @@ const PostIcons = ({ post, error, user }) => {
           )}
           {user?._id === post.userId._id && (
             <>
-              <button
-                className='App-btn-icon'
-                onClick={() => editHandler(post._id)}
-              >
-                <EditIcon />
-              </button>
+              {modal && (
+                <button
+                  className='App-btn-icon'
+                  onClick={() => editHandler(post._id)}
+                >
+                  <EditIcon />
+                </button>
+              )}
+
               <button
                 className='App-btn-icon'
                 onClick={() => deleteHandler(post._id)}

@@ -122,6 +122,19 @@ const _by_id = createAsyncSlice({
   }),
 });
 
+const _users = createAsyncSlice({
+  name: 'users',
+  fetchConfig: () => ({
+    url: `http://localhost:5000/api/users`,
+    options: {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${get_local_storage('token')}`,
+      },
+    },
+  }),
+});
+
 const reducer = combineReducers({
   token: _token.reducer,
   login: _login.reducer,
@@ -138,6 +151,7 @@ const fetch_posts = _posts.asyncAction;
 const fetch_add_friend = _friend.asyncAction;
 const fetch_remove_friend = _friend_remove.asyncAction;
 const fetch_user_by_id = _by_id.asyncAction;
+const fetch_users = _users.asyncAction;
 
 const { resetState: resetTokenState } = _token.actions;
 const { resetState: resetUserState } = _login.actions;
@@ -245,6 +259,16 @@ export const remove_friend = (body) => async (dispatch) => {
 export const get_user_by_id = (id) => async (dispatch) => {
   try {
     const { payload } = await dispatch(fetch_user_by_id(id));
+    return payload;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// get users
+export const get_users = () => async (dispatch) => {
+  try {
+    const { payload } = await dispatch(fetch_users());
     return payload;
   } catch (error) {
     console.error(error);

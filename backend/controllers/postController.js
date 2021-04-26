@@ -14,9 +14,9 @@ const get_all_posts = asyncHandler(async (req, res) => {
 
   const posts = await Post.find({}, null, { sort: { createdAt: -1 } })
     .populate('comments', 'content userId postId createdAt')
-    .populate('userId', 'imageAvatar name')
-    .limit(limit)
-    .skip(skip);
+    .populate('userId', 'imageAvatar name');
+  // .limit(limit)
+  // .skip(skip);
 
   if (posts) {
     res.status(200).json(posts);
@@ -209,7 +209,6 @@ const search_term = asyncHandler(async (req, res) => {
  * @access        Private
  */
 const update_post = asyncHandler(async (req, res) => {
-  console.log(req.body);
   const post = await Post.findById(req.params.id);
 
   if (post) {
