@@ -12,6 +12,7 @@ import { ReactComponent as ChatIcon } from '../../assets/ico/white/carbon_chat.s
 
 import avatar from '../../assets/img/avatar.png';
 import PmModal from './PmModal';
+import ProfilePrivateMessages from './ProfilePrivateMessages';
 
 const ProfileContent = ({ user, login }) => {
   const [pmModal, setPmModal] = React.useState(false);
@@ -77,11 +78,15 @@ const ProfileContent = ({ user, login }) => {
           <PmModal setPmModal={setPmModal} friend={friend} login={login} />
         )}
       </div>
-      {/* modal */}
+      {/* pm */}
 
       <div>
-        <h3>Private Message</h3>
-        {/* {pmData && pmData.map((x) => <p key={x._id}>{x}</p>)} */}
+        {login._id === user._id && (
+          <>
+            <h3>Private Message</h3>
+            <ProfilePrivateMessages login={login} />
+          </>
+        )}
       </div>
     </div>
   );

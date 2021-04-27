@@ -124,7 +124,8 @@ export const send_pm = (body) => async (dispatch) => {
 // send a pm message
 export const get_pm = (userId) => async (dispatch) => {
   try {
-    await dispatch(fetch_get_pm(userId));
+    const response = await dispatch(fetch_get_pm(userId));
+    return response;
   } catch (error) {
     console.error(error);
   }

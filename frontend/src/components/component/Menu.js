@@ -13,6 +13,8 @@ import { ReactComponent as RegisterIcon } from '../../assets/ico/white/carbon_us
 import { ReactComponent as NightIcon } from '../../assets/ico/white/carbon_asleep.svg';
 import { ReactComponent as DayIcon } from '../../assets/ico/white/carbon_sun.svg';
 
+import { ReactComponent as AdminIcon } from '../../assets/ico/white/carbon_password.svg';
+
 const Menu = () => {
   const dispatch = useDispatch();
 
@@ -72,7 +74,7 @@ const Menu = () => {
         <li>
           <Link to='/admin'>
             <span>
-              <ProfileIcon />
+              <AdminIcon />
               <span className='App-menu-item'>Control</span>
             </span>
           </Link>

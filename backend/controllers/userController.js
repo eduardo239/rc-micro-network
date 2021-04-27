@@ -34,13 +34,22 @@ const auth_user = asyncHandler(async (req, res) => {
  * @access        Private
  */
 const get_user_profile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user._id).populate({
-    path: 'friends',
-    populate: {
-      path: 'userId',
-      select: 'name imageAvatar',
-    },
-  });
+  const user = await User.findById(req.user._id)
+    .populate({
+      path: 'friends',
+      populate: {
+        path: 'userId',
+        select: 'name imageAvatar',
+      },
+    })
+    .populate({
+      path: 'pm',
+      populate: {
+        path: 'friendId',
+        select: 'name imageAvatar',
+      },
+    });
+
   if (user) {
     res.json({
       _id: user._id,
@@ -50,6 +59,7 @@ const get_user_profile = asyncHandler(async (req, res) => {
       imageAvatar: user.imageAvatar,
       imageProfile: user.imageProfile,
       friends: user.friends,
+      pm: user.pm,
       createdAt: user.createdAt,
     });
   } else {

@@ -123,22 +123,28 @@ const post_new_pm = asyncHandler(async (req, res) => {
   const friend = await User.findById(friendId);
 
   if (user && friend) {
-    const pm = await PM.create({
+    const myPM = await PM.create({
       userId,
       friendId,
       content,
     });
 
-    user.pm.push(pm);
-    user.save();
+    const hisPM = await PM.create({
+      userId: friendId,
+      friendId: userId,
+      content,
+    });
 
-    friend.pm.push(pm);
+    user.pm.push(myPM);
+    friend.pm.push(hisPM);
+
+    user.save();
     friend.save();
 
     res.send(true);
   } else {
     res.status(404);
-    throw new Error('User not found.');
+    throw new Error('Private Message error.');
   }
 });
 

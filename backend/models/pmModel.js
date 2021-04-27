@@ -6,6 +6,7 @@ const privateMessageSchema = mongoose.Schema(
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     friendId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     content: { type: String, required: true },
+    replies: [{ type: String }],
   },
   {
     timestamps: true,

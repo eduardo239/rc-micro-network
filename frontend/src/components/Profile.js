@@ -42,7 +42,6 @@ const Profile = ({ match }) => {
             <ProfileContent user={userData} login={loginData} />
           </>
         )}
-        {/* <PM /> */}
       </Col>
     </Row>
   );

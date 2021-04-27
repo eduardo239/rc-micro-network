@@ -2,13 +2,14 @@ import React from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import { ReactComponent as CloseDeleteIcon } from '../../assets/ico/white/carbon_close.svg';
+import { ReactComponent as CloseIcon } from '../../assets/ico/white/carbon_close.svg';
 import { send_pm } from '../../store/comments';
 
 import styles from '../css/ProfileContent.module.css';
 
 const PmModal = ({ setPmModal, friend, login }) => {
   const [content, setContent] = React.useState('');
+  const [message, setMessage] = React.useState('');
   const modalRef = React.createRef();
   const dispatch = useDispatch();
 
@@ -20,7 +21,12 @@ const PmModal = ({ setPmModal, friend, login }) => {
 
   const pmHandler = () => {
     if (friend && login) {
-      dispatch(send_pm({ content, friendId: friend._id, userId: login._id }));
+      const response = dispatch(
+        send_pm({ content, friendId: friend._id, userId: login._id })
+      );
+      if (response) setMessage('Private message sent.');
+      else setMessage('Error');
+      setTimeout(() => setMessage(''), 2000);
     }
   };
 
@@ -32,7 +38,7 @@ const PmModal = ({ setPmModal, friend, login }) => {
           onClick={() => setPmModal(false)}
           className='App-btn-icon-mini App-btn-secondary'
         >
-          <CloseDeleteIcon />
+          <CloseIcon />
         </button>
         <h4>Private Message</h4>
         <img
@@ -47,12 +53,16 @@ const PmModal = ({ setPmModal, friend, login }) => {
           onChange={({ target }) => setContent(target.value)}
         />
         <button
-          onClick={() => pmHandler(7777)}
+          onClick={pmHandler}
           type='submit'
           className='App-btn App-btn-primary'
         >
           Send
         </button>
+
+        {message && (
+          <p className='App-message App-message-success'>{message}</p>
+        )}
       </div>
     </div>
   );

@@ -23,3 +23,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDhjN
     "friendId": "6082dd8c6533e90d046fdf2b",
     "content": "123"
 }
+
+### get pm by userId
+// TODO
+GET http://localhost:5000/api/private HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTUyOTE2OCwiZXhwIjoxNjE5NjE1NTY4fQ.U8gEM6BLqpIqBu47HJkrZVtKRloYkmvUWeYpVHT6KQc
