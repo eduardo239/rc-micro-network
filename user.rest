@@ -27,8 +27,8 @@ GET http://localhost:5000/api/users HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTI5NjA5OSwiZXhwIjoxNjE5MzgyNDk5fQ.WWsMG5PcfkaJrqK1wgNFlAtsuwQD5PhOGeEUXZzSUq4
 
 ### get user by id
-GET http://localhost:5000/api/users/6080c594373fc01040dc3a2d HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODBjNTk0MzczZmMwMTA0MGRjM2EyZCIsImlhdCI6MTYxOTA1MTk1NCwiZXhwIjoxNjE5MTM4MzU0fQ.dOfKJqdegJwGI1NveTwJ2gxWAeIIPvSltfHvq-V-V6Q
+GET http://localhost:5000/api/users/60832c6d04445e273cea0f67 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTUyOTI3NywiZXhwIjoxNjE5NjE1Njc3fQ.b7XiP6AFC_dnXKE2KKOB077o_VUDe-dFyB6AjkLFYLY
 
 ### update user
 PUT http://localhost:5000/api/users/profile HTTP/1.1

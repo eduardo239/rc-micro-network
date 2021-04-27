@@ -1,8 +1,8 @@
 ### - - - - - - - - - - - - - - - - - - COMMENTS - - - - - - - - -- - - - - - - - -
-### get all comments
+### post new comment
 POST http://localhost:5000/api/comments/ HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTI3MDExMiwiZXhwIjoxNjE5MzU2NTEyfQ.U7nWqOQnF3cI4K6uYGJjInRrYx0uuehGTzMyQ01fdNk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTUyOTE2OCwiZXhwIjoxNjE5NjE1NTY4fQ.U8gEM6BLqpIqBu47HJkrZVtKRloYkmvUWeYpVHT6KQc
 
 {
     "postId": "60817951caa28f3384f83eb9",
@@ -12,7 +12,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0N
 ### - - - - - - - - - - - - - - - - - - PM - - - - - - - - -- - - - - - - - -
 ### get all pm FIXME
 GET http://localhost:5000/api/private HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTI3MDExMiwiZXhwIjoxNjE5MzU2NTEyfQ.U7nWqOQnF3cI4K6uYGJjInRrYx0uuehGTzMyQ01fdNk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTUyOTE2OCwiZXhwIjoxNjE5NjE1NTY4fQ.U8gEM6BLqpIqBu47HJkrZVtKRloYkmvUWeYpVHT6KQc
 
 ### post new pm
 POST http://localhost:5000/api/private HTTP/1.1

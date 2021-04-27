@@ -130,9 +130,15 @@ li {
 
 @media (max-width: 770px) {
   .App-logo {
-    margin: 0;
+    display: none;
   }
+
   .App-menu {
+    max-width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
     flex-wrap: wrap;
   }
   .App-menu li {
@@ -144,11 +150,7 @@ li {
   .App-menu li button {
     text-align: center;
   }
-}
-
-@media (max-width: 1025px) {
-  .App-menu li a svg,
-  .App-menu li button svg {
+  .App-menu-item {
     display: none;
   }
 }
@@ -208,13 +210,6 @@ li {
   height: 23px;
 }
 
-@media (max-width: 770px) {
-  .App-menu {
-    display: flex;
-    justify-content: space-between;
-    max-width: 400px;
-  }
-}
 /* - - - - - - - loading - - - - - - - - */
 .App-loading-center {
   display: flex;

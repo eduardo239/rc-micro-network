@@ -11,23 +11,16 @@ import { ReactComponent as DeleteIcon } from '../../assets/ico/white/carbon_dele
 import { ReactComponent as ChatIcon } from '../../assets/ico/white/carbon_chat.svg';
 
 import avatar from '../../assets/img/avatar.png';
+import PmModal from './PmModal';
 
 const ProfileContent = ({ user, login }) => {
   const [pmModal, setPmModal] = React.useState(false);
-  const [content, setContent] = React.useState('');
-
-  const modalRef = React.createRef();
-
+  const [friend, setFriend] = React.useState({});
   const dispatch = useDispatch();
 
-  const clickOutsideHandler = (e) => {
-    if (modalRef && !modalRef.current.contains(e.target)) {
-      setPmModal(false);
-    }
-  };
-
-  const pmHandler = (friendId) => {
-    dispatch(send_pm({ content, friendId }));
+  const pmHandler = (friend) => {
+    setPmModal(true);
+    setFriend(friend);
   };
 
   const removeHandler = (friendId, userId) => {
@@ -60,7 +53,7 @@ const ProfileContent = ({ user, login }) => {
                 </div>
                 <div>
                   <button
-                    onClick={() => setPmModal(true)}
+                    onClick={() => pmHandler(f.friendId)}
                     className='App-btn-icon-mini'
                   >
                     <ChatIcon />
@@ -68,49 +61,21 @@ const ProfileContent = ({ user, login }) => {
 
                   {login._id === user._id && (
                     <button
-                      onClick={() => removeHandler(f.friendId._id, user._id)}
+                      onClick={() => removeHandler(1, 2)}
                       className='App-btn-icon-mini'
                     >
                       <DeleteIcon />
                     </button>
                   )}
                 </div>
-                {f.friendId._id}
-                {pmModal && (
-                  <div
-                    className='App-modal-container'
-                    onClick={clickOutsideHandler}
-                  >
-                    <div className={`${styles.Modal} App-PM`} ref={modalRef}>
-                      <button
-                        onClick={() => setPmModal(false)}
-                        className='App-btn App-btn-secondary'
-                      >
-                        close
-                      </button>
-                      <h4>Private Message</h4>
-                      <p>to {f.friendId.name}</p>
-                      <input
-                        type='text'
-                        value={content}
-                        onChange={({ target }) => setContent(target.value)}
-                      />
-                      {/* FIXME */}
-                      <button
-                        onClick={() => pmHandler(f.friendId._id)}
-                        type='submit'
-                        className='App-btn App-btn-primary'
-                      >
-                        Send
-                      </button>
-                      {f.friendId._id}
-                    </div>
-                  </div>
-                )}
-                {/*  */}
+
+                {/* modal */}
               </div>
             ))}
         </div>
+        {pmModal && (
+          <PmModal setPmModal={setPmModal} friend={friend} login={login} />
+        )}
       </div>
       {/* modal */}
 

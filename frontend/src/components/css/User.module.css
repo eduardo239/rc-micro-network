@@ -5,6 +5,11 @@
   gap: 0.5rem;
 }
 
+@media (max-width: 770px) {
+  .User {
+    display: none;
+  }
+}
 .User img {
   height: 2rem;
 }

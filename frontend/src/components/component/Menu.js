@@ -10,7 +10,8 @@ import { ReactComponent as ProfileIcon } from '../../assets/ico/white/carbon_use
 import { ReactComponent as LogoutIcon } from '../../assets/ico/white/carbon_logout.svg';
 import { ReactComponent as LoginIcon } from '../../assets/ico/white/carbon_login.svg';
 import { ReactComponent as RegisterIcon } from '../../assets/ico/white/carbon_user-follow.svg';
-import { ReactComponent as ThemeIcon } from '../../assets/ico/white/carbon_asleep.svg';
+import { ReactComponent as NightIcon } from '../../assets/ico/white/carbon_asleep.svg';
+import { ReactComponent as DayIcon } from '../../assets/ico/white/carbon_sun.svg';
 
 const Menu = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,8 @@ const Menu = () => {
       <li>
         <Link to='/'>
           <span>
-            <HomeIcon /> Home
+            <HomeIcon />
+            <span className='App-menu-item'>Home</span>
           </span>
         </Link>
       </li>
@@ -39,7 +41,8 @@ const Menu = () => {
         <li>
           <Link to='/register'>
             <span>
-              <RegisterIcon /> Register
+              <RegisterIcon />
+              <span className='App-menu-item'>Register</span>
             </span>
           </Link>
         </li>
@@ -48,7 +51,8 @@ const Menu = () => {
         <li>
           <Link to='/login'>
             <span>
-              <LoginIcon /> Login
+              <LoginIcon />
+              <span className='App-menu-item'>Login</span>
             </span>
           </Link>
         </li>
@@ -58,7 +62,8 @@ const Menu = () => {
         <li>
           <Link to={`/profile/${loginData._id}`}>
             <span>
-              <ProfileIcon /> {loginData.name}
+              <ProfileIcon />
+              <span className='App-menu-item'>{loginData.name}</span>
             </span>
           </Link>
         </li>
@@ -67,7 +72,8 @@ const Menu = () => {
         <li>
           <Link to='/admin'>
             <span>
-              <ProfileIcon /> Control
+              <ProfileIcon />
+              <span className='App-menu-item'>Control</span>
             </span>
           </Link>
         </li>
@@ -77,7 +83,8 @@ const Menu = () => {
         <li>
           <Link to='/settings'>
             <span>
-              <SettingsIcon /> Settings
+              <SettingsIcon />
+              <span className='App-menu-item'>Settings</span>
             </span>
           </Link>
         </li>
@@ -85,14 +92,16 @@ const Menu = () => {
 
       <li>
         <button className='App-link' onClick={themeHandler}>
-          <ThemeIcon /> Theme
+          {ui === 'light' ? <NightIcon /> : <DayIcon />}
+          <span className='App-menu-item'>Theme</span>
         </button>
       </li>
 
       {loginData && (
         <li>
           <button className='App-link' onClick={() => dispatch(user_logout())}>
-            <LogoutIcon /> Logout
+            <LogoutIcon />
+            <span className='App-menu-item'>Logout</span>
           </button>
         </li>
       )}

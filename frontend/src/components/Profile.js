@@ -24,7 +24,7 @@ const Profile = ({ match }) => {
 
   return (
     <Row className='justify-content-center'>
-      <Col xs={12} md={2}>
+      <Col xs={12} md={3}>
         <Row className='justify-content-between'>
           <Col>
             <Logo />

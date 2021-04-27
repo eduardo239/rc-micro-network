@@ -56,7 +56,7 @@ const ProfileHeader = ({ user, login }) => {
   };
 
   React.useEffect(() => {
-    const btnChange = () => {
+    (() => {
       const x = login.friends.map((x) => x.friendId === user._id);
       if (btnAddRef.current) {
         if (x.includes(true)) btnAddRef.current.innerHTML = 'Remove';
@@ -64,8 +64,7 @@ const ProfileHeader = ({ user, login }) => {
         if (x.includes(true)) btnAddRef.current.style.background = '#ff312e';
         else btnAddRef.current.style.background = '#0F7CBF';
       }
-    };
-    btnChange();
+    })();
   }, [login, user]);
   return (
     <div>

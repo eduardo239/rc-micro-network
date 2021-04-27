@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 const privateMessageSchema = mongoose.Schema(
   {
-    userId: { type: Schema.Types.ObjectId, ref: 'User' },
-    friendId: { type: Schema.Types.ObjectId, ref: 'User' },
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    friendId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     content: { type: String, required: true },
   },
   {
