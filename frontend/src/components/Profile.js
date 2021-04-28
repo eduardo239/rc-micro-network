@@ -9,7 +9,6 @@ import ProfileContent from './component/ProfileContent';
 import ProfileHeader from './component/ProfileHeader';
 import Menu from './component/Menu';
 import Logo from './component/Logo';
-import User from './component/User';
 
 const Profile = ({ match }) => {
   const { data: userData } = useSelector((state) => state.user.user);
@@ -28,9 +27,6 @@ const Profile = ({ match }) => {
         <Row className='justify-content-between'>
           <Col>
             <Logo />
-          </Col>
-          <Col>
-            <User user={userData} />
           </Col>
         </Row>
         <Menu />

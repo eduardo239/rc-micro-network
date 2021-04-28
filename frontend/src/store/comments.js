@@ -72,6 +72,21 @@ const _get_pm = createAsyncSlice({
   }),
 });
 
+const _delete_pm = createAsyncSlice({
+  name: 'delete_pm',
+  fetchConfig: (friendId) => ({
+    url: `/api/private`,
+    options: {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${get_local_storage('token')}`,
+      },
+      body: JSON.stringify(friendId),
+    },
+  }),
+});
+
 const reducer = combineReducers({
   comment: _new_comment.reducer,
   pm: _get_pm.reducer,
@@ -82,6 +97,7 @@ const fetch_delete_comment = _delete_comment.asyncAction;
 const fetch_new_pm = _new_pm.asyncAction;
 const fetch_get_pm = _get_pm.asyncAction;
 const fetch_edit_comment = _edit.asyncAction;
+const fetch_delete_pm = _delete_pm.asyncAction;
 
 export default reducer;
 
@@ -125,6 +141,16 @@ export const send_pm = (body) => async (dispatch) => {
 export const get_pm = (userId) => async (dispatch) => {
   try {
     const response = await dispatch(fetch_get_pm(userId));
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// send a pm message
+export const delete_pm = (friendId) => async (dispatch) => {
+  try {
+    const response = await dispatch(fetch_delete_pm(friendId));
     return response;
   } catch (error) {
     console.error(error);

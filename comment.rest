@@ -10,7 +10,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0N
 }
 
 ### - - - - - - - - - - - - - - - - - - PM - - - - - - - - -- - - - - - - - -
-### get all pm FIXME
+### get all pm
 GET http://localhost:5000/api/private HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTUyOTE2OCwiZXhwIjoxNjE5NjE1NTY4fQ.U8gEM6BLqpIqBu47HJkrZVtKRloYkmvUWeYpVHT6KQc
 
@@ -22,6 +22,15 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDhjN
 {
     "friendId": "6082dd8c6533e90d046fdf2b",
     "content": "123"
+}
+
+### delete pm
+DELETE http://localhost:5000/api/private HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTUzNDMzNCwiZXhwIjoxNjE5NjIwNzM0fQ.1Xc0xpaxSCktx619fHp37bHStvt8Op2823gVuhTuWCg
+
+{
+    "friendId": "6082dd8c6533e90d046fdf2b"
 }
 
 ### get pm by userId

@@ -18,6 +18,7 @@ import friendRoutes from './routes/friendRoutes.js';
 import privateRoutes from './routes/privateRoutes.js';
 import uploadRoutes from './routes/uploadRoutes.js';
 import searchRoutes from './routes/searchRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 dotenv.config();
@@ -43,6 +44,7 @@ app.use('/api/upload', uploadRoutes);
 app.use('/api/private', privateRoutes);
 app.use('/api/search', searchRoutes);
 app.use('/api/friends', friendRoutes);
+app.use('/api/admin', adminRoutes);
 app.use(notFound);
 app.use(errorHandler);
 

@@ -18,11 +18,9 @@ const Home = () => {
   return (
     <Row className='justify-content-center'>
       <Col xs={12} md={3}>
-        <Row className='justify-content-between'>
+        <Row>
           <Col>
             <Logo />
-          </Col>
-          <Col>
             <User user={loginData} />
           </Col>
         </Row>

@@ -46,6 +46,8 @@ h5 {
 
 button {
   font-family: 'Poppins', Arial, Helvetica, sans-serif;
+  outline: none;
+  border: none;
 }
 
 h1 {
@@ -97,6 +99,14 @@ li {
   gap: 0.5rem;
   align-items: center;
 }
+
+.none {
+  display: none;
+}
+
+.block {
+  display: block;
+}
 /* - - - - - - - Btn - - - - - - - - */
 .App-btn {
   padding: 0.5rem;
@@ -123,9 +133,9 @@ li {
 
 /* - - - - - - - Logo - - - - - - - - */
 .App-logo {
-  max-width: 10rem;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 @media (max-width: 770px) {

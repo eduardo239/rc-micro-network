@@ -1,21 +1,49 @@
 import React from 'react';
+
 import { Col, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
-//import { get_posts } from '../store/post';
-//import { get_users } from '../store/user';
+import { useSelector, useDispatch } from 'react-redux';
+import { _get_stats } from '../store/user';
+
+import AdminPosts from './component/AdminPosts';
+import AdminUsers from './component/AdminUsers';
+import AdminComments from './component/AdminComments';
 
 import Logo from './component/Logo';
 import Menu from './component/Menu';
 
 const Admin = ({ history }) => {
   const { data: loginData } = useSelector((state) => state.user.login);
-  const { data: postsData } = useSelector((state) => state.post.posts);
 
-  //  const dispatch = useDispatch();
+  const dispatch = useDispatch();
+  const [data, setData] = React.useState('');
+  const [showUsers, setShowUsers] = React.useState(true);
+  const [showPosts, setShowPosts] = React.useState(false);
+  const [showComments, setShowComments] = React.useState(false);
+
+  const showUsersHandler = () => {
+    setShowComments(false);
+    setShowPosts(false);
+    setShowUsers(!showUsers);
+  };
+  const showPostsHandler = () => {
+    setShowUsers(false);
+    setShowComments(false);
+    setShowPosts(!showPosts);
+  };
+  const showCommentsHandler = () => {
+    setShowUsers(false);
+    setShowPosts(false);
+    setShowComments(!showPosts);
+  };
 
   React.useEffect(() => {
     if (!loginData?.isAdmin) history.push('/');
-  }, [history, loginData]);
+
+    (async () => {
+      const result = await dispatch(_get_stats());
+      setData(result);
+    })();
+  }, [history, loginData, dispatch]);
 
   return (
     <Row className='justify-content-center'>
@@ -35,17 +63,34 @@ const Admin = ({ history }) => {
               <th>Posts</th>
               <th>Users</th>
               <th>Comments</th>
+              <th>Pm</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>TOTAL:</td>
-              <td>{postsData && postsData.length}</td>
-              <td>342433</td>
-              <td>34643</td>
+              <td>{data && data.posts.length}</td>
+              <td>{data && data.users.length}</td>
+              <td>{data && data.comments.length}</td>
+              <td>{data && data.pms.length}</td>
             </tr>
           </tbody>
         </table>
+        {/*  */}
+        <>
+          <button className='App-btn-primary' onClick={showUsersHandler}>
+            users
+          </button>
+          <button className='App-btn-secondary' onClick={showPostsHandler}>
+            posts
+          </button>
+          <button className='App-btn-secondary' onClick={showCommentsHandler}>
+            comments
+          </button>
+          {showUsers && <AdminUsers users={data.users} />}
+          {showPosts && <AdminPosts posts={data.posts} />}
+          {showComments && <AdminComments comments={data.comments} />}
+        </>
       </Col>
     </Row>
   );

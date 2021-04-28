@@ -1,9 +1,7 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { remove_friend } from '../../store/user';
-import { send_pm } from '../../store/comments';
+// import { useDispatch } from 'react-redux';
 
 import styles from '../css/ProfileContent.module.css';
 
@@ -17,22 +15,18 @@ import ProfilePrivateMessages from './ProfilePrivateMessages';
 const ProfileContent = ({ user, login }) => {
   const [pmModal, setPmModal] = React.useState(false);
   const [friend, setFriend] = React.useState({});
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
   const pmHandler = (friend) => {
     setPmModal(true);
     setFriend(friend);
   };
 
-  const removeHandler = (friendId, userId) => {
-    dispatch(remove_friend({ friendId, userId }));
-  };
-
   return (
     <div>
       <div>
         <h3>Posts</h3>
-        {user && user.posts.map((p) => <div key={p._id}>{p._id}</div>)}
+        {user && user.posts?.map((p) => <div key={p._id}>{p._id}</div>)}
       </div>
       {/* friends */}
       <div className={styles.FriendsContainer}>
@@ -61,19 +55,15 @@ const ProfileContent = ({ user, login }) => {
                   </button>
 
                   {login._id === user._id && (
-                    <button
-                      onClick={() => removeHandler(1, 2)}
-                      className='App-btn-icon-mini'
-                    >
+                    <button className='App-btn-icon-mini'>
                       <DeleteIcon />
                     </button>
                   )}
                 </div>
-
-                {/* modal */}
               </div>
             ))}
         </div>
+        {/* modal */}
         {pmModal && (
           <PmModal setPmModal={setPmModal} friend={friend} login={login} />
         )}

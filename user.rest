@@ -48,3 +48,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODBjNTk0M
 ### get posts by user
 GET http://localhost:5000/api/users/posts/6081b528e3fa1d1ccc145cff HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODBjNTk0MzczZmMwMTA0MGRjM2EyZCIsImlhdCI6MTYxOTExMzc4MiwiZXhwIjoxNjE5MjAwMTgyfQ.L_HjbIBZFAQ_4QO68davesOr_80LrpSlNj7TfT1t3Kg
+
+### - - - - - - - - - - - - - - - - - - ADMIN - - - - - - - - -- - - - - - - - -
+### get all stats
+GET http://localhost:5000/api/admin/stats HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODJkZDg0NjUzM2U5MGQwNDZmZGYyYSIsImlhdCI6MTYxOTYyMTExMywiZXhwIjoxNjE5NzA3NTEzfQ.RCmpbxCzOwqwzgYzYQMWNiyitlrC_q1NfzZnUoexJgQ

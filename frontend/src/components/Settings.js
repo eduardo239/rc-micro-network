@@ -2,14 +2,13 @@ import React from 'react';
 
 // import { Link } from 'react-router-dom';
 import { Col, Row } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 import styles from './css/Register.module.css';
 
 import Input from './form/Input';
 import Button from './form/Button';
 import Menu from './component/Menu';
-import User from './component/User';
 import Logo from './component/Logo';
 
 const Settings = () => {
@@ -18,7 +17,7 @@ const Settings = () => {
   const [password, setPassword] = React.useState('123');
   const [passwordAgain, setPasswordAgain] = React.useState('123');
 
-  const { data: loginData } = useSelector((state) => state.user.login);
+  // const { data: loginData } = useSelector((state) => state.user.login);
 
   const updateHandler = (e) => {
     e.preventDefault();
@@ -31,9 +30,6 @@ const Settings = () => {
         <Row className='justify-content-between'>
           <Col>
             <Logo />
-          </Col>
-          <Col>
-            <User user={loginData} />
           </Col>
         </Row>
         <Menu />

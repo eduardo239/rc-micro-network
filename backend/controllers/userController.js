@@ -2,6 +2,8 @@ import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import Friend from '../models/friendModel.js';
 import Post from '../models/postModel.js';
+import PM from '../models/pmModel.js';
+import Comment from '../models/commentModel.js';
 import generateToken from '../utils/generateToken.js';
 
 /**
@@ -287,6 +289,30 @@ const delete_user = asyncHandler(async (req, res) => {
   }
 });
 
+/**
+ * @description   Admin control
+ * @route         DELETE /api/users/admin
+ * @access        Admin
+ */
+const admin_control = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  const posts = await Post.find({});
+  const comments = await Comment.find({});
+  const pms = await PM.find({});
+
+  if (users || posts || comments) {
+    res.json({
+      users,
+      posts,
+      comments,
+      pms,
+    });
+  } else {
+    res.status(404);
+    throw new Error('Data not found.');
+  }
+});
+
 export {
   auth_user,
   get_user_profile,
@@ -298,4 +324,5 @@ export {
   add_friend,
   delete_friend,
   delete_user,
+  admin_control,
 };

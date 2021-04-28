@@ -11,6 +11,7 @@ import {
   add_friend,
   delete_friend,
   delete_user,
+  admin_control,
 } from '../controllers/userController.js';
 import { admin, protect } from '../middleware/authMiddleware.js';
 

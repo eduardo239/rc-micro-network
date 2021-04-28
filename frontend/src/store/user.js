@@ -135,12 +135,26 @@ const _users = createAsyncSlice({
   }),
 });
 
+const __stats = createAsyncSlice({
+  name: 'stats',
+  fetchConfig: () => ({
+    url: `http://localhost:5000/api/admin/stats`,
+    options: {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${get_local_storage('token')}`,
+      },
+    },
+  }),
+});
+
 const reducer = combineReducers({
   token: _token.reducer,
   login: _login.reducer,
   register: _register.reducer,
   posts: _posts.reducer,
   user: _by_id.reducer,
+  __stats: __stats.reducer,
 });
 
 const fetch_token = _token.asyncAction;
@@ -152,6 +166,7 @@ const fetch_add_friend = _friend.asyncAction;
 const fetch_remove_friend = _friend_remove.asyncAction;
 const fetch_user_by_id = _by_id.asyncAction;
 const fetch_users = _users.asyncAction;
+const _fetch_stats = __stats.asyncAction;
 
 const { resetState: resetTokenState } = _token.actions;
 const { resetState: resetUserState } = _login.actions;
@@ -269,6 +284,16 @@ export const get_user_by_id = (id) => async (dispatch) => {
 export const get_users = () => async (dispatch) => {
   try {
     const { payload } = await dispatch(fetch_users());
+    return payload;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// _get stats admin
+export const _get_stats = () => async (dispatch) => {
+  try {
+    const { payload } = await dispatch(_fetch_stats());
     return payload;
   } catch (error) {
     console.error(error);

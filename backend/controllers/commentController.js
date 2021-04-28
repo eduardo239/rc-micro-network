@@ -111,6 +111,25 @@ const get_all_pm = asyncHandler(async (req, res) => {
 });
 
 /**
+ * @description   Update comment
+ * @route         PUT /api/comments/:id
+ * @access        Private
+ */
+const update_comment = asyncHandler(async (req, res) => {
+  const comment = await Comment.findById(req.params.id);
+
+  if (comment) {
+    comment.content = req.body.content || comment.content;
+
+    const updatedComment = await comment.save();
+    res.json(updatedComment);
+  } else {
+    res.status(404);
+    throw new Error('Comment not found.');
+  }
+});
+
+/**
  * @description   Post new private message
  * @route         POST /api/private
  * @access        Private
@@ -165,21 +184,33 @@ const get_pm_by_user = asyncHandler(async (req, res) => {
 });
 
 /**
- * @description   Update comment
- * @route         PUT /api/comments/:id
- * @access        Private
+ * @description   Delete Private message
+ * @route         GET /api/private/:pmId
+ * @access        Protect
  */
-const update_comment = asyncHandler(async (req, res) => {
-  const comment = await Comment.findById(req.params.id);
+const delete_pm = asyncHandler(async (req, res) => {
+  const pm = await PM.find({
+    userId: req.user._id,
+    friendId: req.body.friendId,
+  });
 
-  if (comment) {
-    comment.content = req.body.content || comment.content;
+  const user = await User.findById(req.user._id);
 
-    const updatedComment = await comment.save();
-    res.json(updatedComment);
+  if (pm && user) {
+    try {
+      user.pm.pull({ _id: pm[0]._id });
+      user.save();
+
+      await PM.deleteOne({ _id: pm[0]._id });
+
+      res.send(true);
+    } catch (error) {
+      res.status(404);
+      throw new Error('Private messages not found.');
+    }
   } else {
     res.status(404);
-    throw new Error('Comment not found.');
+    throw new Error('Private messages not found.');
   }
 });
 
@@ -188,8 +219,9 @@ export {
   get_comment_by_id,
   delete_comment_by_id,
   get_all_comments,
+  update_comment,
   post_new_pm,
   get_all_pm,
   get_pm_by_user,
-  update_comment,
+  delete_pm,
 };

@@ -1,10 +1,18 @@
 import React from 'react';
 
-import styles from '../css/ProfilePrivateMessages.module.css';
-import { ReactComponent as CloseIcon } from '../../assets/ico/white/carbon_close.svg';
+import { useDispatch } from 'react-redux';
+import { ReactComponent as DeleteIcon } from '../../assets/ico/white/carbon_close.svg';
+import { delete_pm } from '../../store/comments';
 import { Link } from 'react-router-dom';
 
+import styles from '../css/ProfilePrivateMessages.module.css';
+
 const ProfilePrivateMessages = ({ login }) => {
+  const dispatch = useDispatch();
+  const deletePmHandler = (friendId) => {
+    dispatch(delete_pm({ friendId }));
+  };
+
   return (
     <div>
       {login?.pm &&
@@ -19,10 +27,11 @@ const ProfilePrivateMessages = ({ login }) => {
             </Link>
             <p>{m.content}</p>
             <button
+              onClick={() => deletePmHandler(m.friendId._id)}
               style={{ position: 'absolute', top: '0', right: '0' }}
               className='App-btn-icon-mini'
             >
-              <CloseIcon />
+              <DeleteIcon />
             </button>
           </div>
         ))}

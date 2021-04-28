@@ -4,7 +4,6 @@ import { Col, Row } from 'react-bootstrap';
 import Logo from './component/Logo';
 
 import Menu from './component/Menu';
-import User from './component/User';
 
 import styles from './css/Post.module.css';
 
@@ -17,9 +16,12 @@ const post = {
 const Post = () => {
   return (
     <Row className='justify-content-center'>
-      <Col xs={12} md={2}>
-        <Logo />
-        <User />
+      <Col xs={12} md={3}>
+        <Row className='justify-content-between'>
+          <Col>
+            <Logo />
+          </Col>
+        </Row>
         <Menu />
       </Col>
       <Col xs={12} md={5}>
