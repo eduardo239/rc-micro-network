@@ -15,7 +15,7 @@ import { ReactComponent as ChatIcon } from '../../assets/ico/white/carbon_chat.s
 import { ReactComponent as DeleteIcon } from '../../assets/ico/white/carbon_delete.svg';
 import { ReactComponent as EditIcon } from '../../assets/ico/white/carbon_edit.svg';
 
-const PostIcons = ({ post, error, user }) => {
+const PostIcons = ({ post, error, login }) => {
   const modal = useSelector((state) => state.modal.post_modal);
   const dispatch = useDispatch();
 
@@ -64,7 +64,7 @@ const PostIcons = ({ post, error, user }) => {
               <span>{post.comments.length}</span>
             </button>
           )}
-          {user?._id === post.userId._id && (
+          {login?._id === post.userId._id && (
             <>
               {modal && (
                 <button

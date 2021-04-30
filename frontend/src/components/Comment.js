@@ -50,7 +50,7 @@ const Comment = ({ user, comments, postId }) => {
         comments
           .map((comment) => (
             <div
-              key={Math.random()}
+              key={comment._id}
               className={`${
                 user._id === comment.userId._id
                   ? 'App-comments-owner'
@@ -64,13 +64,11 @@ const Comment = ({ user, comments, postId }) => {
                 }}
               ></div>
               <span className='App-comment-author'>
-                <Link to={`profile/${comment.userId._id}`}>
-                  {comment.userId.name}
+                <Link to={`profile/${comment.userId._id || ''}`}>
+                  {comment.userId.name || 'Banned'}
                 </Link>
               </span>
               <div className='App-comment'>
-                {/* <p className='text-small'>{comment.content}</p> */}
-
                 {user._id === comment.userId._id &&
                 comment._id === commentId ? (
                   <div style={{ position: 'relative', width: '100%' }}>

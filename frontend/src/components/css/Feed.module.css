@@ -1,7 +1,8 @@
 .Feed {
-  display: inline-flex;
+  display: flex;
   flex-direction: column;
   max-width: 400px;
+  margin: 0 auto 1rem;
 }
 .Post {
   margin-bottom: 1rem;

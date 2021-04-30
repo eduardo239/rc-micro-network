@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { openModal } from '../store/modal';
-import { get_post } from '../store/post';
+import { get_post, get_posts_pagination } from '../store/post';
 
 import Loading from './component/Loading';
 import PostIcons from './component/PostIcons';
@@ -18,8 +18,8 @@ const Feed = () => {
   const { data: loginData } = useSelector((state) => state.user.login);
   const { error: deleteError } = useSelector((state) => state.post.delete);
 
-  // const [pages, setPages] = React.useState([1]);
-  // const [pagesBefore, setPagesBefore] = React.useState([1]);
+  const [pages, setPages] = React.useState(3);
+  const [wait, setWait] = React.useState(false);
   // const [infinite, setInfinite] = React.useState(true);
 
   const dispatch = useDispatch();
@@ -29,40 +29,34 @@ const Feed = () => {
     dispatch(openModal());
   };
 
-  // React.useEffect(() => {
-  //   let wait = false;
-  //   const scrollHandler = async () => {
-  //     if (infinite) {
-  //       const scroll = window.scrollY;
-  //       const height = document.body.offsetHeight - window.innerHeight;
+  const fetchPages = () => {
+    dispatch(get_posts_pagination({ skip: 0, limit: pages * 3 }));
+  };
 
-  //       if (scroll > height * 0.75 && !wait && infinite) {
-  //         setPages((pages) => [...pages, pages.length + 1]);
-  //         wait = true;
+  const infiniteScroll = () => {
+    if (!wait) {
+      // const scroll = window.scrollY;
+      // const height = document.body.offsetHeight - window.innerHeight;
 
-  //         setPagesBefore(pages.length * 5);
+      // if (scroll > height * 0.75) {
+      //   setPages((pages) => pages + 1);
+      //   fetchPages();
+      //   setWait(true);
+      // }
+      setTimeout(() => setWait(false), 1000);
+    }
+  };
 
-  //         const payload = await dispatch(
-  //           get_posts_pagination({
-  //             skip: 0,
-  //             limit: 5 * pages.length,
-  //           })
-  //         );
+  React.useEffect(() => {
+    fetchPages();
+    window.addEventListener('wheel', infiniteScroll);
+    window.addEventListener('scroll', infiniteScroll);
 
-  //         if (pagesBefore < payload.length) setInfinite(false);
-  //         setTimeout(() => (wait = false), 1000);
-  //       }
-  //     }
-  //   };
-
-  //   window.addEventListener('wheel', scrollHandler);
-  //   window.addEventListener('scroll', scrollHandler);
-
-  //   return () => {
-  //     window.removeEventListener('wheel', scrollHandler);
-  //     window.removeEventListener('scroll', scrollHandler);
-  //   };
-  // }, [dispatch, infinite, pages, pagesBefore]);
+    return () => {
+      window.addEventListener('wheel', infiniteScroll);
+      window.addEventListener('scroll', infiniteScroll);
+    };
+  }, []);
 
   return (
     <div className={styles.Feed}>
@@ -94,7 +88,7 @@ const Feed = () => {
                 alt={post.userId.name}
               />
               <p>{post.content}</p>
-              <PostIcons post={post} user={loginData} error={deleteError} />
+              <PostIcons post={post} login={loginData} error={deleteError} />
             </div>
           ))}
     </div>

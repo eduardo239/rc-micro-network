@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { darkTheme, lightTheme } from '../../store/ui';
@@ -12,7 +13,6 @@ import { ReactComponent as LoginIcon } from '../../assets/ico/white/carbon_login
 import { ReactComponent as RegisterIcon } from '../../assets/ico/white/carbon_user-follow.svg';
 import { ReactComponent as NightIcon } from '../../assets/ico/white/carbon_asleep.svg';
 import { ReactComponent as DayIcon } from '../../assets/ico/white/carbon_sun.svg';
-
 import { ReactComponent as AdminIcon } from '../../assets/ico/white/carbon_password.svg';
 
 const Menu = () => {

@@ -18,12 +18,8 @@ const Home = () => {
   return (
     <Row className='justify-content-center'>
       <Col xs={12} md={3}>
-        <Row>
-          <Col>
-            <Logo />
-            <User user={loginData} />
-          </Col>
-        </Row>
+        <Logo />
+        <User user={loginData} />
         <Menu />
       </Col>
       <Col xs={12} md={5}>

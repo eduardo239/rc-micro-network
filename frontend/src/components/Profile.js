@@ -2,7 +2,6 @@ import React from 'react';
 
 import { Col, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-// import { get_pm } from '../store/comments';
 import { get_user_by_id } from '../store/user';
 
 import ProfileContent from './component/ProfileContent';
@@ -18,7 +17,11 @@ const Profile = ({ match }) => {
   const id = match.params.id;
 
   React.useEffect(() => {
-    if (id) dispatch(get_user_by_id(id));
+    let mounted = true;
+    if (mounted) {
+      if (id) dispatch(get_user_by_id(id));
+    }
+    return () => (mounted = false);
   }, [dispatch, id, loginData]);
 
   return (

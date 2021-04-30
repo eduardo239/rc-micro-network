@@ -7,7 +7,7 @@ import { lightTheme, darkTheme } from './css/theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Container, Row } from 'react-bootstrap';
 import { auto_login } from './store/user';
-import { get_posts } from './store/post';
+// import { get_posts, get_posts_pagination } from './store/post';
 import { closeModal } from './store/modal';
 
 import Home from './components/Home';
@@ -30,7 +30,6 @@ const App = () => {
 
     (async () => {
       await dispatch(auto_login());
-      await dispatch(get_posts());
     })();
   }, [dispatch, location, modal]);
 

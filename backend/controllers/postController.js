@@ -14,9 +14,9 @@ const get_all_posts = asyncHandler(async (req, res) => {
 
   const posts = await Post.find({}, null, { sort: { createdAt: -1 } })
     .populate('comments', 'content userId postId createdAt')
-    .populate('userId', 'imageAvatar name');
-  // .limit(limit)
-  // .skip(skip);
+    .populate('userId', 'imageAvatar name')
+    .limit(limit)
+    .skip(skip);
 
   if (posts) {
     res.status(200).json(posts);

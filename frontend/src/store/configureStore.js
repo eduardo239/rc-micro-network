@@ -9,9 +9,10 @@ import comment from './comments';
 import post from './post';
 import modal from './modal';
 import user from './user';
+import lang from './lang';
 
 const middleware = [...getDefaultMiddleware(), localStorage];
-const reducer = combineReducers({ ui, post, modal, user, comment });
+const reducer = combineReducers({ ui, post, modal, user, comment, lang });
 const store = configureStore({ reducer, middleware });
 
 export default store;

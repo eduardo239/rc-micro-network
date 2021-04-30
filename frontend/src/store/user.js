@@ -66,6 +66,19 @@ const _update = createAsyncSlice({
   }),
 });
 
+const _delete = createAsyncSlice({
+  name: 'delete',
+  fetchConfig: (id) => ({
+    url: `http://localhost:5000/api/users/${id}`,
+    options: {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${get_local_storage('token')}`,
+      },
+    },
+  }),
+});
+
 const _posts = createAsyncSlice({
   name: 'post',
   fetchConfig: (id) => ({
@@ -154,6 +167,7 @@ const reducer = combineReducers({
   register: _register.reducer,
   posts: _posts.reducer,
   user: _by_id.reducer,
+  __delete: _delete.reducer,
   __stats: __stats.reducer,
 });
 
@@ -161,6 +175,7 @@ const fetch_token = _token.asyncAction;
 const fetch_user = _login.asyncAction;
 const fetch_register = _register.asyncAction;
 const fetch_update = _update.asyncAction;
+const fetch_delete = _delete.asyncAction;
 const fetch_posts = _posts.asyncAction;
 const fetch_add_friend = _friend.asyncAction;
 const fetch_remove_friend = _friend_remove.asyncAction;
@@ -234,6 +249,16 @@ export const user_register = (body) => async (dispatch) => {
 export const user_update = (userUpdate) => async (dispatch) => {
   try {
     const { payload } = await dispatch(fetch_update(userUpdate));
+    return payload;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+// delete user from social network
+export const delete_user = (id) => async (dispatch) => {
+  try {
+    const { payload } = await dispatch(fetch_delete(id));
     return payload;
   } catch (error) {
     console.error(error);

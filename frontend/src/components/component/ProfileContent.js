@@ -38,13 +38,13 @@ const ProfileContent = ({ user, login }) => {
                 <div className='flex'>
                   <div
                     className='App-avatar-mini'
-                    style={{
-                      background: `url(${f.friendId.imageAvatar || avatar})`,
-                    }}
+                    style={
+                      {
+                        // background: `url(${f.friendId.imageAvatar || avatar})`,
+                      }
+                    }
                   ></div>
-                  <Link to={`../profile/${f.friendId._id}`}>
-                    {f.friendId.name}
-                  </Link>
+                  <Link to={`/`}>{/* {f.friendId.name} */}</Link>
                 </div>
                 <div>
                   <button

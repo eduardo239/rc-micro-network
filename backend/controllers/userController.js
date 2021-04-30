@@ -277,6 +277,8 @@ const delete_friend = asyncHandler(async (req, res) => {
  * @access        Admin
  */
 const delete_user = asyncHandler(async (req, res) => {
+  // TODO
+  // delete posts, comments, friends and save no backup
   const id = req.params.id;
 
   const user = await User.findById(id);
