@@ -47,8 +47,12 @@ h5 {
 
 button {
   font-family: 'Poppins', Arial, Helvetica, sans-serif;
-  outline: none;
   border: none;
+  transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+button:hover {
+  filter: brightness(120%);
 }
 
 h1 {
@@ -72,8 +76,7 @@ h5 {
   font-size: 1.25rem;
 }
 
-small,
-.text_small {
+small {
   font-size: 0.8rem;
 }
 
@@ -137,8 +140,13 @@ li {
   width: 100%;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  top: 0;
+  transition: 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
-
+.App-logo:hover {
+  position: relative;
+  top: -0.25rem;
+}
 @media (max-width: 770px) {
   .App-logo {
     display: none;
@@ -207,7 +215,6 @@ li {
 .App-menu li a,
 .App-menu li button {
   text-transform: uppercase;
-  font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.03rem;
 }
@@ -263,7 +270,7 @@ li {
   margin-bottom: 0.5rem;
   border: 1px solid transparent;
   border-radius: 0.25rem;
-  font-size: 0.875rem;
+  font-size: 0.85rem;
 }
 
 .App-message-error {

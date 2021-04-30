@@ -12,7 +12,7 @@
 
 # profile delete pm
 
-# logo clickable
+<!-- # logo clickable -->
 
 # home load image on upload image
 
