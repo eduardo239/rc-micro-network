@@ -8,6 +8,7 @@ import styles from '../css/ProfileContent.module.css';
 import { ReactComponent as DeleteIcon } from '../../assets/ico/white/carbon_delete.svg';
 import { ReactComponent as ChatIcon } from '../../assets/ico/white/carbon_chat.svg';
 
+// eslint-disable-next-line
 import avatar from '../../assets/img/avatar.png';
 import PmModal from './PmModal';
 import ProfilePrivateMessages from './ProfilePrivateMessages';

@@ -18,9 +18,11 @@ const Home = () => {
   return (
     <Row className='justify-content-center'>
       <Col xs={12} md={3}>
-        <Logo />
-        <User user={loginData} />
-        <Menu />
+        <div style={{ position: 'sticky', top: '1rem' }}>
+          <Logo />
+          <User user={loginData} />
+          <Menu />
+        </div>
       </Col>
       <Col xs={12} md={5}>
         <Search />

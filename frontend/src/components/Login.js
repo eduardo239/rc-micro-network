@@ -5,11 +5,10 @@ import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_token } from '../store/user';
 
+import styles from './css/Register.module.css';
+import MenuLogin from './component/MenuLogin';
 import Input from './form/Input';
 import Button from './form/Button';
-
-import styles from './css/Register.module.css';
-import Menu from './component/Menu';
 
 const Login = ({ history }) => {
   const [email, setEmail] = React.useState('admin@email.com');
@@ -32,7 +31,7 @@ const Login = ({ history }) => {
   return (
     <Row className='justify-content-center'>
       <Col xs={12} md={4}>
-        <Menu />
+        <MenuLogin />
 
         <form onSubmit={loginHandler} className={`App-border ${styles.Form}`}>
           <h2>LOGIN</h2>

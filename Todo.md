@@ -1,6 +1,6 @@
 # profile friend list \_id of undefined
 
-# banned users
+<!-- # banned users -->
 
 # profile posts masonry
 
@@ -16,9 +16,11 @@
 
 # home load image on upload image
 
-# all update icons
+<!-- # all update icons -->
 
-# icons animation
+<!-- # icons animation -->
+
+transition: 0.2s ease-in-out;
 
 # like icon loading only
 
@@ -61,3 +63,7 @@
 # change lang on settings
 
 # menu on mobile fixed at the bottom
+
+# profile update image on upload
+
+# reste state user on logout

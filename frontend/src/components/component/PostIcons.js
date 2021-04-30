@@ -53,7 +53,7 @@ const PostIcons = ({ post, error, login }) => {
           ></div>
           <Link to={`profile/${post.userId._id}`}>{post.userId.name}</Link>
         </div>
-        <div>
+        <div className={styles.Icons}>
           <button onClick={likeHandler} className='App-btn-icon'>
             <FavoriteIcon />
             <span>{thousand_converter(parseInt(post.likes))}</span>

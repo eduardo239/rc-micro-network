@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { post_new_comment } from '../../store/comments';
 import { get_post, get_posts } from '../../store/post';
 
-import sendMessageWhite from '../../assets/ico/white/carbon_send.svg';
+import { ReactComponent as SendNewComment } from '../../assets/ico/white/carbon_send.svg';
 
 import styles from '../css/CommentNew.module.css';
 
@@ -29,7 +29,7 @@ const CommentNew = ({ postId }) => {
         onChange={({ target }) => setContent(target.value)}
       />
       <button type='submit' className='App-link'>
-        <img src={sendMessageWhite} alt='Send Message' />
+        <SendNewComment />
       </button>
     </form>
   );

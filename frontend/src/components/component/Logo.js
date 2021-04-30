@@ -6,7 +6,9 @@ import { Link } from 'react-router-dom';
 const Logo = () => {
   return (
     <div className='App-logo'>
-      <Link to='/'>{false ? <LogoIcon /> : <LogoIconMini />}</Link>
+      <Link to='/'>
+        {true ? <LogoIcon style={{ width: 'auto' }} /> : <LogoIconMini />}
+      </Link>
     </div>
   );
 };

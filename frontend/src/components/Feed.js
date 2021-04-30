@@ -18,6 +18,7 @@ const Feed = () => {
   const { data: loginData } = useSelector((state) => state.user.login);
   const { error: deleteError } = useSelector((state) => state.post.delete);
 
+  // eslint-disable-next-line
   const [pages, setPages] = React.useState(3);
   const [wait, setWait] = React.useState(false);
   // const [infinite, setInfinite] = React.useState(true);
@@ -25,6 +26,10 @@ const Feed = () => {
   const dispatch = useDispatch();
 
   const modalHandler = (id) => {
+    if (!loginData) {
+      alert('You are not logged in.');
+      return;
+    }
     dispatch(get_post(id));
     dispatch(openModal());
   };
@@ -56,6 +61,7 @@ const Feed = () => {
       window.addEventListener('wheel', infiniteScroll);
       window.addEventListener('scroll', infiniteScroll);
     };
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -78,7 +84,6 @@ const Feed = () => {
             </div>
           ))
         : postsData &&
-          loginData &&
           postsData.map((post) => (
             <div className={`App-post ${styles.Post}`} key={post._id}>
               <img
@@ -88,7 +93,9 @@ const Feed = () => {
                 alt={post.userId.name}
               />
               <p>{post.content}</p>
-              <PostIcons post={post} login={loginData} error={deleteError} />
+              {loginData && (
+                <PostIcons post={post} login={loginData} error={deleteError} />
+              )}
             </div>
           ))}
     </div>

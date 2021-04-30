@@ -117,9 +117,12 @@ const Comment = ({ user, comments, postId }) => {
           ))
           .reverse()
       ) : (
-        <div style={{ margin: '.5rem' }}>
-          <p className='App-message App-message-primary'>No comments here.</p>
-        </div>
+        <p
+          style={{ margin: '.25rem' }}
+          className='App-message App-message-primary'
+        >
+          No comments here.
+        </p>
       )}
     </div>
   );

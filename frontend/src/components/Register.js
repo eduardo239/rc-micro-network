@@ -9,22 +9,28 @@ import Button from './form/Button';
 import styles from './css/Register.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { user_register } from '../store/user';
+import MenuLogin from './component/MenuLogin';
 
 const Register = ({ history }) => {
   const [email, setEmail] = React.useState('admin@email.com');
   const [name, setName] = React.useState('Admin');
   const [password, setPassword] = React.useState('123');
   const [passwordAgain, setPasswordAgain] = React.useState('123');
+  const [message, setMessage] = React.useState('');
 
   const { data: loginData } = useSelector((state) => state.user.login);
-
   const { error: registerError } = useSelector((state) => state.user.register);
 
   const dispatch = useDispatch();
 
   const registerHandler = (e) => {
+    setMessage('');
     e.preventDefault();
-    dispatch(user_register({ email, name, password }));
+    if (password === passwordAgain) {
+      dispatch(user_register({ email, name, password }));
+    } else {
+      setMessage('Password do not match.');
+    }
   };
 
   React.useEffect(() => {
@@ -34,6 +40,7 @@ const Register = ({ history }) => {
   return (
     <Row className='justify-content-center'>
       <Col xs={12} md={4}>
+        <MenuLogin />
         <form
           onSubmit={registerHandler}
           className={`App-border ${styles.Form}`}
@@ -72,9 +79,12 @@ const Register = ({ history }) => {
           />
 
           <Button>REGISTER</Button>
-          {registerError && (
-            <p className='App-message App-message-error'>{registerError}</p>
-          )}
+          {registerError ||
+            (message && (
+              <p className='App-message App-message-error'>
+                {registerError || message}
+              </p>
+            ))}
 
           <Link className='small' to='/login'>
             Sign in

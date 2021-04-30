@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { useDispatch } from 'react-redux';
+import { get_search, reset_search } from '../../store/post';
 
 import { ReactComponent as SearchIcon } from '../../assets/ico/white/carbon_search.svg';
-import { get_search, reset_search } from '../../store/post';
 
 import styles from '../css/Search.module.css';
 

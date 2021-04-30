@@ -63,13 +63,16 @@ a {
 }
 
 .App-comments-owner {
-  background: ${({ theme }) => theme.myComment};}
+  background: ${({ theme }) => theme.myComment};
+}
 
 .App-menu li a,
 .App-menu li button {
   color: ${({ theme }) => theme.primary};
 }
-
+.App-menu-login svg path {
+  fill: ${({ theme }) => theme.primary};
+}
 th {
   color: ${({ theme }) => theme.bg};
   background: ${({ theme }) => theme.text};
