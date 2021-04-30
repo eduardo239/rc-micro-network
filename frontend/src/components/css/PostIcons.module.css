@@ -18,8 +18,13 @@
 .Icons svg {
   transition: 0.1s ease-in-out;
   top: 0;
+  height: 18px;
 }
 .Icons svg:hover {
   position: relative;
   top: -0.25rem;
+}
+.Icons span {
+  font-size: 0.75rem;
+  line-height: 0.75rem;
 }

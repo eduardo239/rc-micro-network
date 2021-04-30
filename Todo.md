@@ -1,4 +1,4 @@
-# profile friend list \_id of undefined
+<!-- # profile friend list \_id of undefined -->
 
 <!-- # banned users -->
 
@@ -6,15 +6,15 @@
 
 # profile tabs
 
-# profile delete friend
+<!-- # profile delete friend ..s -->
 
-# profile button add/remove
+<!-- # profile button add/remove -->
 
 # profile delete pm
 
 <!-- # logo clickable -->
 
-# home load image on upload image
+# update image on upload
 
 <!-- # all update icons -->
 
@@ -64,6 +64,8 @@ transition: 0.2s ease-in-out;
 
 # menu on mobile fixed at the bottom
 
-# profile update image on upload
+<!-- # reset state user on logout -->
 
-# reste state user on logout
+# fix edit post
+
+# control button if profile is mine

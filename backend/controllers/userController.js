@@ -251,19 +251,20 @@ const delete_friend = asyncHandler(async (req, res) => {
 
   const friend1 = await Friend.find({ userId, friendId });
   const friend2 = await Friend.find({ userId: friendId, friendId: userId });
-  res.json(friend1);
 
-  if (!friend1) {
+  if (!friend1 && !friend2) {
     res.status(400).json({ message: 'This user is not your friend.' });
   } else {
     const user = await User.findById(userId);
     const friend = await User.findById(friendId);
 
-    user.friends.pull({ _id: friend._id });
-    friend.friends.pull({ _id: friend._id });
+    user.friends.pull(friend1[0]._id);
+    friend.friends.pull(friend2[0]._id);
 
     user.save();
     friend.save();
+
+    console.log(friend1);
 
     await Friend.deleteOne({ _id: friend1[0]._id });
     await Friend.deleteOne({ _id: friend2[0]._id });

@@ -1,22 +1,14 @@
 import React from 'react';
 
-import { Link } from 'react-router-dom';
-// import { useDispatch } from 'react-redux';
-
 import styles from '../css/ProfileContent.module.css';
-
-import { ReactComponent as DeleteIcon } from '../../assets/ico/white/carbon_delete.svg';
-import { ReactComponent as ChatIcon } from '../../assets/ico/white/carbon_chat.svg';
-
 // eslint-disable-next-line
-import avatar from '../../assets/img/avatar.png';
 import PmModal from './PmModal';
 import ProfilePrivateMessages from './ProfilePrivateMessages';
+import FriendsLists from './FriendsLists';
 
 const ProfileContent = ({ user, login }) => {
   const [pmModal, setPmModal] = React.useState(false);
   const [friend, setFriend] = React.useState({});
-  // const dispatch = useDispatch();
 
   const pmHandler = (friend) => {
     setPmModal(true);
@@ -36,31 +28,7 @@ const ProfileContent = ({ user, login }) => {
           {user &&
             user.friends.map((f) => (
               <div key={f._id} className={styles.List}>
-                <div className='flex'>
-                  <div
-                    className='App-avatar-mini'
-                    style={
-                      {
-                        // background: `url(${f.friendId.imageAvatar || avatar})`,
-                      }
-                    }
-                  ></div>
-                  <Link to={`/`}>{/* {f.friendId.name} */}</Link>
-                </div>
-                <div>
-                  <button
-                    onClick={() => pmHandler(f.friendId)}
-                    className='App-btn-icon-mini'
-                  >
-                    <ChatIcon />
-                  </button>
-
-                  {login._id === user._id && (
-                    <button className='App-btn-icon-mini'>
-                      <DeleteIcon />
-                    </button>
-                  )}
-                </div>
+                <FriendsLists pmHandler={pmHandler} friend={f} login={login} />
               </div>
             ))}
         </div>
@@ -70,7 +38,6 @@ const ProfileContent = ({ user, login }) => {
         )}
       </div>
       {/* pm */}
-
       <div>
         {login._id === user._id && (
           <>

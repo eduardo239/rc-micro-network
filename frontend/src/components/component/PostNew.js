@@ -48,7 +48,7 @@ const PostNew = () => {
 
         await axios.post('http://localhost:5000/api/posts', formData, config);
 
-        dispatch(get_posts());
+        await dispatch(get_posts());
 
         setContent('');
         setFile('');

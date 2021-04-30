@@ -34,8 +34,8 @@ const Feed = () => {
     dispatch(openModal());
   };
 
-  const fetchPages = () => {
-    dispatch(get_posts_pagination({ skip: 0, limit: pages * 3 }));
+  const fetchPages = async () => {
+    await dispatch(get_posts_pagination({ skip: 0, limit: pages * 3 }));
   };
 
   const infiniteScroll = () => {

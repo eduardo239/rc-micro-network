@@ -216,6 +216,12 @@ svg {
 .App-icon-mini {
   height: 16px;
 }
+
+.App-btn-modal {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
 /* - - - - - - - modal - - - - - - - - */
 
 .App-modal-container {
@@ -326,8 +332,8 @@ svg {
 }
 
 .App-avatar-mini {
-  min-height: 1.5rem;
-  min-width: 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
   background-position: center center !important;
   background-size: cover !important;
   border-radius: 50%;

@@ -24,6 +24,7 @@ const Modal = () => {
   const edit_modal = useSelector((state) => state.modal.edit_post_modal);
 
   const dispatch = useDispatch();
+
   const clickOutsideHandler = (e) => {
     if (modalRef && !modalRef.current.contains(e.target)) {
       dispatch(closeModal());
@@ -43,6 +44,12 @@ const Modal = () => {
 
   return (
     <div className='App-modal-container' onClick={clickOutsideHandler}>
+      <button
+        onClick={() => dispatch(closeModal())}
+        className='App-btn-icon App-btn-modal App-btn-secondary'
+      >
+        close
+      </button>
       {postLoading ? (
         <Loading />
       ) : (

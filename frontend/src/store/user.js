@@ -184,8 +184,9 @@ const fetch_users = _users.asyncAction;
 const _fetch_stats = __stats.asyncAction;
 
 const { resetState: resetTokenState } = _token.actions;
-const { resetState: resetUserState } = _login.actions;
-const { resetRegister } = _register.actions;
+const { resetState: resetLoginState } = _login.actions;
+const { resetState: resetUserState } = _users.actions;
+const { resetState: resetRegister } = _register.actions;
 
 export default reducer;
 
@@ -219,6 +220,7 @@ export const auto_login = () => async (dispatch) => {
   } catch (error) {
     dispatch(resetUserState());
     dispatch(resetTokenState());
+    dispatch(resetLoginState());
     console.error(error);
   }
 };
@@ -229,6 +231,7 @@ export const user_logout = () => (dispatch) => {
     dispatch(resetUserState());
     dispatch(resetTokenState());
     dispatch(resetRegister());
+    dispatch(resetLoginState());
     window.localStorage.removeItem('token');
   } catch (error) {
     console.error(error);
@@ -285,7 +288,7 @@ export const add_friend = (body) => async (dispatch) => {
   }
 };
 
-// new friend
+// remove friend
 export const remove_friend = (body) => async (dispatch) => {
   try {
     const { payload } = await dispatch(fetch_remove_friend(body));

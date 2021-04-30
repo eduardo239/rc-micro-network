@@ -2,24 +2,22 @@ import React from 'react';
 import axios from 'axios';
 
 import { useDispatch } from 'react-redux';
-import { add_friend } from '../../store/user';
+import { add_friend, get_user_by_id, remove_friend } from '../../store/user';
 import { dateFormat, sinceDate } from '../../helper/dateFormat';
 
 import Loading from '../component/Loading';
 import bgHeader from '../../assets/img/profile-bg.jpg';
 import avatarDefault from '../../assets/img/avatar.png';
-
 import styles from '../css/ProfileHeader.module.css';
-
 import get_local_storage from '../../store/helpers/getLocalStorage';
 
 const ProfileHeader = ({ user, login }) => {
   const dispatch = useDispatch();
 
   const fileRef = React.useRef();
-  const btnAddRef = React.useRef();
   // eslint-disable-next-line
   const [avatar, setAvatar] = React.useState('');
+  const [friend, setFriend] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
   const avatarHandler = async () => {
@@ -51,23 +49,22 @@ const ProfileHeader = ({ user, login }) => {
     }
   };
 
-  const addHandler = () => {
-    dispatch(add_friend({ userId: login._id, friendId: user._id }));
+  const friendHandler = async (friendId) => {
+    if (friend) {
+      await dispatch(remove_friend({ userId: login._id, friendId }));
+    } else {
+      await dispatch(add_friend({ userId: login._id, friendId: user._id }));
+    }
+    await dispatch(get_user_by_id(user._id));
   };
 
   React.useEffect(() => {
-    (() => {
-      const x = login.friends.map((x) => x.friendId === user._id);
-      if (btnAddRef.current) {
-        if (x.includes(true)) btnAddRef.current.innerHTML = 'Remove';
-        else btnAddRef.current.innerHTML = 'Add';
-        if (x.includes(true)) btnAddRef.current.style.background = '#ff312e';
-        else btnAddRef.current.style.background = '#0F7CBF';
-      }
-    })();
+    if (login)
+      login.friends.filter((friend) => setFriend(friend.friendId === user._id));
   }, [login, user]);
+
   return (
-    <div>
+    <>
       <div className={styles.ImageContainer}>
         <img className={styles.Background} src={bgHeader} alt='Profile' />
 
@@ -103,16 +100,17 @@ const ProfileHeader = ({ user, login }) => {
         <div>
           {user._id !== login._id && (
             <button
-              ref={btnAddRef}
-              onClick={() => addHandler(user._id)}
-              className='App-btn App-btn-primary'
+              onClick={() => friendHandler(user._id)}
+              className={`App-btn ${
+                friend ? 'App-btn-secondary' : 'App-btn-primary'
+              }`}
             >
-              Add
+              {friend ? 'Remove' : 'Add'}
             </button>
           )}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

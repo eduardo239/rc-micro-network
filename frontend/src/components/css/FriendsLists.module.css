@@ -1,0 +1,12 @@
+.FriendsLists {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.User a,
+.Buttons {
+  display: flex;
+  gap: 0.5rem;
+}
