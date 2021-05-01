@@ -1,12 +1,11 @@
 import React, { createRef } from 'react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
-
-import styles from '../css/ProfileContent.module.css';
-// eslint-disable-next-line
-import PmModal from './PmModal';
-import ProfilePrivateMessages from './ProfilePrivateMessages';
-import FriendsLists from './FriendsLists';
 import { Link } from 'react-router-dom';
+
+import PmModal from './PmModal';
+import FriendsLists from './FriendsLists';
+import ProfilePrivateMessages from './ProfilePrivateMessages';
+import styles from '../css/ProfileContent.module.css';
 
 const ProfileContent = ({ user, login }) => {
   const usersLinkRef = createRef();
@@ -85,7 +84,7 @@ const ProfileContent = ({ user, login }) => {
               user.posts?.map((p) => (
                 <div key={p._id}>
                   <Link to={`../post/${p._id}`}>
-                    <img className='App-post-mini' src={p.image} alt='' />
+                    <img className='App-post-mini' src={p.image} alt={p.name} />
                   </Link>
                 </div>
               ))}
@@ -118,8 +117,10 @@ const ProfileContent = ({ user, login }) => {
         {login._id === user._id && <ProfilePrivateMessages login={login} />}
       </div>
       {/* modal */}
-      {pmModal && (
+      {pmModal ? (
         <PmModal setPmModal={setPmModal} friend={friend} login={login} />
+      ) : (
+        <p>Private messages not found.</p>
       )}
     </div>
   );

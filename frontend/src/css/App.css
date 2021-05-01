@@ -357,7 +357,10 @@ td {
   overflow: hidden;
   margin: 1rem 0;
 }
-
+.App-tab-links {
+  padding: 0.5rem 1rem;
+  border-right: 1px solid #2e2d2d;
+}
 .App-tab-links button {
   transition: 0.2s;
 }

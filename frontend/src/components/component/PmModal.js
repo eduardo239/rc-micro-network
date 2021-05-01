@@ -43,12 +43,15 @@ const PmModal = ({ setPmModal, friend, login }) => {
               <CloseIcon />
             </button>
             <h4>Private Message</h4>
-            <img
-              className='App-avatar-mini'
-              src={friend.imageAvatar}
-              alt={friend.name}
-            />
-            <p>to {friend.name}</p>
+            <p>
+              <img
+                className='App-avatar-mini'
+                style={{ marginRight: '.5rem' }}
+                src={friend.imageAvatar}
+                alt={friend.name}
+              />
+              to {friend.name}
+            </p>
             <input
               type='text'
               value={content}
