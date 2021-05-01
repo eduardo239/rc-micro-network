@@ -62,6 +62,11 @@ a {
   color: ${({ theme }) => theme.text};
 }
 
+.App-tab-links.active {
+  color: ${({ theme }) => theme.text};
+  background-color: ${({ theme }) => theme.primary};
+}
+
 .App-comments-owner {
   background: ${({ theme }) => theme.myComment};
 }
@@ -73,7 +78,8 @@ a {
 .App-menu-login svg path {
   fill: ${({ theme }) => theme.primary};
 }
-th {
+
+th, button {
   color: ${({ theme }) => theme.bg};
   background: ${({ theme }) => theme.text};
 }

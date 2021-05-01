@@ -58,6 +58,8 @@ const ProfileHeader = ({ user, login }) => {
     await dispatch(get_user_by_id(user._id));
   };
 
+  const updateButton = () => {};
+
   React.useEffect(() => {
     if (login)
       login.friends.filter((friend) => setFriend(friend.friendId === user._id));

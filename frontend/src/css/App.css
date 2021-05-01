@@ -352,6 +352,28 @@ td {
   border-bottom: 1px solid #4f4f4f;
   border-right: 1px solid #2e2d2d;
 }
+/* - - - - - - - Tabs - - - - - - - - */
+.App-tab {
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.App-tab-links button {
+  transition: 0.2s;
+}
+
+.App-tab-content {
+  display: none;
+}
+/* - - - - - - - posts profile - - - - - - - - */
+
+.App-post-mini {
+  transform: translate3d(0, 0, 0);
+  transition: 0.2s ease-in-out;
+}
+.App-post-mini:hover {
+  transform: translate3d(0, -0.1rem, 0);
+}
 /* - - - - - - - scroll - - - - - - - - */
 ::-webkit-scrollbar {
   width: 10px;

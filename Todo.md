@@ -28,7 +28,7 @@ transition: 0.2s ease-in-out;
 
 # load more
 
-# login/register menu
+<!-- # login/register menu -->
 
 # login register if not is a user
 
@@ -69,3 +69,5 @@ transition: 0.2s ease-in-out;
 # fix edit post
 
 # control button if profile is mine
+
+# remove 2 get profile by user id on profile page
