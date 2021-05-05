@@ -2,6 +2,8 @@
 
 <!-- # banned users -->
 
+# remove dispatch edit post
+
 # profile posts masonry
 
 # profile tabs
@@ -46,8 +48,6 @@ transition: 0.2s ease-in-out;
 
 # post slider
 
-# change lang
-
 # css semantic
 
 # send pm on user page
@@ -59,8 +59,6 @@ transition: 0.2s ease-in-out;
 # admin true tab
 
 # posts, comments style, delete, update
-
-# change lang on settings
 
 # menu on mobile fixed at the bottom
 

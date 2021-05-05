@@ -5,8 +5,6 @@ import { useDispatch } from 'react-redux';
 import { ReactComponent as CloseIcon } from '../../assets/ico/white/carbon_close.svg';
 import { send_pm } from '../../store/comments';
 
-import styles from '../css/ProfileContent.module.css';
-
 const PmModal = ({ setPmModal, friend, login }) => {
   const [content, setContent] = React.useState('');
   const [message, setMessage] = React.useState('');
@@ -32,7 +30,7 @@ const PmModal = ({ setPmModal, friend, login }) => {
 
   return (
     <div className='App-modal-container' onClick={clickOutsideHandler}>
-      <div className={`${styles.Modal} App-PM`} ref={modalRef}>
+      <div ref={modalRef}>
         {friend ? (
           <div>
             <button

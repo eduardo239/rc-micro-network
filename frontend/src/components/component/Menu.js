@@ -1,25 +1,16 @@
 import React from 'react';
 
+import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { darkTheme, lightTheme } from '../../store/ui';
 import { user_logout } from '../../store/user';
 
-import { ReactComponent as HomeIcon } from '../../assets/ico/white/carbon_home.svg';
-import { ReactComponent as SettingsIcon } from '../../assets/ico/white/carbon_settings.svg';
-import { ReactComponent as ProfileIcon } from '../../assets/ico/white/carbon_user.svg';
-import { ReactComponent as LogoutIcon } from '../../assets/ico/white/carbon_logout.svg';
-import { ReactComponent as LoginIcon } from '../../assets/ico/white/carbon_login.svg';
-import { ReactComponent as RegisterIcon } from '../../assets/ico/white/carbon_user-follow.svg';
-import { ReactComponent as NightIcon } from '../../assets/ico/white/carbon_asleep.svg';
-import { ReactComponent as DayIcon } from '../../assets/ico/white/carbon_sun.svg';
-import { ReactComponent as AdminIcon } from '../../assets/ico/white/carbon_password.svg';
-
-const Menu = () => {
+const Menu2 = () => {
   const dispatch = useDispatch();
+  const [state, setState] = React.useState({ activeItem: 'home' });
 
   const { ui } = useSelector((state) => state);
-
   const { data: loginData } = useSelector((state) => state.user.login);
 
   const themeHandler = () => {
@@ -27,88 +18,80 @@ const Menu = () => {
     else dispatch(lightTheme());
   };
 
+  const handleItemClick = (e, { name }) => setState({ activeItem: name });
+
+  const { activeItem } = state;
   return (
-    <nav
+    <div
       className={`App-menu ${ui === 'light' ? 'App-bg-light' : 'App-bg-dark'}`}
     >
-      <li>
+      <Menu secondary vertical fluid>
         <Link to='/'>
-          <span>
-            <HomeIcon />
-            <span className='App-menu-item'>Home</span>
-          </span>
+          <Menu.Item
+            name='home'
+            active={activeItem === 'home'}
+            onClick={handleItemClick}
+          />
         </Link>
-      </li>
-      {!loginData && (
-        <li>
+
+        {!loginData && (
           <Link to='/register'>
-            <span>
-              <RegisterIcon />
-              <span className='App-menu-item'>Register</span>
-            </span>
+            <Menu.Item
+              name='register'
+              active={activeItem === 'register'}
+              onClick={handleItemClick}
+            />
           </Link>
-        </li>
-      )}
-      {!loginData && (
-        <li>
+        )}
+
+        {!loginData && (
           <Link to='/login'>
-            <span>
-              <LoginIcon />
-              <span className='App-menu-item'>Login</span>
-            </span>
+            <Menu.Item
+              name='login'
+              active={activeItem === 'login'}
+              onClick={handleItemClick}
+            />
           </Link>
-        </li>
-      )}
+        )}
 
-      {loginData && (
-        <li>
+        {loginData && (
           <Link to={`/profile/${loginData._id}`}>
-            <span>
-              <ProfileIcon />
-              <span className='App-menu-item'>{loginData.name}</span>
-            </span>
+            <Menu.Item
+              name='profile'
+              active={activeItem === 'profile'}
+              onClick={handleItemClick}
+            />
           </Link>
-        </li>
-      )}
-      {loginData && loginData.isAdmin && (
-        <li>
+        )}
+
+        {loginData && loginData.isAdmin && (
           <Link to='/admin'>
-            <span>
-              <AdminIcon />
-              <span className='App-menu-item'>Control</span>
-            </span>
+            <Menu.Item
+              name='admin'
+              active={activeItem === 'admin'}
+              onClick={handleItemClick}
+            />
           </Link>
-        </li>
-      )}
+        )}
 
-      {loginData && (
-        <li>
+        {loginData && (
           <Link to='/settings'>
-            <span>
-              <SettingsIcon />
-              <span className='App-menu-item'>Settings</span>
-            </span>
+            <Menu.Item
+              name='settings'
+              active={activeItem === 'settings'}
+              onClick={handleItemClick}
+            />
           </Link>
-        </li>
-      )}
+        )}
 
-      <li>
-        <button className='App-link' onClick={themeHandler}>
-          {ui === 'light' ? <NightIcon /> : <DayIcon />}
-          <span className='App-menu-item'>Theme</span>
-        </button>
-      </li>
+        {loginData && (
+          <Menu.Item name='logout' onClick={() => dispatch(user_logout())} />
+        )}
 
-      {loginData && (
-        <li>
-          <button className='App-link' onClick={() => dispatch(user_logout())}>
-            <LogoutIcon />
-            <span className='App-menu-item'>Logout</span>
-          </button>
-        </li>
-      )}
-    </nav>
+        <Menu.Item name='theme' onClick={themeHandler} />
+      </Menu>
+    </div>
   );
 };
 
-export default Menu;
+export default Menu2;

@@ -1,13 +1,12 @@
 import React from 'react';
 
-import { Col, Row } from 'react-bootstrap';
+import { Table, Grid } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { _get_stats } from '../store/user';
 
-import AdminPosts from './component/AdminPosts';
-import AdminUsers from './component/AdminUsers';
-import AdminComments from './component/AdminComments';
-
+// import AdminPosts from './component/AdminPosts';
+// import AdminUsers from './component/AdminUsers';
+// import AdminComments from './component/AdminComments';
 import Logo from './component/Logo';
 import Menu from './component/Menu';
 
@@ -16,25 +15,25 @@ const Admin = ({ history }) => {
 
   const dispatch = useDispatch();
   const [data, setData] = React.useState('');
-  const [showUsers, setShowUsers] = React.useState(true);
-  const [showPosts, setShowPosts] = React.useState(false);
-  const [showComments, setShowComments] = React.useState(false);
+  // const [showUsers, setShowUsers] = React.useState(true);
+  // const [showPosts, setShowPosts] = React.useState(false);
+  // const [showComments, setShowComments] = React.useState(false);
 
-  const showUsersHandler = () => {
-    setShowComments(false);
-    setShowPosts(false);
-    setShowUsers(!showUsers);
-  };
-  const showPostsHandler = () => {
-    setShowUsers(false);
-    setShowComments(false);
-    setShowPosts(!showPosts);
-  };
-  const showCommentsHandler = () => {
-    setShowUsers(false);
-    setShowPosts(false);
-    setShowComments(!showPosts);
-  };
+  // const showUsersHandler = () => {
+  //   setShowComments(false);
+  //   setShowPosts(false);
+  //   setShowUsers(!showUsers);
+  // };
+  // const showPostsHandler = () => {
+  //   setShowUsers(false);
+  //   setShowComments(false);
+  //   setShowPosts(!showPosts);
+  // };
+  // const showCommentsHandler = () => {
+  //   setShowUsers(false);
+  //   setShowPosts(false);
+  //   setShowComments(!showPosts);
+  // };
 
   React.useEffect(() => {
     if (!loginData?.isAdmin) history.push('/');
@@ -46,53 +45,34 @@ const Admin = ({ history }) => {
   }, [history, loginData, dispatch]);
 
   return (
-    <Row className='justify-content-center'>
-      <Col xs={12} md={3}>
-        <Row className='justify-content-between'>
-          <Col>
-            <Logo />
-          </Col>
-        </Row>
+    <Grid centered>
+      <Grid.Column width={3}>
+        <Logo />
         <Menu />
-      </Col>
-      <Col xs={12} md={5}>
-        <table>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Posts</th>
-              <th>Users</th>
-              <th>Comments</th>
-              <th>Pm</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>TOTAL:</td>
-              <td>{data && data.posts.length}</td>
-              <td>{data && data.users.length}</td>
-              <td>{data && data.comments.length}</td>
-              <td>{data && data.pms.length}</td>
-            </tr>
-          </tbody>
-        </table>
-        {/*  */}
-        <>
-          <button className='App-btn-primary' onClick={showUsersHandler}>
-            users
-          </button>
-          <button className='App-btn-secondary' onClick={showPostsHandler}>
-            posts
-          </button>
-          <button className='App-btn-secondary' onClick={showCommentsHandler}>
-            comments
-          </button>
-          {showUsers && <AdminUsers users={data.users} />}
-          {showPosts && <AdminPosts posts={data.posts} />}
-          {showComments && <AdminComments comments={data.comments} />}
-        </>
-      </Col>
-    </Row>
+      </Grid.Column>
+      <Grid.Column width={7}>
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell>Users</Table.HeaderCell>
+              <Table.HeaderCell>Posts</Table.HeaderCell>
+              <Table.HeaderCell>Comments</Table.HeaderCell>
+            </Table.Row>
+          </Table.Header>
+
+          <Table.Body>
+            <Table.Row>
+              <Table.Cell>
+                {/* <Label ribbon>First</Label> */}
+                {data && data.users.length}
+              </Table.Cell>
+              <Table.Cell>{data && data.posts.length}</Table.Cell>
+              <Table.Cell>{data && data.comments.length}</Table.Cell>
+            </Table.Row>
+          </Table.Body>
+        </Table>
+      </Grid.Column>
+    </Grid>
   );
 };
 

@@ -1,25 +1,25 @@
 import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { Loader, Segment } from 'semantic-ui-react';
 import { openModal } from '../store/modal';
 import { get_post, get_posts_pagination } from '../store/post';
 
-import Loading from './component/Loading';
 import PostIcons from './component/PostIcons';
-import styles from './css/Feed.module.css';
 
 const Feed = () => {
   const { data: postsData, loading: loadingPosts } = useSelector(
     (state) => state.post.posts
   );
-  const { data: searchData, error: errorData } = useSelector(
-    (state) => state.post.search
-  );
+  // const { error: errorSearch } = useSelector((state) => state.post.search);
   const { data: loginData } = useSelector((state) => state.user.login);
   const { error: deleteError } = useSelector((state) => state.post.delete);
 
   // eslint-disable-next-line
+  const [open, setOpen] = React.useState(false);
+  // eslint-disable-next-line
   const [pages, setPages] = React.useState(3);
+  // eslint-disable-next-line
   const [wait, setWait] = React.useState(false);
   // const [infinite, setInfinite] = React.useState(true);
 
@@ -34,70 +34,33 @@ const Feed = () => {
     dispatch(openModal());
   };
 
-  const fetchPages = async () => {
-    await dispatch(get_posts_pagination({ skip: 0, limit: pages * 3 }));
-  };
-
-  const infiniteScroll = () => {
-    if (!wait) {
-      // const scroll = window.scrollY;
-      // const height = document.body.offsetHeight - window.innerHeight;
-
-      // if (scroll > height * 0.75) {
-      //   setPages((pages) => pages + 1);
-      //   fetchPages();
-      //   setWait(true);
-      // }
-      setTimeout(() => setWait(false), 1000);
-    }
-  };
-
   React.useEffect(() => {
-    fetchPages();
-    window.addEventListener('wheel', infiniteScroll);
-    window.addEventListener('scroll', infiniteScroll);
-
-    return () => {
-      window.addEventListener('wheel', infiniteScroll);
-      window.addEventListener('scroll', infiniteScroll);
+    const fetchPages = async () => {
+      await dispatch(get_posts_pagination({ skip: 0, limit: 10 }));
     };
-    // eslint-disable-next-line
-  }, []);
+    fetchPages();
+  }, [dispatch]);
 
   return (
-    <div className={styles.Feed}>
-      {loadingPosts && <Loading />}
-      {errorData && (
-        <p className='App-message App-message-error'>{errorData}</p>
-      )}
-      {searchData
-        ? searchData.map((post) => (
-            <div className={`App-post ${styles.Post}`} key={post._id}>
+    <div>
+      {loadingPosts && <Loader size='mini'>Loading</Loader>}
+      {postsData &&
+        postsData.map((post) => (
+          <div key={post._id} style={{ marginBottom: '0.5rem' }}>
+            <div>
               <img
-                className={styles.Image}
-                onClick={() => modalHandler(post._id)}
-                src={post.image}
-                alt={post.userId}
-              />
-              <p>{post.content}</p>
-              <PostIcons post={post} user={loginData} error={deleteError} />
-            </div>
-          ))
-        : postsData &&
-          postsData.map((post) => (
-            <div className={`App-post ${styles.Post}`} key={post._id}>
-              <img
-                className={styles.Image}
+                style={{ cursor: 'pointer' }}
                 onClick={() => modalHandler(post._id)}
                 src={post.image}
                 alt={post.userId.name}
               />
-              <p>{post.content}</p>
+              <p style={{ marginTop: '1rem' }}>{post.content}</p>
               {loginData && (
                 <PostIcons post={post} login={loginData} error={deleteError} />
               )}
             </div>
-          ))}
+          </div>
+        ))}
     </div>
   );
 };

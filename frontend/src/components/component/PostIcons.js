@@ -1,22 +1,34 @@
 import React from 'react';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { get_like, get_posts, get_post, delete_post } from '../../store/post';
-import { closeModal, openModal, open_edit_post } from '../../store/modal';
+import { closeModal, open_edit_post } from '../../store/modal';
 import { Link } from 'react-router-dom';
-import { thousand_converter } from '../../helper/thousandConverter';
-
-import styles from '../css/PostIcons.module.css';
+import {
+  Button,
+  Label,
+  Image,
+  Icon,
+  Segment,
+  Confirm,
+} from 'semantic-ui-react';
 
 import avatar from '../../assets/img/avatar.png';
 
-import { ReactComponent as FavoriteIcon } from '../../assets/ico/white/carbon_favorite.svg';
-import { ReactComponent as ChatIcon } from '../../assets/ico/white/carbon_chat.svg';
-import { ReactComponent as DeleteIcon } from '../../assets/ico/white/carbon_delete.svg';
-import { ReactComponent as EditIcon } from '../../assets/ico/white/carbon_edit.svg';
-
 const PostIcons = ({ post, error, login }) => {
-  const modal = useSelector((state) => state.modal.post_modal);
+  const [state, setState] = React.useState({
+    open: false,
+    result: 'show the modal to capture a result',
+  });
+
+  const show = () => setState({ open: true });
+  const handleConfirm = (id) => {
+    setState({ result: 'confirmed', open: false });
+    deleteHandler(id);
+  };
+  const handleCancel = () => setState({ result: 'cancelled', open: false });
+
+  // const modal = useSelector((state) => state.modal.post_modal);
   const dispatch = useDispatch();
 
   const likeHandler = async () => {
@@ -25,10 +37,10 @@ const PostIcons = ({ post, error, login }) => {
     dispatch(get_post(post._id));
   };
 
-  const commentHandler = () => {
-    dispatch(get_post(post._id));
-    dispatch(openModal());
-  };
+  // const commentHandler = () => {
+  //   dispatch(get_post(post._id));
+  //   dispatch(openModal());
+  // };
 
   const deleteHandler = async (id) => {
     await dispatch(delete_post(id));
@@ -41,53 +53,54 @@ const PostIcons = ({ post, error, login }) => {
     if (!error) dispatch(get_posts());
   };
 
+  /**login?._id === post.userId._id owner */
+  const { result, open } = state;
   return (
-    <>
-      <div className={styles.IconsContainer}>
-        <div className='flex'>
-          <div
-            className='App-avatar-mini'
-            style={{
-              background: `url(${post.userId.imageAvatar || avatar})`,
-            }}
-          ></div>
-          <Link to={`profile/${post.userId._id}`}>{post.userId.name}</Link>
-        </div>
-        <div className={styles.Icons}>
-          <button onClick={likeHandler} className='App-btn-icon'>
-            <FavoriteIcon />
-            <span>{thousand_converter(parseInt(post.likes))}</span>
-          </button>
-          {!modal && (
-            <button onClick={commentHandler} className='App-btn-icon'>
-              <ChatIcon />
-              <span>{post.comments.length}</span>
-            </button>
-          )}
-          {login?._id === post.userId._id && (
-            <>
-              {modal && (
-                <button
-                  className='App-btn-icon'
-                  onClick={() => editHandler(post._id)}
-                >
-                  <EditIcon />
-                </button>
-              )}
+    <div
+      basic
+      style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        width: '100%',
+      }}
+    >
+      <Link to={`profile/${post.userId._id}`}>
+        <Label as='span' image>
+          <img src={post.userId.imageAvatar || avatar} alt={post.userId.name} />
+          {post.userId.name}Joe
+        </Label>
+      </Link>
 
-              <button
-                className='App-btn-icon'
-                onClick={() => deleteHandler(post._id)}
-              >
-                <DeleteIcon />
-              </button>
-            </>
-          )}
-        </div>
-      </div>
+      <Button.Group primary size='tiny'>
+        <Button as='div' labelPosition='right'>
+          <Button icon onClick={likeHandler}>
+            <Icon name='heart' />
+          </Button>
+          <Label as='span' basic pointing='left'>
+            {post.likes}
+          </Label>
+        </Button>
 
+        <Button as='div' labelPosition='right'>
+          <Button icon>
+            <Icon name='chat' />
+          </Button>
+          <Label as='span' basic pointing='left'>
+            {post.comments.length}
+          </Label>
+        </Button>
+
+        <Button icon='edit' onClick={() => editHandler(post._id)} />
+
+        <Button icon='trash alternate outline' onClick={show} />
+        <Confirm
+          open={open}
+          onCancel={handleCancel}
+          onConfirm={() => handleConfirm(post._id)}
+        />
+      </Button.Group>
       {error && <p className='App-message App-message-error'>{error}</p>}
-    </>
+    </div>
   );
 };
 

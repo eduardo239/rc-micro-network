@@ -4,20 +4,19 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { add_friend, get_user_by_id, remove_friend } from '../../store/user';
 import { dateFormat, sinceDate } from '../../helper/dateFormat';
+import { Button, Header, Icon, Image, List, Segment } from 'semantic-ui-react';
 
-import Loading from '../component/Loading';
-import bgHeader from '../../assets/img/profile-bg.jpg';
-import avatarDefault from '../../assets/img/avatar.png';
-import styles from '../css/ProfileHeader.module.css';
+import avatar from '../../assets/img/avatar.png';
 import get_local_storage from '../../store/helpers/getLocalStorage';
 
 const ProfileHeader = ({ user, login }) => {
   const dispatch = useDispatch();
 
-  const fileRef = React.useRef();
+  const fileRef = React.createRef();
   // eslint-disable-next-line
-  const [avatar, setAvatar] = React.useState('');
+  const [avatarU, setAvatarU] = React.useState('');
   const [friend, setFriend] = React.useState(false);
+  //eslint-disable-next-line
   const [loading, setLoading] = React.useState(false);
 
   const avatarHandler = async () => {
@@ -41,11 +40,12 @@ const ProfileHeader = ({ user, login }) => {
         config
       );
 
-      setAvatar(data);
+      setAvatarU(data);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
+      // dispatch(get_user_by_id(user._id));
     }
   };
 
@@ -58,7 +58,7 @@ const ProfileHeader = ({ user, login }) => {
     await dispatch(get_user_by_id(user._id));
   };
 
-  const updateButton = () => {};
+  // const updateButton = () => {};
 
   React.useEffect(() => {
     if (login)
@@ -66,53 +66,47 @@ const ProfileHeader = ({ user, login }) => {
   }, [login, user]);
 
   return (
-    <>
-      <div className={styles.ImageContainer}>
-        <img className={styles.Background} src={bgHeader} alt='Profile' />
-
-        {/* avatar */}
-        {loading ? (
-          <Loading />
-        ) : (
-          <label htmlFor='avatar' style={{ cursor: 'pointer' }}>
-            <div
-              className='App-avatar'
-              style={{
-                background: `url(${user.imageAvatar || avatarDefault})`,
-              }}
-            ></div>
+    <Segment style={{ marginTop: '1.5rem' }} basic>
+      <Header as='h2' textAlign='center' color='blue'>
+        <div>
+          <label htmlFor='avatarUpload' style={{ cursor: 'pointer' }}>
+            <Image circular src={user.imageAvatar || avatar} avatar />
           </label>
-        )}
-
+        </div>
+        <Header.Content>{user.name || 'None'}</Header.Content>
         <input
           type='file'
-          name='avatar'
-          id='avatar'
+          name='avatarUpload'
+          id='avatarUpload'
+          onChange={avatarHandler}
           ref={fileRef}
           style={{ display: 'none' }}
-          onChange={avatarHandler}
         />
-      </div>
-      <div className={styles.Stats}>
-        <div>
-          <p>{user.name}</p>
-          <p>{`Member since: ${sinceDate(user.createdAt)} days.`}</p>
-          <p>{`Registration date: ${dateFormat(user.createdAt)}`}</p>
-        </div>
-        <div>
-          {user._id !== login._id && (
-            <button
-              onClick={() => friendHandler(user._id)}
-              className={`App-btn ${
-                friend ? 'App-btn-secondary' : 'App-btn-primary'
-              }`}
-            >
-              {friend ? 'Remove' : 'Add'}
-            </button>
-          )}
-        </div>
-      </div>
-    </>
+      </Header>
+      <List>
+        <List.Item>
+          <List.Icon name='users' />
+          <List.Content>{`Member since: ${sinceDate(
+            user.createdAt
+          )} days.`}</List.Content>
+        </List.Item>
+        <List.Item>
+          <List.Icon name='marker' />
+          <List.Content>{`Registration date: ${dateFormat(
+            user.createdAt
+          )}`}</List.Content>
+        </List.Item>
+      </List>
+
+      {user._id !== login._id && (
+        <Button
+          onClick={() => friendHandler(user._id)}
+          color={`${friend ? 'red' : 'green'}`}
+        >
+          {friend ? 'Remove' : 'Add'}
+        </Button>
+      )}
+    </Segment>
   );
 };
 

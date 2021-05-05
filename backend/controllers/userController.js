@@ -187,7 +187,6 @@ const get_all_users = asyncHandler(async (req, res) => {
   }
 });
 
-// TODO
 /**
  * @description   Get all posts by user
  * @route         GET /api/users/posts/:id

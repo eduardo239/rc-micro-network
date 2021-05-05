@@ -1,13 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
+import { Icon, Input, Message, Button } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { get_posts } from '../../store/post';
-
-import { ReactComponent as SendIcon } from '../../assets/ico/white/carbon_send.svg';
-import { ReactComponent as FileUpIcon } from '../../assets/ico/white/carbon_image.svg';
-
-import styles from '../css/PostNew.module.css';
 
 const PostNew = () => {
   const [message, setMessage] = React.useState('');
@@ -15,18 +11,14 @@ const PostNew = () => {
   const [fileURL, setFileURL] = React.useState(null);
   const [content, setContent] = React.useState('');
 
-  const { data: loginData } = useSelector((state) => state.user.login);
-
+  const fileInputRef = React.createRef();
   const dispatch = useDispatch();
+
+  const { data: loginData } = useSelector((state) => state.user.login);
 
   const newPostHandler = async (e) => {
     e.preventDefault();
     setMessage('');
-
-    if (!content || !file) {
-      setMessage('Content and/or image not found.');
-      return;
-    }
     if (loginData) {
       const formData = new FormData();
       formData.append('image', file);
@@ -60,34 +52,45 @@ const PostNew = () => {
 
   const fileHandler = (e) => {
     setFileURL('');
+
     const file = e.target.files[0];
-    setFileURL(URL.createObjectURL(e.target.files[0]));
-    setFile(file);
+    if (file) {
+      setFileURL(URL.createObjectURL(e.target.files[0]));
+      setFile(file);
+    }
   };
 
   return (
-    <form onSubmit={newPostHandler} className={styles.PostNew}>
-      <label htmlFor='imageUpload' className={styles.Label}>
-        <FileUpIcon />
-        <input
-          style={{ display: 'none' }}
-          type='file'
-          name='image'
-          id='imageUpload'
-          onChange={fileHandler}
-        />
-      </label>
+    <form
+      onSubmit={newPostHandler}
+      style={{ display: 'flex', flexWrap: 'wrap', marginBottom: '0.5rem' }}
+    >
+      <Button
+        content='Image'
+        labelPosition='left'
+        icon='file'
+        primary
+        onClick={() => fileInputRef.current.click()}
+      />
+
       <input
-        type='text'
-        value={content}
+        ref={fileInputRef}
+        type='file'
+        id='imageUpload'
+        hidden
+        onChange={fileHandler}
+      />
+
+      <Input
+        style={{ flex: 1 }}
+        icon={<Icon onClick={newPostHandler} name='send' link />}
         placeholder='New Post here ..'
+        value={content}
         onChange={({ target }) => setContent(target.value)}
       />
-      <button onClick={newPostHandler} className='App-link'>
-        <SendIcon />
-      </button>
-      {fileURL && <small>{fileURL}</small>}
-      {message && <p className='App-message App-message-error'>{message}</p>}
+      {fileURL && <p>{fileURL}</p>}
+
+      {message && <Message error header='Action Forbidden' content={message} />}
     </form>
   );
 };

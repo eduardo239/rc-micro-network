@@ -1,20 +1,22 @@
 import React from 'react';
-
-import styles from '../css/PM.module.css';
-
-import User from './User';
+import { Button, Form } from 'semantic-ui-react';
 
 const PM = () => {
+  const [content, setContent] = React.useState('');
   return (
-    <div className='App-modal-container'>
-      <div className={styles.Modal}>
-        <User />
-        <div>
-          <input type='text' />
-          <button className='App-btn App-btn-secondary'>send</button>
-        </div>
-      </div>
-    </div>
+    <Form>
+      <Form.Field>
+        <label>Name</label>
+        <input
+          placeholder='Private message'
+          value={content}
+          onChange={({ target }) => setContent(target.value)}
+        />
+      </Form.Field>
+      <Button type='submit' primary fluid size='small'>
+        Submit
+      </Button>
+    </Form>
   );
 };
 

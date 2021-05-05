@@ -1,22 +1,18 @@
 import React from 'react';
 
-// import { Link } from 'react-router-dom';
-import { Col, Row } from 'react-bootstrap';
-
-import styles from './css/Register.module.css';
-
-import Input from './form/Input';
-import Button from './form/Button';
-import Menu from './component/Menu';
-import Logo from './component/Logo';
+import { Button, Form, Grid } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { user_update } from '../store/user';
+
+import Logo from './component/Logo';
+import Menu from './component/Menu';
 
 const Settings = () => {
   const [email, setEmail] = React.useState('');
   const [name, setName] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [passwordAgain, setPasswordAgain] = React.useState('');
+  /*eslint-disable-next-line*/
   const [message, setMessage] = React.useState('');
 
   const dispatch = useDispatch();
@@ -41,59 +37,60 @@ const Settings = () => {
     }
   }, [loginData]);
   return (
-    <Row className='justify-content-center'>
-      <Col xs={12} md={3}>
-        <Row className='justify-content-between'>
-          <Col>
-            <Logo />
-          </Col>
-        </Row>
+    <Grid centered doubling stackable>
+      <Grid.Column width={3}>
+        <Logo />
         <Menu />
-      </Col>
-      <Col xs={12} md={5}>
+      </Grid.Column>
+      <Grid.Column width={7}>
+        <h2>Settings</h2>
         {loginData && (
-          <form onSubmit={updateHandler} className={styles.Form}>
-            <h2>UPDATE</h2>
-            <Input
-              label='email'
-              type='email'
-              name='loginEmail'
-              value={email}
-              onChange={({ target }) => setEmail(target.value)}
-            />
+          <Form onSubmit={updateHandler}>
+            <Form.Field>
+              <label>Email</label>
+              <input
+                placeholder='Email'
+                value={email}
+                onChange={({ target }) => setEmail(target.value)}
+              />
+            </Form.Field>
 
-            <Input
-              label='name'
-              type='text'
-              name='loginName'
-              value={name}
-              onChange={({ target }) => setName(target.value)}
-            />
+            <Form.Field>
+              <label>Name</label>
+              <input
+                placeholder='name'
+                value={name}
+                onChange={({ target }) => setName(target.value)}
+              />
+            </Form.Field>
 
-            <Input
-              label='password'
-              type='password'
-              name='loginPassword'
-              value={password}
-              onChange={({ target }) => setPassword(target.value)}
-            />
+            <Form.Field>
+              <label>Password</label>
+              <input
+                type='password'
+                placeholder='Password'
+                value={password}
+                onChange={({ target }) => setPassword(target.value)}
+              />
+            </Form.Field>
 
-            <Input
-              label='password again'
-              type='password'
-              name='loginPasswordAgain'
-              value={passwordAgain}
-              onChange={({ target }) => setPasswordAgain(target.value)}
-            />
+            <Form.Field>
+              <label>Password Again</label>
+              <input
+                type='password'
+                placeholder='Password'
+                value={passwordAgain}
+                onChange={({ target }) => setPasswordAgain(target.value)}
+              />
+            </Form.Field>
 
-            <Button>UPDATE</Button>
-            {message && (
-              <p className='App-message App-message-error'>{message}</p>
-            )}
-          </form>
+            <Button type='submit' secondary fluid size='small'>
+              Update
+            </Button>
+          </Form>
         )}
-      </Col>
-    </Row>
+      </Grid.Column>
+    </Grid>
   );
 };
 

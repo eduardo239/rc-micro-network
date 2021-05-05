@@ -6,6 +6,7 @@ import { close_edit_post } from '../../store/modal';
 
 import { ReactComponent as SaveIcon } from '../../assets/ico/white/carbon_save.svg';
 import { ReactComponent as CloseIcon } from '../../assets/ico/white/carbon_close.svg';
+import { Input, Segment } from 'semantic-ui-react';
 
 const EditPost = ({ post }) => {
   const [content, setContent] = React.useState('');
@@ -24,23 +25,20 @@ const EditPost = ({ post }) => {
   };
 
   return (
-    <div style={{ padding: '0.25rem', position: 'relative' }}>
-      <input
-        type='text'
-        placeholder='Edit Post ..'
-        style={{ padding: '0.5rem' }}
-        onChange={({ target }) => setContent(target.value)}
+    <Segment basic>
+      <Input
+        fluid
+        action={{
+          color: 'primary',
+          labelPosition: 'right',
+          icon: 'edit',
+          content: 'Edit',
+          onClick: () => updateHandler(),
+        }}
         value={content}
+        onChange={({ target }) => setContent(target.value)}
       />
-      <div style={{ position: 'absolute', top: '0', right: '0' }}>
-        <button className='App-btn-icon' onClick={updateHandler}>
-          <SaveIcon />
-        </button>
-        <button className='App-btn-icon'>
-          <CloseIcon />
-        </button>
-      </div>
-    </div>
+    </Segment>
   );
 };
 

@@ -3,10 +3,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { post_new_comment } from '../../store/comments';
 import { get_post, get_posts } from '../../store/post';
-
-import { ReactComponent as SendNewComment } from '../../assets/ico/white/carbon_send.svg';
-
-import styles from '../css/CommentNew.module.css';
+import { Icon, Input } from 'semantic-ui-react';
 
 const CommentNew = ({ postId }) => {
   const [content, setContent] = React.useState('');
@@ -18,19 +15,18 @@ const CommentNew = ({ postId }) => {
     dispatch(get_posts());
     await dispatch(post_new_comment({ postId, content }));
     await dispatch(get_post(postId));
+    setContent('');
   };
 
   return (
-    <form onSubmit={newCommentHandler} className={styles.CommentNew}>
-      <input
-        type='text'
+    <form style={{ display: 'flex' }} onSubmit={newCommentHandler}>
+      <Input
+        style={{ flex: 1 }}
+        icon={<Icon onClick={newCommentHandler} name='send' link />}
+        placeholder='New Comment here ..'
         value={content}
-        placeholder='Comment here ..'
         onChange={({ target }) => setContent(target.value)}
       />
-      <button type='submit' className='App-link'>
-        <SendNewComment />
-      </button>
     </form>
   );
 };

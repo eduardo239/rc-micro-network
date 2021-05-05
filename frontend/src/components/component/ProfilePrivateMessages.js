@@ -5,8 +5,6 @@ import { ReactComponent as DeleteIcon } from '../../assets/ico/white/carbon_clos
 import { delete_pm } from '../../store/comments';
 import { Link } from 'react-router-dom';
 
-import styles from '../css/ProfilePrivateMessages.module.css';
-
 const ProfilePrivateMessages = ({ login }) => {
   const dispatch = useDispatch();
   const deletePmHandler = (friendId) => {
@@ -14,10 +12,10 @@ const ProfilePrivateMessages = ({ login }) => {
   };
 
   return (
-    <div>
-      {login?.pm &&
+    <>
+      {login &&
         login.pm.map((m) => (
-          <div className={styles.Message} key={m._id}>
+          <div key={m._id}>
             <Link to={`../profile/${m.friendId._id}`}>
               <img
                 className='App-avatar-mini'
@@ -35,7 +33,7 @@ const ProfilePrivateMessages = ({ login }) => {
             </button>
           </div>
         ))}
-    </div>
+    </>
   );
 };
 

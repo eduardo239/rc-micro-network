@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Col, Row } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { get_user_by_id } from '../store/user';
+import { Grid } from 'semantic-ui-react';
 
 import ProfileContent from './component/ProfileContent';
 import ProfileHeader from './component/ProfileHeader';
@@ -21,28 +21,25 @@ const Profile = ({ match }) => {
     if (mounted) {
       if (id) dispatch(get_user_by_id(id));
     }
+
     return () => (mounted = false);
-  }, [dispatch, id, loginData]);
+  }, [dispatch, id]);
 
   return (
-    <Row className='justify-content-center'>
-      <Col xs={12} md={3}>
-        <Row className='justify-content-between'>
-          <Col>
-            <Logo />
-          </Col>
-        </Row>
+    <Grid centered doubling stackable>
+      <Grid.Column width={3}>
+        <Logo />
         <Menu />
-      </Col>
-      <Col xs={12} md={5}>
+      </Grid.Column>
+      <Grid.Column width={7}>
         {userData && loginData && (
           <>
             <ProfileHeader user={userData} login={loginData} />
             <ProfileContent user={userData} login={loginData} />
           </>
         )}
-      </Col>
-    </Row>
+      </Grid.Column>
+    </Grid>
   );
 };
 

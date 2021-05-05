@@ -1,23 +1,23 @@
 import React from 'react';
 
 import { Link } from 'react-router-dom';
-import { Col, Row } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { get_token } from '../store/user';
+import { Button, Checkbox, Form, Grid, Menu, Message } from 'semantic-ui-react';
 
-import styles from './css/Register.module.css';
 import MenuLogin from './component/MenuLogin';
-import Input from './form/Input';
-import Button from './form/Button';
 
 const Login = ({ history }) => {
   const [email, setEmail] = React.useState('admin@email.com');
   const [password, setPassword] = React.useState('123');
 
-  const { data: loginData, error: loginError } = useSelector(
-    (state) => state.user.login
-  );
   const dispatch = useDispatch();
+
+  const {
+    data: loginData,
+    error: loginError,
+    loading: loginLoading,
+  } = useSelector((state) => state.user.login);
 
   const loginHandler = (e) => {
     e.preventDefault();
@@ -29,39 +29,51 @@ const Login = ({ history }) => {
   }, [loginData, history]);
 
   return (
-    <Row className='justify-content-center'>
-      <Col xs={12} md={4}>
+    <Grid centered doubling stackable>
+      <Grid.Column width={5}>
         <MenuLogin />
+        <h2>Login</h2>
+        <Form onSubmit={loginHandler} loading={loginLoading ? true : false}>
+          <Form.Field>
+            <label>Email</label>
+            <input
+              placeholder='Email'
+              type='email'
+              value={email}
+              onChange={({ target }) => setEmail(target.value)}
+            />
+          </Form.Field>
 
-        <form onSubmit={loginHandler} className={`App-border ${styles.Form}`}>
-          <h2>LOGIN</h2>
-          <Input
-            label='email'
-            type='email'
-            name='loginEmail'
-            value={email}
-            onChange={({ target }) => setEmail(target.value)}
-          />
+          <Form.Field>
+            <label>Password</label>
+            <input
+              placeholder='Password'
+              type='password'
+              value={password}
+              onChange={({ target }) => setPassword(target.value)}
+            />
+          </Form.Field>
 
-          <Input
-            label='password'
-            type='password'
-            name='loginPassword'
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
-          />
+          <Form.Field>
+            <Checkbox label='Remember me' />
+          </Form.Field>
 
-          <Button>LOGIN</Button>
-          {loginError && (
-            <p className='App-message App-message-error'>{loginError}</p>
-          )}
+          <Button type='submit' primary fluid size='small'>
+            Submit
+          </Button>
+        </Form>
 
-          <Link className='small' to='/register'>
-            Sign up
+        {loginError && (
+          <Message error header='Action Forbidden' content={loginError} />
+        )}
+
+        <Menu text size='small'>
+          <Link to='/register'>
+            <Menu.Item name='register' />
           </Link>
-        </form>
-      </Col>
-    </Row>
+        </Menu>
+      </Grid.Column>
+    </Grid>
   );
 };
 

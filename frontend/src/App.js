@@ -7,7 +7,6 @@ import { lightTheme, darkTheme } from './css/theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Container, Row } from 'react-bootstrap';
 import { auto_login } from './store/user';
-// import { get_posts } from './store/post';
 import { closeModal } from './store/modal';
 
 import Home from './components/Home';
@@ -19,8 +18,9 @@ import Settings from './components/Settings';
 import Admin from './components/Admin';
 
 const App = () => {
-  const { ui: theme } = useSelector((state) => state);
   const modal = useSelector((state) => state.modal.post_modal);
+  const { ui: theme } = useSelector((state) => state);
+  const { data: loginData } = useSelector((state) => state.user.login);
 
   const location = useLocation();
   const dispatch = useDispatch();
@@ -29,10 +29,9 @@ const App = () => {
     if (location.pathname !== '/' && modal) dispatch(closeModal());
 
     (async () => {
-      // await dispatch(get_posts());
-      await dispatch(auto_login());
+      if (!loginData) await dispatch(auto_login());
     })();
-  }, [dispatch, location, modal]);
+  }, [dispatch, location, modal, loginData]);
 
   return (
     <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
