@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { Loader, Segment } from 'semantic-ui-react';
+import { Loader, Message, Segment } from 'semantic-ui-react';
 import { openModal } from '../store/modal';
 import { get_post, get_posts_pagination } from '../store/post';
 import Pagination2 from './component/Pagination';
@@ -54,7 +54,7 @@ const Feed = () => {
         </Segment>
       )}
 
-      {postsData &&
+      {postsData && postsData.length > 0 ? (
         postsData.map((post) => (
           <Segment
             key={post._id}
@@ -74,8 +74,11 @@ const Feed = () => {
               <PostIcons post={post} login={loginData} error={deleteError} />
             )}
           </Segment>
-        ))}
-      {postsData && (
+        ))
+      ) : (
+        <Message warning header='Action Error' content='Posts Not Found.' />
+      )}
+      {postsData && postsData.length > 0 && (
         <Pagination2
           defaultActivePage={1}
           totalPages={10}

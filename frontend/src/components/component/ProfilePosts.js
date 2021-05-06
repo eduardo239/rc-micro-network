@@ -1,9 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { Link } from 'react-router-dom';
 import { Image, Segment } from 'semantic-ui-react';
+
 const ProfilePosts = ({ user }) => {
-  console.log(user);
+  const { ui: theme } = useSelector((state) => state);
+
   return (
     <ResponsiveMasonry columnsCountBreakPoints={{ 250: 1, 550: 2, 900: 3 }}>
       <Masonry>
@@ -16,7 +19,9 @@ const ProfilePosts = ({ user }) => {
             </div>
           ))
         ) : (
-          <Segment basic>Posts not found</Segment>
+          <Segment basic inverted={theme !== 'light'}>
+            Posts not found
+          </Segment>
         )}
       </Masonry>
     </ResponsiveMasonry>

@@ -20,7 +20,7 @@ const PostIcons = ({ post, error, login }) => {
   const deleteHandler = async (id) => {
     await dispatch(delete_post(id));
     await dispatch(closeModal());
-    if (!error) dispatch(get_posts());
+    await dispatch(get_posts());
   };
 
   const editHandler = async (id) => {

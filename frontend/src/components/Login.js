@@ -32,7 +32,7 @@ const Login = ({ history }) => {
 
   return (
     <Grid centered doubling stackable>
-      <Grid.Column width={5}>
+      <Grid.Column width={6}>
         <MenuIcon />
         <h2>Login</h2>
         <Form

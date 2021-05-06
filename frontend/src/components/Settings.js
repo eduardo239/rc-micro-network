@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Button, Form, Grid, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { user_update } from '../store/user';
 
@@ -13,7 +13,7 @@ const Settings = () => {
   const [name, setName] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [passwordAgain, setPasswordAgain] = React.useState('');
-  /*eslint-disable-next-line*/
+  const [errorMessage, setErrorMessage] = React.useState('');
   const [message, setMessage] = React.useState('');
 
   const dispatch = useDispatch();
@@ -21,14 +21,15 @@ const Settings = () => {
   const { data: loginData } = useSelector((state) => state.user.login);
   const { ui: theme } = useSelector((state) => state);
 
-  const updateHandler = (e) => {
+  const updateHandler = async (e) => {
+    setErrorMessage('');
     setMessage('');
     e.preventDefault();
     if (password === passwordAgain) {
-      const result = dispatch(user_update({ email, name, password }));
-      if (result) setMessage('User Updated. ');
+      await dispatch(user_update({ email, name, password }));
+      setMessage('User updated.');
     } else {
-      setMessage('Password do not match.');
+      setErrorMessage('Password do not match.');
     }
   };
 
@@ -40,14 +41,14 @@ const Settings = () => {
   }, [loginData]);
   return (
     <Grid centered doubling stackable>
-      <Grid.Column width={3} only='tablet computer'>
+      <Grid.Column width={4} only='tablet computer'>
         <Logo />
         <Menu />
       </Grid.Column>
-      <Grid.Column width={3} only='mobile'>
+      <Grid.Column width={4} only='mobile'>
         <MenuIcon />
       </Grid.Column>
-      <Grid.Column width={7}>
+      <Grid.Column width={8}>
         {loginData && (
           <Segment
             style={{ marginTop: '1rem' }}
@@ -94,10 +95,17 @@ const Settings = () => {
                 />
               </Form.Field>
 
-              <Button type='submit' color='purple' fluid size='small'>
+              <Button type='submit' color='yellow' fluid size='small'>
                 Update
               </Button>
             </Form>
+            {errorMessage && (
+              <Message error header='Action Forbidden' content={errorMessage} />
+            )}
+
+            {message && (
+              <Message success header='Successful' content={message} />
+            )}
           </Segment>
         )}
       </Grid.Column>

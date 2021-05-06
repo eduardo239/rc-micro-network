@@ -26,15 +26,11 @@ const Register = ({ history }) => {
     console.log(agree);
     e.preventDefault();
     setMessage('');
-    if (agree) {
-      if (password === passwordAgain) {
-        dispatch(user_register({ email, name, password }));
-      } else {
-        setMessage('Password do not match.');
-      }
-    } else {
-      setMessage('You have to agree with the terms.');
-    }
+    if (agree && password === passwordAgain)
+      dispatch(user_register({ email, name, password }));
+    if (password !== passwordAgain) setMessage('Password do not match.');
+
+    if (!agree) setMessage('You have to agree with the terms.');
   };
   const checkHandler = (e) => setAgree((prev) => !agree);
 
@@ -44,7 +40,7 @@ const Register = ({ history }) => {
 
   return (
     <Grid centered doubling stackable>
-      <Grid.Column width={5}>
+      <Grid.Column width={6}>
         <MenuIcon />
         <h2>Register</h2>
 

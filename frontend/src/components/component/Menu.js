@@ -8,15 +8,17 @@ import { user_logout } from '../../store/user';
 
 const Menu2 = () => {
   const dispatch = useDispatch();
+  const [state, setState] = React.useState({ activeItem: 'home' });
+
   const { ui } = useSelector((state) => state);
   const { data: loginData } = useSelector((state) => state.user.login);
-  const [state, setState] = React.useState({ activeItem: 'home' });
 
   const handleItemClick = (e, { name }) => setState({ activeItem: name });
 
   const themeHandler = () =>
     ui === 'light' ? dispatch(darkTheme()) : dispatch(lightTheme());
 
+  console.log(state.activeItem);
   return (
     <Menu pointing vertical fluid inverted={ui !== 'light'}>
       <Menu.Item
