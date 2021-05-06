@@ -29,7 +29,6 @@ const Register = ({ history }) => {
     if (agree && password === passwordAgain)
       dispatch(user_register({ email, name, password }));
     if (password !== passwordAgain) setMessage('Password do not match.');
-
     if (!agree) setMessage('You have to agree with the terms.');
   };
   const checkHandler = (e) => setAgree((prev) => !agree);

@@ -48,8 +48,18 @@ html {
   align-items: flex-start;
   flex-direction: column;
   overflow-y: auto;
+  animation: fadeIn ease 0.2s;
 }
-
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .App-btn--absolute {
   position: absolute;
   top: 0;

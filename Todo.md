@@ -18,6 +18,10 @@
 
 # profile delete pm
 
+# pull posts from user.posts on delete post
+
+# PM list component
+
 <!-- # logo clickable -->
 
 <!-- # update image on upload -->
@@ -26,9 +30,9 @@
 
 <!-- # icons animation -->
 
-transition: 0.2s ease-in-out;
+<!-- transition: 0.2s ease-in-out; -->
 
-# like icon loading only
+# like icon loading only !
 
 <!-- # logout show posts -->
 
@@ -41,8 +45,6 @@ transition: 0.2s ease-in-out;
 # search
 
 # search reset
-
-# modal post new comment load only comment
 
 <!-- # modal close button -->
 
