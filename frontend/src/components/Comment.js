@@ -4,35 +4,13 @@ import { Link } from 'react-router-dom';
 import { delete_comment } from '../store/comments';
 import { useDispatch } from 'react-redux';
 import { get_post } from '../store/post';
-import { Button, Comment, Segment } from 'semantic-ui-react';
+import { Button, Comment } from 'semantic-ui-react';
 
 import CommentNew from './component/CommentNew';
 import avatar from '../assets/img/avatar.png';
 
 const Comment2 = ({ user, comments, postId }) => {
   const dispatch = useDispatch();
-
-  // const editRef = createRef();
-
-  // const [content, setContent] = React.useState('');
-  // const [editing, setEditing] = React.useState(false);
-  // const [commentId, setCommentId] = React.useState('');
-
-  // const editCommentHandler = async (id) => {
-  //   setEditing(!editing);
-  //   setCommentId(id);
-  //   if (commentId) setCommentId('');
-  // };
-
-  // const saveCommentHandler = async (commentId) => {
-  //   await dispatch(edit_comment({ id: commentId, content }));
-  //   await dispatch(get_post(postId));
-  // };
-
-  // const onChangeHandler = (e) => {
-  //   editRef.current.focus();
-  //   setContent(e.target.value);
-  // };
 
   const deleteCommentHandler = async (id) => {
     await dispatch(delete_comment(id));
@@ -44,9 +22,9 @@ const Comment2 = ({ user, comments, postId }) => {
       <Comment.Group>
         {comments.length > 0 &&
           comments.map((comment) => (
-            <Comment>
+            <Comment key={comment._id}>
               <Comment.Avatar
-                as='a'
+                as='div'
                 src={comment.userId.imageAvatar || avatar}
               />
               <Comment.Content>

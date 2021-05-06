@@ -7,9 +7,10 @@ import { Grid } from 'semantic-ui-react';
 import ProfileContent from './component/ProfileContent';
 import ProfileHeader from './component/ProfileHeader';
 import Menu from './component/Menu';
+import MenuIcon from './component/MenuIcon';
 import Logo from './component/Logo';
 
-const Profile = ({ match }) => {
+const Profile = ({ match, history }) => {
   const { data: userData } = useSelector((state) => state.user.user);
   const { data: loginData } = useSelector((state) => state.user.login);
 
@@ -20,16 +21,20 @@ const Profile = ({ match }) => {
     let mounted = true;
     if (mounted) {
       if (id) dispatch(get_user_by_id(id));
+      if (!loginData) history.push('/');
     }
 
     return () => (mounted = false);
-  }, [dispatch, id]);
+  }, [dispatch, id, history, loginData]);
 
   return (
     <Grid centered doubling stackable>
-      <Grid.Column width={3}>
+      <Grid.Column width={3} only='tablet computer'>
         <Logo />
         <Menu />
+      </Grid.Column>
+      <Grid.Column width={3} only='mobile'>
+        <MenuIcon />
       </Grid.Column>
       <Grid.Column width={7}>
         {userData && loginData && (

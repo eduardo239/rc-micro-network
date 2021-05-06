@@ -16,12 +16,14 @@ const Home = () => {
 
   return (
     <Grid centered doubling stackable>
-      <Grid.Column width={3}>
+      <Grid.Column width={3} only='tablet computer'>
         <Logo />
         <Menu />
       </Grid.Column>
-      <Grid.Column width={7}>
+      <Grid.Column width={3} only='mobile'>
         <MenuIcon />
+      </Grid.Column>
+      <Grid.Column width={7}>
         <Search />
         <PostNew />
         <Feed />

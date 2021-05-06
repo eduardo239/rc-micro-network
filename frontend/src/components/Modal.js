@@ -3,7 +3,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { closeModal } from '../store/modal';
 import { resetPostState } from '../store/post';
-import { Dimmer, Loader, Segment } from 'semantic-ui-react';
+import { Button, Segment } from 'semantic-ui-react';
 
 import textWithHash from '../helper/textWithHash';
 import PostIcons from './component/PostIcons';
@@ -14,10 +14,9 @@ const Modal = () => {
   const modalRef = React.createRef();
   const commentRef = React.createRef();
 
-  const { data: postData, loading: postLoading } = useSelector(
-    (state) => state.post.post
-  );
+  const { data: postData } = useSelector((state) => state.post.post);
   const { data: loginData } = useSelector((state) => state.user.login);
+  const { ui: theme } = useSelector((state) => state);
   const edit_modal = useSelector((state) => state.modal.edit_post_modal);
 
   const dispatch = useDispatch();
@@ -42,11 +41,14 @@ const Modal = () => {
 
   return (
     <div className='App-modal--container' onClick={clickOutsideHandler}>
-      {postLoading && <Loader active inline='centered' />}
       {postData && loginData && (
         <div className='App-modal--content' ref={modalRef}>
           <img src={postData.image} alt={postData.userId.name} />
-          <Segment basic padded='small' style={{ width: '100%' }}>
+          <Segment
+            basic
+            style={{ width: '100%', margin: '0' }}
+            inverted={theme !== 'light'}
+          >
             <PostIcons post={postData} user={loginData} />
 
             <p style={{ marginTop: '1rem' }} ref={commentRef}>
@@ -63,6 +65,13 @@ const Modal = () => {
           </Segment>
         </div>
       )}
+      <Button
+        onClick={() => dispatch(closeModal())}
+        className='App-btn--absolute'
+        color='red'
+      >
+        close
+      </Button>
     </div>
   );
 };

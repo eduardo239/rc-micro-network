@@ -5,14 +5,25 @@ svg {
 }
 
 html {
-  overflow: auto;
+  overflow-y: auto;
 }
 
 .App-logo {
   margin: 1.5rem 0;
 }
-.App-logo path {
+.App-logo-light path {
   fill: rgba(0, 0, 0, 85);
+}
+
+.App-logo-dark path {
+  fill: rgba(255, 255, 255, 85);
+}
+/* ------------------ text -------------------- */
+.App-text-light {
+  color: black !important;
+}
+.App-text-dark {
+  color: white !important;
 }
 /* ------------------ modal -------------------- */
 .App-modal--container {
@@ -24,15 +35,23 @@ html {
   align-items: center;
   width: 100%;
   min-height: 100vh;
-  background-color: rgba(0, 0, 0, 0.089);
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
 }
 
 .App-modal--content {
   overflow-y: scroll;
-  max-height: 90vh;
+  max-height: 85vh;
   max-width: 90vw;
   background-color: #fff;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+  overflow-y: auto;
+}
+
+.App-btn--absolute {
+  position: absolute;
+  top: 0;
+  right: 1rem;
 }

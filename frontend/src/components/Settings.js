@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { Button, Form, Grid } from 'semantic-ui-react';
+import { Button, Form, Grid, Segment } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { user_update } from '../store/user';
 
 import Logo from './component/Logo';
 import Menu from './component/Menu';
+import MenuIcon from './component/MenuIcon';
 
 const Settings = () => {
   const [email, setEmail] = React.useState('');
@@ -18,6 +19,7 @@ const Settings = () => {
   const dispatch = useDispatch();
 
   const { data: loginData } = useSelector((state) => state.user.login);
+  const { ui: theme } = useSelector((state) => state);
 
   const updateHandler = (e) => {
     setMessage('');
@@ -38,56 +40,65 @@ const Settings = () => {
   }, [loginData]);
   return (
     <Grid centered doubling stackable>
-      <Grid.Column width={3}>
+      <Grid.Column width={3} only='tablet computer'>
         <Logo />
         <Menu />
       </Grid.Column>
+      <Grid.Column width={3} only='mobile'>
+        <MenuIcon />
+      </Grid.Column>
       <Grid.Column width={7}>
-        <h2>Settings</h2>
         {loginData && (
-          <Form onSubmit={updateHandler}>
-            <Form.Field>
-              <label>Email</label>
-              <input
-                placeholder='Email'
-                value={email}
-                onChange={({ target }) => setEmail(target.value)}
-              />
-            </Form.Field>
+          <Segment
+            style={{ marginTop: '1rem' }}
+            padded
+            inverted={theme !== 'light'}
+          >
+            <h2>Settings</h2>
+            <Form onSubmit={updateHandler} inverted={theme !== 'light'}>
+              <Form.Field>
+                <label>Email</label>
+                <input
+                  placeholder='Email'
+                  value={email}
+                  onChange={({ target }) => setEmail(target.value)}
+                />
+              </Form.Field>
 
-            <Form.Field>
-              <label>Name</label>
-              <input
-                placeholder='name'
-                value={name}
-                onChange={({ target }) => setName(target.value)}
-              />
-            </Form.Field>
+              <Form.Field>
+                <label>Name</label>
+                <input
+                  placeholder='name'
+                  value={name}
+                  onChange={({ target }) => setName(target.value)}
+                />
+              </Form.Field>
 
-            <Form.Field>
-              <label>Password</label>
-              <input
-                type='password'
-                placeholder='Password'
-                value={password}
-                onChange={({ target }) => setPassword(target.value)}
-              />
-            </Form.Field>
+              <Form.Field>
+                <label>Password</label>
+                <input
+                  type='password'
+                  placeholder='Password'
+                  value={password}
+                  onChange={({ target }) => setPassword(target.value)}
+                />
+              </Form.Field>
 
-            <Form.Field>
-              <label>Password Again</label>
-              <input
-                type='password'
-                placeholder='Password'
-                value={passwordAgain}
-                onChange={({ target }) => setPasswordAgain(target.value)}
-              />
-            </Form.Field>
+              <Form.Field>
+                <label>Password Again</label>
+                <input
+                  type='password'
+                  placeholder='Password'
+                  value={passwordAgain}
+                  onChange={({ target }) => setPasswordAgain(target.value)}
+                />
+              </Form.Field>
 
-            <Button type='submit' secondary fluid size='small'>
-              Update
-            </Button>
-          </Form>
+              <Button type='submit' color='purple' fluid size='small'>
+                Update
+              </Button>
+            </Form>
+          </Segment>
         )}
       </Grid.Column>
     </Grid>

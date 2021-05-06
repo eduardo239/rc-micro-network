@@ -4,30 +4,29 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { user_register } from '../store/user';
 import { Button, Checkbox, Form, Grid, Menu, Message } from 'semantic-ui-react';
-
-import MenuLogin from './component/MenuLogin';
+import MenuIcon from './component/MenuIcon';
 
 const Register = ({ history }) => {
-  /*eslint-disable-next-line*/
   const [agree, setAgree] = React.useState(false);
   const [email, setEmail] = React.useState('admin@email.com');
   const [name, setName] = React.useState('Admin');
   const [password, setPassword] = React.useState('123');
   const [passwordAgain, setPasswordAgain] = React.useState('123');
-  /*eslint-disable-next-line*/
   const [message, setMessage] = React.useState('');
 
+  const { ui: theme } = useSelector((state) => state);
   const { data: loginData } = useSelector((state) => state.user.login);
-  const { error: registerError, loading: registerLoading } = useSelector(
+  const { error: rError, loading: rLoading } = useSelector(
     (state) => state.user.register
   );
 
   const dispatch = useDispatch();
 
   const registerHandler = (e) => {
-    setMessage('');
+    console.log(agree);
     e.preventDefault();
-    if (!agree) {
+    setMessage('');
+    if (agree) {
       if (password === passwordAgain) {
         dispatch(user_register({ email, name, password }));
       } else {
@@ -37,20 +36,22 @@ const Register = ({ history }) => {
       setMessage('You have to agree with the terms.');
     }
   };
+  const checkHandler = (e) => setAgree((prev) => !agree);
 
   React.useEffect(() => {
-    if (loginData && !registerError) history.push('/');
-  }, [loginData, history, registerError]);
+    if (loginData && !rError) history.push('/');
+  }, [loginData, history, rError]);
 
   return (
     <Grid centered doubling stackable>
       <Grid.Column width={5}>
-        <MenuLogin />
+        <MenuIcon />
         <h2>Register</h2>
 
         <Form
+          inverted={theme !== 'light'}
           onSubmit={registerHandler}
-          loading={registerLoading ? true : null}
+          loading={rLoading ? true : null}
         >
           <Form.Field>
             <label>Email</label>
@@ -92,7 +93,11 @@ const Register = ({ history }) => {
           </Form.Field>
 
           <Form.Field>
-            <Checkbox label='I agree to the Terms and Conditions' />
+            <Checkbox
+              onChange={checkHandler}
+              value={agree}
+              label='I agree to the Terms and Conditions'
+            />
           </Form.Field>
 
           <Button type='submit' primary fluid size='small'>
@@ -100,11 +105,12 @@ const Register = ({ history }) => {
           </Button>
         </Form>
 
-        {registerError && (
-          <Message error header='Action Forbidden' content={registerError} />
+        {rError && <Message error header='Action Forbidden' content={rError} />}
+        {message && (
+          <Message error header='Action Forbidden' content={message} />
         )}
 
-        <Menu text>
+        <Menu text inverted={theme !== 'light'}>
           <Link to='/login'>
             <Menu.Item name='login' />
           </Link>

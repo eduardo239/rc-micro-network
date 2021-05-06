@@ -46,8 +46,8 @@ router.post('/avatar', protect, upload.single('avatar'), async (req, res) => {
   const image = await Jimp.read(
     `http://localhost:5000/uploads/${req.file.filename}`
   );
-  await image.quality(90);
-  await image.resize(Jimp.AUTO, 120);
+  await image.quality(100);
+  await image.resize(Jimp.AUTO, 160);
   await image.write(`backend/uploads/${req.file.filename}`);
 
   if (user) {

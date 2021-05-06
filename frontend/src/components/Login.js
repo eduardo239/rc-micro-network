@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { get_token } from '../store/user';
 import { Button, Checkbox, Form, Grid, Menu, Message } from 'semantic-ui-react';
 
-import MenuLogin from './component/MenuLogin';
+import MenuIcon from './component/MenuIcon';
 
 const Login = ({ history }) => {
   const [email, setEmail] = React.useState('admin@email.com');
   const [password, setPassword] = React.useState('123');
+
+  const { ui: theme } = useSelector((state) => state);
 
   const dispatch = useDispatch();
 
@@ -31,9 +33,13 @@ const Login = ({ history }) => {
   return (
     <Grid centered doubling stackable>
       <Grid.Column width={5}>
-        <MenuLogin />
+        <MenuIcon />
         <h2>Login</h2>
-        <Form onSubmit={loginHandler} loading={loginLoading ? true : false}>
+        <Form
+          onSubmit={loginHandler}
+          loading={loginLoading ? true : false}
+          inverted={theme !== 'light'}
+        >
           <Form.Field>
             <label>Email</label>
             <input
@@ -67,7 +73,7 @@ const Login = ({ history }) => {
           <Message error header='Action Forbidden' content={loginError} />
         )}
 
-        <Menu text size='small'>
+        <Menu text size='small' inverted={theme !== 'light'}>
           <Link to='/register'>
             <Menu.Item name='register' />
           </Link>

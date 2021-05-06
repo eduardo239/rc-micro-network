@@ -9,7 +9,7 @@ import Jimp from 'jimp';
  * @access        Public
  */
 const get_all_posts = asyncHandler(async (req, res) => {
-  const limit = parseInt(req.query.limit) || 5;
+  const limit = parseInt(req.query.limit) || 2;
   const skip = parseInt(req.query.skip) || 0;
 
   const posts = await Post.find({}, null, { sort: { createdAt: -1 } })

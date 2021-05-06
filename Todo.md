@@ -2,21 +2,25 @@
 
 <!-- # banned users -->
 
-# remove dispatch edit post
+<!-- # remove dispatch edit post -->
 
-# profile posts masonry
+<!-- # profile posts masonry -->
 
-# profile tabs
+<!-- # theme -->
+
+<!-- # profile tabs -->
 
 <!-- # profile delete friend ..s -->
 
 <!-- # profile button add/remove -->
 
+# update add friend on the profile page
+
 # profile delete pm
 
 <!-- # logo clickable -->
 
-# update image on upload
+<!-- # update image on upload -->
 
 <!-- # all update icons -->
 
@@ -26,21 +30,21 @@ transition: 0.2s ease-in-out;
 
 # like icon loading only
 
-# logout show posts
+<!-- # logout show posts -->
 
-# load more
+<!-- # load more -->
 
 <!-- # login/register menu -->
 
 # login register if not is a user
 
-# search fix
+# search
 
 # search reset
 
 # modal post new comment load only comment
 
-# modal close button
+<!-- # modal close button -->
 
 # feed animation pictures
 
@@ -48,7 +52,7 @@ transition: 0.2s ease-in-out;
 
 # post slider
 
-# css semantic
+<!-- # css semantic -->
 
 # send pm on user page
 
@@ -58,14 +62,8 @@ transition: 0.2s ease-in-out;
 
 # admin true tab
 
-# posts, comments style, delete, update
-
-# menu on mobile fixed at the bottom
+# menu on mobile fixed
 
 <!-- # reset state user on logout -->
 
-# fix edit post
-
-# control button if profile is mine
-
-# remove 2 get profile by user id on profile page
+<!-- # fix edit post -->

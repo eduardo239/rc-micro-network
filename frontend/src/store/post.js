@@ -124,7 +124,7 @@ const fetch_pagination = _posts_pagination.asyncAction;
 const fetch_edit = _edit.asyncAction;
 
 export const { resetState: resetPostState } = _post.actions;
-export const { resetState: resetDeleteState } = _delete.actions; // TODO
+export const { resetState: resetDeleteState } = _delete.actions;
 export const { resetState: resetSearchState } = _search.actions;
 
 export default reducer;

@@ -9,9 +9,11 @@ import { _get_stats } from '../store/user';
 // import AdminComments from './component/AdminComments';
 import Logo from './component/Logo';
 import Menu from './component/Menu';
+import MenuIcon from './component/MenuIcon';
 
 const Admin = ({ history }) => {
   const { data: loginData } = useSelector((state) => state.user.login);
+  const { ui: theme } = useSelector((state) => state);
 
   const dispatch = useDispatch();
   const [data, setData] = React.useState('');
@@ -46,12 +48,18 @@ const Admin = ({ history }) => {
 
   return (
     <Grid centered>
-      <Grid.Column width={3}>
+      <Grid.Column width={3} only='tablet computer'>
         <Logo />
         <Menu />
       </Grid.Column>
+      <Grid.Column width={3} only='mobile'>
+        <MenuIcon />
+      </Grid.Column>
       <Grid.Column width={7}>
-        <Table celled>
+        <br />
+        <br />
+        {/* TODO */}
+        <Table celled inverted={theme !== 'light'}>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Users</Table.HeaderCell>

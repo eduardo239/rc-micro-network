@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { add_friend, get_user_by_id, remove_friend } from '../../store/user';
 import { dateFormat, sinceDate } from '../../helper/dateFormat';
-import { Button, Header, Icon, Image, List, Segment } from 'semantic-ui-react';
+import { Button, Header, Image, List, Popup, Segment } from 'semantic-ui-react';
 
 import avatar from '../../assets/img/avatar.png';
 import get_local_storage from '../../store/helpers/getLocalStorage';
@@ -13,10 +13,7 @@ const ProfileHeader = ({ user, login }) => {
   const dispatch = useDispatch();
 
   const fileRef = React.createRef();
-  // eslint-disable-next-line
-  const [avatarU, setAvatarU] = React.useState('');
   const [friend, setFriend] = React.useState(false);
-  //eslint-disable-next-line
   const [loading, setLoading] = React.useState(false);
 
   const avatarHandler = async () => {
@@ -34,18 +31,17 @@ const ProfileHeader = ({ user, login }) => {
         },
       };
 
+      // eslint-disable-next-line
       const { data } = await axios.post(
         'http://localhost:5000/api/upload/avatar',
         formData,
         config
       );
-
-      setAvatarU(data);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
-      // dispatch(get_user_by_id(user._id));
+      await dispatch(get_user_by_id(user._id));
     }
   };
 
@@ -58,22 +54,34 @@ const ProfileHeader = ({ user, login }) => {
     await dispatch(get_user_by_id(user._id));
   };
 
-  // const updateButton = () => {};
-
   React.useEffect(() => {
+    login.friends.map((f) => f.friendId);
+
     if (login)
       login.friends.filter((friend) => setFriend(friend.friendId === user._id));
   }, [login, user]);
 
   return (
-    <Segment style={{ marginTop: '1.5rem' }} basic>
+    <Segment style={{ marginTop: '1rem' }} basic loading={loading}>
       <Header as='h2' textAlign='center' color='blue'>
         <div>
           <label htmlFor='avatarUpload' style={{ cursor: 'pointer' }}>
-            <Image circular src={user.imageAvatar || avatar} avatar />
+            {user && (
+              <Popup
+                content='Update avatar image.'
+                trigger={
+                  <Image
+                    size='small'
+                    circular
+                    src={user.imageAvatar || avatar}
+                    avatar
+                  />
+                }
+              />
+            )}
           </label>
         </div>
-        <Header.Content>{user.name || 'None'}</Header.Content>
+        <Header.Content>{user.name || 'User not found!'}</Header.Content>
         <input
           type='file'
           name='avatarUpload'

@@ -3,13 +3,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { edit_post, get_post } from '../../store/post';
 import { close_edit_post } from '../../store/modal';
-
-import { ReactComponent as SaveIcon } from '../../assets/ico/white/carbon_save.svg';
-import { ReactComponent as CloseIcon } from '../../assets/ico/white/carbon_close.svg';
 import { Input, Segment } from 'semantic-ui-react';
 
 const EditPost = ({ post }) => {
-  const [content, setContent] = React.useState('');
+  const [content, setContent] = React.useState(post.content || '');
 
   const dispatch = useDispatch();
 

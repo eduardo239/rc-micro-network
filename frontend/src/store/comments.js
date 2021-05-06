@@ -129,9 +129,10 @@ export const delete_comment = (id) => async (dispatch) => {
 };
 
 // send a pm message
-export const send_pm = (body) => async (dispatch) => {
+export const post_pm = (body) => async (dispatch) => {
   try {
-    await dispatch(fetch_new_pm(body));
+    const { payload } = await dispatch(fetch_new_pm(body));
+    return payload;
   } catch (error) {
     console.error(error);
   }

@@ -6,12 +6,28 @@ import { remove_friend } from '../../store/user';
 import { Button, Icon, Image, List } from 'semantic-ui-react';
 
 import avatar from '../../assets/img/avatar.png';
+import PM from '../component/PM';
 
 const FriendsLists = ({ user, login }) => {
+  const modalRef = React.createRef();
+  const [modal, setModal] = React.useState(false);
+  const [friend, setFriend] = React.useState(null);
+
+  const modalHandler = (friend) => {
+    setFriend(friend);
+    setModal(!modal);
+  };
   const dispatch = useDispatch();
 
   const removeFriendHandler = async (id) => {
     dispatch(remove_friend({ userId: login._id, friendId: id }));
+  };
+
+  const clickOutsideHandler = (e) => {
+    if (modalRef?.current)
+      if (modalRef && !modalRef.current.contains(e.target)) {
+        setModal(!modal);
+      }
   };
 
   return (
@@ -21,7 +37,11 @@ const FriendsLists = ({ user, login }) => {
           <List.Item key={f._id}>
             <List.Content floated='right'>
               <Button.Group size='tiny'>
-                <Button icon color='green'>
+                <Button
+                  icon
+                  color='green'
+                  onClick={() => modalHandler(f.friendId)}
+                >
                   <Icon name='chat' />
                 </Button>
                 <Button
@@ -42,37 +62,14 @@ const FriendsLists = ({ user, login }) => {
             </Link>
           </List.Item>
         ))}
+      {modal && (
+        <div className='App-modal--container' onClick={clickOutsideHandler}>
+          <div className='App-modal--content' ref={modalRef}>
+            <PM user={friend} setModal={setModal} modal={modal} />
+          </div>
+        </div>
+      )}
     </List>
-
-    // <div>
-    //   <div>
-    //     <Link to={`../profile/${friend?.friendId?._id}`}>
-    //       <div
-    //         className='App-avatar-mini'
-    //         style={{
-    //           background: `url(${friend?.friendId?.imageAvatar || avatar})`,
-    //         }}
-    //       ></div>
-    //       {friend?.friendId?.name || 'User not found'}
-    //     </Link>
-    //   </div>
-    //   {friend.userId._id === login._id && (
-    //     <div>
-    //       <button
-    //         onClick={() => pmHandler(friend?.friendId || null)}
-    //         className='App-btn-icon-mini'
-    //       >
-    //         <ChatIcon />
-    //       </button>
-    //       <button
-    //         onClick={() => removeFriendHandler(friend?.friendId?._id)}
-    //         className='App-btn-icon-mini'
-    //       >
-    //         <DeleteIcon />
-    //       </button>
-    //     </div>
-    //   )}
-    // </div>
   );
 };
 

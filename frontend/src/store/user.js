@@ -198,6 +198,9 @@ export const get_token = (user) => async (dispatch) => {
     await dispatch(user_login(payload.token));
   } catch (error) {
     console.error(error);
+    dispatch(resetUserState());
+    dispatch(resetTokenState());
+    dispatch(resetLoginState());
   }
 };
 
@@ -207,6 +210,9 @@ export const user_login = (token) => async (dispatch) => {
     await dispatch(fetch_user(token));
   } catch (error) {
     console.error(error);
+    dispatch(resetUserState());
+    dispatch(resetTokenState());
+    dispatch(resetLoginState());
   }
 };
 

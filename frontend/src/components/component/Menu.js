@@ -8,89 +8,89 @@ import { user_logout } from '../../store/user';
 
 const Menu2 = () => {
   const dispatch = useDispatch();
-  const [state, setState] = React.useState({ activeItem: 'home' });
-
   const { ui } = useSelector((state) => state);
   const { data: loginData } = useSelector((state) => state.user.login);
-
-  const themeHandler = () => {
-    if (ui === 'light') dispatch(darkTheme());
-    else dispatch(lightTheme());
-  };
+  const [state, setState] = React.useState({ activeItem: 'home' });
 
   const handleItemClick = (e, { name }) => setState({ activeItem: name });
 
-  const { activeItem } = state;
+  const themeHandler = () =>
+    ui === 'light' ? dispatch(darkTheme()) : dispatch(lightTheme());
+
   return (
-    <div
-      className={`App-menu ${ui === 'light' ? 'App-bg-light' : 'App-bg-dark'}`}
-    >
-      <Menu secondary vertical fluid>
-        <Link to='/'>
-          <Menu.Item
-            name='home'
-            active={activeItem === 'home'}
-            onClick={handleItemClick}
-          />
-        </Link>
+    <Menu pointing vertical fluid inverted={ui !== 'light'}>
+      <Menu.Item
+        as={Link}
+        to='/'
+        name='home'
+        active={state.activeItem === 'home'}
+        onClick={handleItemClick}
+      />
 
-        {!loginData && (
-          <Link to='/register'>
-            <Menu.Item
-              name='register'
-              active={activeItem === 'register'}
-              onClick={handleItemClick}
-            />
-          </Link>
-        )}
+      {!loginData && (
+        <Menu.Item
+          as={Link}
+          to='/register'
+          name='register'
+          active={state.activeItem === 'register'}
+          onClick={handleItemClick}
+        />
+      )}
 
-        {!loginData && (
-          <Link to='/login'>
-            <Menu.Item
-              name='login'
-              active={activeItem === 'login'}
-              onClick={handleItemClick}
-            />
-          </Link>
-        )}
+      {!loginData && (
+        <Menu.Item
+          as={Link}
+          to='/login'
+          name='login'
+          active={state.activeItem === 'login'}
+          onClick={handleItemClick}
+        />
+      )}
 
-        {loginData && (
-          <Link to={`/profile/${loginData._id}`}>
-            <Menu.Item
-              name='profile'
-              active={activeItem === 'profile'}
-              onClick={handleItemClick}
-            />
-          </Link>
-        )}
+      {loginData && (
+        <Menu.Item
+          as={Link}
+          to={`/profile/${loginData._id}`}
+          name='profile'
+          active={state.activeItem === 'profile'}
+          onClick={handleItemClick}
+        />
+      )}
 
-        {loginData && loginData.isAdmin && (
-          <Link to='/admin'>
-            <Menu.Item
-              name='admin'
-              active={activeItem === 'admin'}
-              onClick={handleItemClick}
-            />
-          </Link>
-        )}
+      {loginData && loginData.isAdmin && (
+        <Menu.Item
+          as={Link}
+          to='/admin'
+          name='admin'
+          active={state.activeItem === 'admin'}
+          onClick={handleItemClick}
+        />
+      )}
 
-        {loginData && (
-          <Link to='/settings'>
-            <Menu.Item
-              name='settings'
-              active={activeItem === 'settings'}
-              onClick={handleItemClick}
-            />
-          </Link>
-        )}
+      {loginData && (
+        <Menu.Item
+          as={Link}
+          to='/settings'
+          name='settings'
+          active={state.activeItem === 'settings'}
+          onClick={handleItemClick}
+        />
+      )}
 
-        {loginData && (
-          <Menu.Item name='logout' onClick={() => dispatch(user_logout())} />
-        )}
+      {loginData && (
+        <Menu.Item
+          name='logout'
+          active={state.activeItem === 'logout'}
+          onClick={() => dispatch(user_logout())}
+        />
+      )}
 
-        <Menu.Item name='theme' onClick={themeHandler} />
-      </Menu>
-    </div>
+      <Menu.Item
+        name='theme'
+        active={state.activeItem === 'theme'}
+        onClick={themeHandler}
+      />
+    </Menu>
   );
 };
 
