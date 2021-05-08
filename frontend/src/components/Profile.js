@@ -21,7 +21,7 @@ const Profile = ({ match, history }) => {
     let mounted = true;
     if (mounted) {
       if (id) dispatch(get_user_by_id(id));
-      if (!loginData) history.push('/');
+      // if (!loginData) history.push('/');
     }
 
     return () => (mounted = false);

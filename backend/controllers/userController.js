@@ -157,7 +157,14 @@ const get_user_by_id = asyncHandler(async (req, res) => {
         select: 'name imageAvatar',
       },
     })
-    .populate('posts');
+    .populate('posts')
+    .populate({
+      path: 'pm',
+      populate: {
+        path: 'friendId',
+        select: 'name imageAvatar',
+      },
+    });
 
   if (user) {
     res.status(200).json(user);

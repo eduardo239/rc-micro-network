@@ -43,7 +43,7 @@ const PostIcons = ({ post, error, login }) => {
         </Label>
       </Link>
 
-      <Button.Group primary size='tiny'>
+      <Button.Group size='tiny'>
         <Button as='div' labelPosition='right'>
           <Button icon onClick={likeHandler}>
             <Icon name='heart' />

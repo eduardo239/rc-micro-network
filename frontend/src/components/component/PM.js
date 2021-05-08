@@ -1,7 +1,9 @@
 import React from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Form, Image, Message, Segment } from 'semantic-ui-react';
 import { post_pm } from '../../store/comments';
+import { get_user_by_id } from '../../store/user';
 
 const PM = ({ user, setModal, modal }) => {
   const [content, setContent] = React.useState('');
@@ -13,6 +15,7 @@ const PM = ({ user, setModal, modal }) => {
     const response = await dispatch(post_pm({ content, friendId: user._id }));
     setMessage(response);
     setTimeout(() => setMessage(''), 2000);
+    await dispatch(get_user_by_id(user._id));
   };
 
   return (

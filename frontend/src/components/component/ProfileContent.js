@@ -1,34 +1,34 @@
 import React from 'react';
 
 import { useSelector } from 'react-redux';
-import { Tab } from 'semantic-ui-react';
+import { Segment, Tab } from 'semantic-ui-react';
 
 import FriendsLists from './FriendsLists';
 import ProfilePosts from './ProfilePosts';
-import PmModal from './PmModal';
+import PMList from './PMList';
 
 const panes = [
   {
     menuItem: 'Friends',
-    render: ({ user, login, theme }) => (
-      <Tab.Pane inverted={theme !== 'light'}>
+    render: ({ user, login }) => (
+      <Tab.Pane>
         <FriendsLists user={user} login={login} />
       </Tab.Pane>
     ),
   },
   {
     menuItem: 'Posts',
-    render: ({ user, theme }) => (
-      <Tab.Pane inverted={theme !== 'light'}>
+    render: ({ user }) => (
+      <Tab.Pane>
         <ProfilePosts user={user} />
       </Tab.Pane>
     ),
   },
   {
     menuItem: 'Private Messages',
-    render: ({ login, theme }) => (
-      <Tab.Pane inverted={theme !== 'light'}>
-        <PmModal login={login} />
+    render: ({ user }) => (
+      <Tab.Pane>
+        <PMList user={user} />
       </Tab.Pane>
     ),
   },
@@ -37,13 +37,9 @@ const panes = [
 const ProfileContent = ({ user, login }) => {
   const { ui: theme } = useSelector((state) => state);
   return (
-    <Tab
-      panes={panes}
-      user={user}
-      login={login}
-      theme={theme}
-      inverted={theme !== 'light'}
-    />
+    <Segment inverted={theme !== 'light'}>
+      <Tab panes={panes} user={user} login={login} />
+    </Segment>
   );
 };
 

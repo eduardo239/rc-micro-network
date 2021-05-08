@@ -95,7 +95,7 @@ const Settings = () => {
                 />
               </Form.Field>
 
-              <Button type='submit' color='yellow' fluid size='small'>
+              <Button type='submit' color='green' fluid size='small'>
                 Update
               </Button>
             </Form>

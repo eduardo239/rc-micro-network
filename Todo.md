@@ -32,7 +32,7 @@
 
 <!-- transition: 0.2s ease-in-out; -->
 
-# like icon loading only !
+# loading like icon on click
 
 <!-- # logout show posts -->
 

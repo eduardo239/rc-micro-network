@@ -45,21 +45,15 @@ const ProfileHeader = ({ user, login }) => {
     }
   };
 
-  const friendHandler = async (friendId) => {
-    if (friend) {
-      await dispatch(remove_friend({ userId: login._id, friendId }));
-    } else {
-      await dispatch(add_friend({ userId: login._id, friendId: user._id }));
-    }
+  const addFriend = async () => {
+    await dispatch(add_friend({ userId: login._id, friendId: user._id }));
     await dispatch(get_user_by_id(user._id));
   };
 
-  React.useEffect(() => {
-    login.friends.map((f) => f.friendId);
-
-    if (login)
-      login.friends.filter((friend) => setFriend(friend.friendId === user._id));
-  }, [login, user]);
+  const deleteFriend = async () => {
+    await dispatch(remove_friend({ userId: login._id, friendId: user._id }));
+    await dispatch(get_user_by_id(user._id));
+  };
 
   return (
     <Segment style={{ marginTop: '1rem' }} basic loading={loading}>
@@ -106,12 +100,15 @@ const ProfileHeader = ({ user, login }) => {
         </List.Item>
       </List>
 
-      {user._id !== login._id && (
-        <Button
-          onClick={() => friendHandler(user._id)}
-          color={`${friend ? 'red' : 'green'}`}
-        >
-          {friend ? 'Remove' : 'Add'}
+      {login.friends.find((f) => f.friendId === user._id) ? (
+        <Button onClick={() => deleteFriend(user._id)} color='red'>
+          Remover
+        </Button>
+      ) : login._id === user._id ? (
+        ''
+      ) : (
+        <Button onClick={() => addFriend(user._id)} color='blue'>
+          Adicionar
         </Button>
       )}
     </Segment>

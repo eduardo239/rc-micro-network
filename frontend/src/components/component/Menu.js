@@ -18,7 +18,6 @@ const Menu2 = () => {
   const themeHandler = () =>
     ui === 'light' ? dispatch(darkTheme()) : dispatch(lightTheme());
 
-  console.log(state.activeItem);
   return (
     <Menu pointing vertical fluid inverted={ui !== 'light'}>
       <Menu.Item
