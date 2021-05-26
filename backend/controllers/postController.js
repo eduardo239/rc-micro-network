@@ -173,7 +173,7 @@ const post_search = asyncHandler(async (req, res) => {
  * @route         GET /api/posts/my/:userId
  * @access        Private/Owner
  */
-const get_posts_by_user = asyncHandler(async (req, res) => {
+const postsById_user = asyncHandler(async (req, res) => {
   const userId = req.params.userId;
   const posts = await Post.find({ userId });
 
@@ -229,7 +229,7 @@ export {
   delete_post,
   post_like,
   post_search,
-  get_posts_by_user,
+  postsById_user,
   search_term,
   update_post,
 };

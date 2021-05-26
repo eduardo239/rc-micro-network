@@ -4,7 +4,7 @@ import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { darkTheme, lightTheme } from '../../store/ui';
-import { user_logout } from '../../store/user';
+import { userLogout } from '../../store/user';
 
 const Menu2 = () => {
   const dispatch = useDispatch();
@@ -82,7 +82,7 @@ const Menu2 = () => {
         <Menu.Item
           name='logout'
           active={state.activeItem === 'logout'}
-          onClick={() => dispatch(user_logout())}
+          onClick={() => dispatch(userLogout())}
         />
       )}
 

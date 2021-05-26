@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button, Form, Grid, Message, Segment } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
-import { user_update } from '../store/user';
+import { userUpdate } from '../store/user';
 
 import Logo from './component/Logo';
 import Menu from './component/Menu';
@@ -26,7 +26,7 @@ const Settings = () => {
     setMessage('');
     e.preventDefault();
     if (password === passwordAgain) {
-      await dispatch(user_update({ email, name, password }));
+      await dispatch(userUpdate({ email, name, password }));
       setMessage('User updated.');
     } else {
       setErrorMessage('Password do not match.');

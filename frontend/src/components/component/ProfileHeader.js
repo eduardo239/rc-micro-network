@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import { useDispatch } from 'react-redux';
-import { add_friend, get_user_by_id, remove_friend } from '../../store/user';
+import { addFriend, getUserById, removeFriend } from '../../store/user';
 import { dateFormat, sinceDate } from '../../helper/dateFormat';
 import { Button, Header, Image, List, Popup, Segment } from 'semantic-ui-react';
 
@@ -41,18 +41,18 @@ const ProfileHeader = ({ user, login }) => {
       console.error(error);
     } finally {
       setLoading(false);
-      await dispatch(get_user_by_id(user._id));
+      await dispatch(getUserById(user._id));
     }
   };
 
   const addFriend = async () => {
-    await dispatch(add_friend({ userId: login._id, friendId: user._id }));
-    await dispatch(get_user_by_id(user._id));
+    await dispatch(addFriend({ userId: login._id, friendId: user._id }));
+    await dispatch(getUserById(user._id));
   };
 
   const deleteFriend = async () => {
-    await dispatch(remove_friend({ userId: login._id, friendId: user._id }));
-    await dispatch(get_user_by_id(user._id));
+    await dispatch(removeFriend({ userId: login._id, friendId: user._id }));
+    await dispatch(getUserById(user._id));
   };
 
   return (

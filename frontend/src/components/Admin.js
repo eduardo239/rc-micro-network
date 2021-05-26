@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Table, Grid } from 'semantic-ui-react';
 import { useSelector, useDispatch } from 'react-redux';
-import { _get_stats } from '../store/user';
+import { getStats } from '../store/user';
 
 // import AdminPosts from './component/AdminPosts';
 // import AdminUsers from './component/AdminUsers';
@@ -17,31 +17,12 @@ const Admin = ({ history }) => {
 
   const dispatch = useDispatch();
   const [data, setData] = React.useState('');
-  // const [showUsers, setShowUsers] = React.useState(true);
-  // const [showPosts, setShowPosts] = React.useState(false);
-  // const [showComments, setShowComments] = React.useState(false);
-
-  // const showUsersHandler = () => {
-  //   setShowComments(false);
-  //   setShowPosts(false);
-  //   setShowUsers(!showUsers);
-  // };
-  // const showPostsHandler = () => {
-  //   setShowUsers(false);
-  //   setShowComments(false);
-  //   setShowPosts(!showPosts);
-  // };
-  // const showCommentsHandler = () => {
-  //   setShowUsers(false);
-  //   setShowPosts(false);
-  //   setShowComments(!showPosts);
-  // };
 
   React.useEffect(() => {
     if (!loginData?.isAdmin) history.push('/');
 
     (async () => {
-      const result = await dispatch(_get_stats());
+      const result = await dispatch(getStats());
       setData(result);
     })();
   }, [history, loginData, dispatch]);

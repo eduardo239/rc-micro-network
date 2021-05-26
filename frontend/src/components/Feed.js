@@ -34,7 +34,7 @@ const Feed = () => {
 
   const changePage = async (d) => {
     if (postsData.length === 0 || postsData.length < limit) {
-      console.log('end');
+      return;
     } else {
       await dispatch(get_posts_pagination({ skip: d * limit, limit }));
     }

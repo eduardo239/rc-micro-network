@@ -3,7 +3,7 @@ import React from 'react';
 import { ReactComponent as DeleteIcon } from '../../assets/ico/white/carbon_delete.svg';
 
 import { useDispatch } from 'react-redux';
-import { delete_user } from '../../store/user';
+import { userDelete } from '../../store/user';
 
 const AdminUsers = ({ users }) => {
   const [message, setMessage] = React.useState('');
@@ -13,7 +13,7 @@ const AdminUsers = ({ users }) => {
   const deleteUserHandler = (id) => {
     setMessage('');
     (async () => {
-      const response = dispatch(delete_user(id));
+      const response = dispatch(userDelete(id));
       if (response) setMessage('User deleted.');
       setTimeout(() => setMessage(''), 2000);
     })();

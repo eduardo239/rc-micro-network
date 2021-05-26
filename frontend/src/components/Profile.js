@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { get_user_by_id } from '../store/user';
+import { getUserById } from '../store/user';
 import { Grid } from 'semantic-ui-react';
 
 import ProfileContent from './component/ProfileContent';
@@ -20,7 +20,7 @@ const Profile = ({ match, history }) => {
   React.useEffect(() => {
     let mounted = true;
     if (mounted) {
-      if (id) dispatch(get_user_by_id(id));
+      if (id) dispatch(getUserById(id));
       // if (!loginData) history.push('/');
     }
 

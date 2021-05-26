@@ -99,7 +99,6 @@ const get_all_comments = asyncHandler(async (req, res) => {
  * @access        Admin
  */
 const get_all_pm = asyncHandler(async (req, res) => {
-  console.log(req.user._id);
   const pm = await PM.find({});
 
   if (pm) {

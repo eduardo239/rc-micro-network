@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Icon, Menu } from 'semantic-ui-react';
 import { darkTheme, lightTheme } from '../../store/ui';
-import { user_logout } from '../../store/user';
+import { userLogout } from '../../store/user';
 
 const MenuIcon = () => {
   const dispatch = useDispatch();
@@ -87,7 +87,7 @@ const MenuIcon = () => {
         <Menu.Item
           name='sign-out'
           active={state.activeItem === 'sign-out'}
-          onClick={() => dispatch(user_logout())}
+          onClick={() => dispatch(userLogout())}
         >
           <Icon name='sign-out' />
         </Menu.Item>

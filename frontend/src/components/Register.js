@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { user_register } from '../store/user';
+import { userRegister } from '../store/user';
 import { Button, Checkbox, Form, Grid, Menu, Message } from 'semantic-ui-react';
 import MenuIcon from './component/MenuIcon';
 
@@ -23,11 +23,10 @@ const Register = ({ history }) => {
   const dispatch = useDispatch();
 
   const registerHandler = (e) => {
-    console.log(agree);
     e.preventDefault();
     setMessage('');
     if (agree && password === passwordAgain)
-      dispatch(user_register({ email, name, password }));
+      dispatch(userRegister({ email, name, password }));
     if (password !== passwordAgain) setMessage('Password do not match.');
     if (!agree) setMessage('You have to agree with the terms.');
   };

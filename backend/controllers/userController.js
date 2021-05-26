@@ -139,7 +139,7 @@ const post_new_user = asyncHandler(async (req, res) => {
  * @route         GET /api/profile/:id
  * @access        Public
  */
-const get_user_by_id = asyncHandler(async (req, res) => {
+const getUserById = asyncHandler(async (req, res) => {
   const id = req.params.id;
 
   const user = await User.findById(id)
@@ -199,7 +199,7 @@ const get_all_users = asyncHandler(async (req, res) => {
  * @route         GET /api/users/posts/:id
  * @access        Public
  */
-const get_posts_by_user = asyncHandler(async (req, res) => {
+const postsById_user = asyncHandler(async (req, res) => {
   const posts = await Post.find({ userId: req.params.userId });
 
   if (posts) {
@@ -215,7 +215,7 @@ const get_posts_by_user = asyncHandler(async (req, res) => {
  * @route         POST /api/friend/
  * @access        Private
  */
-const add_friend = asyncHandler(async (req, res) => {
+const addFriend = asyncHandler(async (req, res) => {
   const { userId, friendId } = req.body;
 
   const user = await User.findById(userId);
@@ -270,8 +270,6 @@ const delete_friend = asyncHandler(async (req, res) => {
     user.save();
     friend.save();
 
-    console.log(friend1);
-
     await Friend.deleteOne({ _id: friend1[0]._id });
     await Friend.deleteOne({ _id: friend2[0]._id });
     res.status(200).send(true);
@@ -283,7 +281,7 @@ const delete_friend = asyncHandler(async (req, res) => {
  * @route         DELETE /api/users/:id
  * @access        Admin
  */
-const delete_user = asyncHandler(async (req, res) => {
+const userDelete = asyncHandler(async (req, res) => {
   const id = req.params.id;
   const user = await User.findById(id);
 
@@ -329,11 +327,11 @@ export {
   get_user_profile,
   post_new_user,
   update_user_profile,
-  get_user_by_id,
+  getUserById,
   get_all_users,
-  get_posts_by_user,
-  add_friend,
+  postsById_user,
+  addFriend,
   delete_friend,
-  delete_user,
+  userDelete,
   admin_control,
 };

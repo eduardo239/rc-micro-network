@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { remove_friend } from '../../store/user';
+import { removeFriend } from '../../store/user';
 import { Button, Icon, Image, List } from 'semantic-ui-react';
 
 import avatar from '../../assets/img/avatar.png';
@@ -20,7 +20,7 @@ const FriendsLists = ({ user, login }) => {
   const dispatch = useDispatch();
 
   const removeFriendHandler = async (id) => {
-    dispatch(remove_friend({ userId: login._id, friendId: id }));
+    dispatch(removeFriend({ userId: login._id, friendId: id }));
   };
 
   const clickOutsideHandler = (e) => {

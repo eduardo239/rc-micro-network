@@ -6,7 +6,7 @@ import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './css/theme';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Container, Row } from 'react-bootstrap';
-import { auto_login } from './store/user';
+import { autoLogin } from './store/user';
 import { closeModal } from './store/modal';
 
 import Home from './components/Home';
@@ -29,7 +29,7 @@ const App = () => {
     if (location.pathname !== '/' && modal) dispatch(closeModal());
 
     (async () => {
-      if (!loginData) await dispatch(auto_login());
+      if (!loginData) await dispatch(autoLogin());
     })();
   }, [dispatch, location, modal, loginData]);
 

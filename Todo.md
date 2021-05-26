@@ -14,6 +14,8 @@
 
 <!-- # profile button add/remove -->
 
+# remove 2 fetch user in the profile page
+
 # update add friend on the profile page
 
 # profile delete pm

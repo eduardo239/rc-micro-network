@@ -41,9 +41,9 @@ const Comment2 = ({ user, comments, postId }) => {
                   <Comment.Actions>
                     <Comment.Action>Reply</Comment.Action>
                     <Button.Group size='mini' style={{ margin: '0 0.5rem' }}>
-                      <Button icon='like' onClick={() => console.log('oi')} />
-                      <Button icon='chat' onClick={() => console.log('oi')} />
-                      <Button icon='edit' onClick={() => console.log('oi')} />
+                      <Button icon='like' />
+                      <Button icon='chat' />
+                      <Button icon='edit' />
                       <Button
                         icon='delete'
                         onClick={() => deleteCommentHandler(comment._id)}

@@ -1,7 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import createAsyncSlice from './helpers/createAsyncSlice';
 import getLocalStorage from './helpers/getLocalStorage';
-import get_local_storage from './helpers/getLocalStorage';
 
 const _token = createAsyncSlice({
   name: 'token',
@@ -73,7 +72,7 @@ const _delete = createAsyncSlice({
     options: {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${get_local_storage('token')}`,
+        Authorization: `Bearer ${getLocalStorage('token')}`,
       },
     },
   }),
@@ -86,7 +85,7 @@ const _posts = createAsyncSlice({
     options: {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${get_local_storage('token')}`,
+        Authorization: `Bearer ${getLocalStorage('token')}`,
       },
     },
   }),
@@ -100,7 +99,7 @@ const _friend = createAsyncSlice({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${get_local_storage('token')}`,
+        Authorization: `Bearer ${getLocalStorage('token')}`,
       },
       body: JSON.stringify(body),
     },
@@ -115,7 +114,7 @@ const _friend_remove = createAsyncSlice({
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${get_local_storage('token')}`,
+        Authorization: `Bearer ${getLocalStorage('token')}`,
       },
       body: JSON.stringify(body),
     },
@@ -129,7 +128,7 @@ const _by_id = createAsyncSlice({
     options: {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${get_local_storage('token')}`,
+        Authorization: `Bearer ${getLocalStorage('token')}`,
       },
     },
   }),
@@ -142,7 +141,7 @@ const _users = createAsyncSlice({
     options: {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${get_local_storage('token')}`,
+        Authorization: `Bearer ${getLocalStorage('token')}`,
       },
     },
   }),
@@ -155,7 +154,7 @@ const __stats = createAsyncSlice({
     options: {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${get_local_storage('token')}`,
+        Authorization: `Bearer ${getLocalStorage('token')}`,
       },
     },
   }),
@@ -171,17 +170,17 @@ const reducer = combineReducers({
   __stats: __stats.reducer,
 });
 
-const fetch_token = _token.asyncAction;
-const fetch_user = _login.asyncAction;
-const fetch_register = _register.asyncAction;
-const fetch_update = _update.asyncAction;
-const fetch_delete = _delete.asyncAction;
-const fetch_posts = _posts.asyncAction;
-const fetch_add_friend = _friend.asyncAction;
-const fetch_remove_friend = _friend_remove.asyncAction;
-const fetch_user_by_id = _by_id.asyncAction;
-const fetch_users = _users.asyncAction;
-const _fetch_stats = __stats.asyncAction;
+const tokenAction = _token.asyncAction;
+const userAction = _login.asyncAction;
+const registerAction = _register.asyncAction;
+const updateAction = _update.asyncAction;
+const deleteAction = _delete.asyncAction;
+const postsAction = _posts.asyncAction;
+const addFriendAction = _friend.asyncAction;
+const deleteFriendAction = _friend_remove.asyncAction;
+const userByAction = _by_id.asyncAction;
+const usersAction = _users.asyncAction;
+const statsAction = __stats.asyncAction;
 
 const { resetState: resetTokenState } = _token.actions;
 const { resetState: resetLoginState } = _login.actions;
@@ -191,11 +190,11 @@ const { resetState: resetRegister } = _register.actions;
 export default reducer;
 
 // get user token
-export const get_token = (user) => async (dispatch) => {
+export const getToken = (user) => async (dispatch) => {
   try {
-    const { payload } = await dispatch(fetch_token(user));
+    const { payload } = await dispatch(tokenAction(user));
     window.localStorage.setItem('token', JSON.stringify(payload.token));
-    await dispatch(user_login(payload.token));
+    await dispatch(userLogin(payload.token));
   } catch (error) {
     console.error(error);
     dispatch(resetUserState());
@@ -205,9 +204,9 @@ export const get_token = (user) => async (dispatch) => {
 };
 
 // get user profile
-export const user_login = (token) => async (dispatch) => {
+export const userLogin = (token) => async (dispatch) => {
   try {
-    await dispatch(fetch_user(token));
+    await dispatch(userAction(token));
   } catch (error) {
     console.error(error);
     dispatch(resetUserState());
@@ -217,10 +216,10 @@ export const user_login = (token) => async (dispatch) => {
 };
 
 // auto login
-export const auto_login = () => async (dispatch) => {
+export const autoLogin = () => async (dispatch) => {
   const token = getLocalStorage('token');
   if (token) {
-    await dispatch(user_login(token));
+    await dispatch(userLogin(token));
   }
   try {
   } catch (error) {
@@ -232,7 +231,7 @@ export const auto_login = () => async (dispatch) => {
 };
 
 // user logout
-export const user_logout = () => (dispatch) => {
+export const userLogout = () => (dispatch) => {
   try {
     dispatch(resetUserState());
     dispatch(resetTokenState());
@@ -245,19 +244,19 @@ export const user_logout = () => (dispatch) => {
 };
 
 // user register
-export const user_register = (body) => async (dispatch) => {
+export const userRegister = (body) => async (dispatch) => {
   try {
-    await dispatch(fetch_register(body));
-    await dispatch(get_token(body));
+    await dispatch(registerAction(body));
+    await dispatch(getToken(body));
   } catch (error) {
     console.error(error);
   }
 };
 
 // user update profile
-export const user_update = (userUpdate) => async (dispatch) => {
+export const userUpdate = (userUpdate) => async (dispatch) => {
   try {
-    const { payload } = await dispatch(fetch_update(userUpdate));
+    const { payload } = await dispatch(updateAction(userUpdate));
     return payload;
   } catch (error) {
     console.error(error);
@@ -265,9 +264,9 @@ export const user_update = (userUpdate) => async (dispatch) => {
 };
 
 // delete user from social network
-export const delete_user = (id) => async (dispatch) => {
+export const userDelete = (id) => async (dispatch) => {
   try {
-    const { payload } = await dispatch(fetch_delete(id));
+    const { payload } = await dispatch(deleteAction(id));
     return payload;
   } catch (error) {
     console.error(error);
@@ -275,9 +274,9 @@ export const delete_user = (id) => async (dispatch) => {
 };
 
 // get posts by user
-export const get_posts_by = (id) => async (dispatch) => {
+export const postsById = (id) => async (dispatch) => {
   try {
-    const { payload } = await dispatch(fetch_posts(id));
+    const { payload } = await dispatch(postsAction(id));
     return payload;
   } catch (error) {
     console.error(error);
@@ -285,9 +284,9 @@ export const get_posts_by = (id) => async (dispatch) => {
 };
 
 // new friend
-export const add_friend = (body) => async (dispatch) => {
+export const addFriend = (body) => async (dispatch) => {
   try {
-    const { payload } = await dispatch(fetch_add_friend(body));
+    const { payload } = await dispatch(addFriendAction(body));
     return payload;
   } catch (error) {
     console.error(error);
@@ -295,9 +294,9 @@ export const add_friend = (body) => async (dispatch) => {
 };
 
 // remove friend
-export const remove_friend = (body) => async (dispatch) => {
+export const removeFriend = (body) => async (dispatch) => {
   try {
-    const { payload } = await dispatch(fetch_remove_friend(body));
+    const { payload } = await dispatch(deleteFriendAction(body));
     return payload;
   } catch (error) {
     console.error(error);
@@ -305,9 +304,9 @@ export const remove_friend = (body) => async (dispatch) => {
 };
 
 // get users by id
-export const get_user_by_id = (id) => async (dispatch) => {
+export const getUserById = (id) => async (dispatch) => {
   try {
-    const { payload } = await dispatch(fetch_user_by_id(id));
+    const { payload } = await dispatch(userByAction(id));
     return payload;
   } catch (error) {
     console.error(error);
@@ -315,9 +314,9 @@ export const get_user_by_id = (id) => async (dispatch) => {
 };
 
 // get users
-export const get_users = () => async (dispatch) => {
+export const getUsers = () => async (dispatch) => {
   try {
-    const { payload } = await dispatch(fetch_users());
+    const { payload } = await dispatch(usersAction());
     return payload;
   } catch (error) {
     console.error(error);
@@ -325,9 +324,9 @@ export const get_users = () => async (dispatch) => {
 };
 
 // _get stats admin
-export const _get_stats = () => async (dispatch) => {
+export const getStats = () => async (dispatch) => {
   try {
-    const { payload } = await dispatch(_fetch_stats());
+    const { payload } = await dispatch(statsAction());
     return payload;
   } catch (error) {
     console.error(error);

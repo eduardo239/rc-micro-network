@@ -5,12 +5,12 @@ import {
   get_user_profile,
   post_new_user,
   update_user_profile,
-  get_user_by_id,
+  getUserById,
   get_all_users,
-  get_posts_by_user,
-  add_friend,
+  postsById_user,
+  addFriend,
   delete_friend,
-  delete_user,
+  userDelete,
   admin_control,
 } from '../controllers/userController.js';
 import { admin, protect } from '../middleware/authMiddleware.js';
@@ -21,7 +21,7 @@ router
   .route('/profile')
   .get(protect, get_user_profile)
   .put(protect, update_user_profile);
-router.route('/posts/:userId').get(protect, get_posts_by_user);
-router.route('/:id').get(protect, get_user_by_id).delete(protect, delete_user);
+router.route('/posts/:userId').get(protect, postsById_user);
+router.route('/:id').get(protect, getUserById).delete(protect, userDelete);
 
 export default router;

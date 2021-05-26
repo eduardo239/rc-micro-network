@@ -6,7 +6,7 @@ import {
   get_all_posts,
   post_like,
   post_search,
-  get_posts_by_user,
+  postsById_user,
   update_post,
 } from '../controllers/postController.js';
 import { protect } from '../middleware/authMiddleware.js';
@@ -27,6 +27,6 @@ router
   .put(protect, update_post);
 router.route('/like/:id').get(post_like);
 // router.route('/search/:term').get(protect, post_search);
-// router.route('/my/:userId').get(protect, get_posts_by_user);
+// router.route('/my/:userId').get(protect, postsById_user);
 
 export default router;

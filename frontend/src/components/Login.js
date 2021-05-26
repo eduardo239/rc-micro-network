@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { get_token } from '../store/user';
+import { getToken } from '../store/user';
 import { Button, Checkbox, Form, Grid, Menu, Message } from 'semantic-ui-react';
 
 import MenuIcon from './component/MenuIcon';
@@ -23,7 +23,7 @@ const Login = ({ history }) => {
 
   const loginHandler = (e) => {
     e.preventDefault();
-    dispatch(get_token({ email, password }));
+    dispatch(getToken({ email, password }));
   };
 
   React.useEffect(() => {
